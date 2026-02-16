@@ -31,9 +31,9 @@ namespace combat_system
             {
                 var cardData =  deck[0];
                 deck.RemoveAt(0);
-                var instCard = Instantiate(cardPrefab, cardPrefab.transform.position, cardPrefab.transform.rotation);
+                var instCard = Instantiate(cardPrefab, handContainer.transform);
                 instCard.GetComponent<SingleCardUI>().Setup(cardData);
-                instCard.transform.SetParent(handContainer.transform);
+                RectTransform cardRect = instCard.GetComponent<RectTransform>();
                 GlobalEvents.RaiseDrawFromDeck(instCard);
             }
         }

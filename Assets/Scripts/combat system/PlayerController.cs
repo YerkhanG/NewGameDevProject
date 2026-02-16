@@ -1,4 +1,6 @@
 using System;
+using data;
+using global_events;
 using model;
 using model.entity;
 using UnityEngine;
@@ -8,7 +10,7 @@ namespace combat_system
     public class PlayerController :  MonoBehaviour
     {
         public static PlayerController instance;
-
+        public Player player;
         public void Awake()
         {
             if (instance == null)
@@ -19,6 +21,16 @@ namespace combat_system
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void onEnable()
+        {
+            GlobalEvents.OnAttackEffectPlayed += AttackTarget;
+        }
+
+        private void AttackTarget(Entity target)
+        {
+            target.TakeDamage(player.baseDamage);
         }
 
         public Entity mainCharacter;
