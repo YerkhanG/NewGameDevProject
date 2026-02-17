@@ -13,6 +13,7 @@ namespace card_system.data
         [SerializeField]public string description;
         [SerializeField]public string manaCost;
         [SerializeField]public Sprite image;
-        
+        [SerializeField] public bool manualTargeting;
+
     }
 }

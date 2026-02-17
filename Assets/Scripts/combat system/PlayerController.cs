@@ -39,6 +39,7 @@ namespace combat_system
         {
             Debug.Log("Draw First Card");
             DeckManager.instance.Draw();
+            DeckManager.instance.Draw();
         }
     }
 }

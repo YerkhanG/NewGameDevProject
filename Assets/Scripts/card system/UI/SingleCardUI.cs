@@ -16,9 +16,12 @@ namespace card_system.UI
         [SerializeField]private Image image;
         [SerializeField] private Canvas canvas;
         [SerializeField]private CanvasGroup canvasGroup;
-        private Vector2 originalPosition;
+        [SerializeField]private bool manualTargeting;
         [SerializeField]private RectTransform rectTransform;
-
+        //Original position for snapping back
+        private Vector2 originalPosition;
+        private Transform originalParent;
+        private int originalSiblingIndex;
         void Awake()
         {
             canvas = GetComponentInParent<Canvas>();
@@ -27,26 +30,51 @@ namespace card_system.UI
         {
             cardName.text = data.name;
             image.sprite = data.image;
+            manualTargeting = data.manualTargeting;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            originalPosition = rectTransform.anchoredPosition;
-            transform.SetParent(canvas.transform, true);
-            canvasGroup.alpha = 0.6f;
-            canvasGroup.blocksRaycasts = false;
-            var layoutElement = GetComponent<LayoutElement>();
-            if (layoutElement != null)
-                layoutElement.ignoreLayout = true;
+            originalPosition = rectTransform.position;
+            originalParent = transform.parent;
+            originalSiblingIndex = transform.GetSiblingIndex();
+            if (manualTargeting)
+            {
+                canvasGroup.alpha = 0;
+                TargetingController.instance.SetUpArrow(transform.position);
+                
+            }   
+            else
+            {
+                transform.SetParent(canvas.transform, true);
+                transform.SetAsLastSibling();
+                canvasGroup.alpha = 0.6f;
+                canvasGroup.blocksRaycasts = false;   
+            }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            //for now only manualTargeting returns a target , the other cards just return
+            if (manualTargeting)
+            {
+                //this here target must be found i guess
+                TargetingController.instance.HideArrow();
+                ReturnCard();
+            }
+            else
+            {
+                ReturnCard();
+            }
+        }
+
+        private void ReturnCard()
+        {
             canvasGroup.alpha = 1f;
             canvasGroup.blocksRaycasts = true;
-            var layoutElement = GetComponent<LayoutElement>();
-            if (layoutElement != null)
-                layoutElement.ignoreLayout = false;
+            transform.SetParent(originalParent, true);
+            transform.SetSiblingIndex(originalSiblingIndex);
+            rectTransform.position = originalPosition; 
         }
 
         public void OnDrag(PointerEventData eventData)
