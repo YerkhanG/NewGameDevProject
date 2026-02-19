@@ -8,9 +8,10 @@ namespace card_system.functionality.card_effect_types
     public class DamageEffect : CardEffect
     {
         public float damageAmount;
-        public override void Execute(Entity caster, Entity target = null)
+        public override void Execute( Entity target = null)
         {
             Debug.Log("Played DamageEffect 12");
+            target.currentHealth -= damageAmount;
             GlobalEvents.RaiseAttackEffectPlayed(target);
         }
     }

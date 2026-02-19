@@ -8,7 +8,7 @@ namespace card_system.data
     public class CardData : ScriptableObject
     {
         //these will played in a loop
-        [SerializeField]private List<CardEffect> cardEffects;  
+        [SerializeField]public List<CardEffect> cardEffects;  
         [SerializeField]public string cardName;
         [SerializeField]public string description;
         [SerializeField]public string manaCost;

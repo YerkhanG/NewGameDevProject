@@ -1,3 +1,4 @@
+using global_events;
 using model.entity;
 using UnityEngine;
 
@@ -7,7 +8,11 @@ namespace card_system.UI
     {
         public static TargetingController instance;
         [SerializeField] private ArrowView arrowView;
-        
+        public SingleCardUI currentCard;
+        void OnEnable()
+        {
+            GlobalEvents.OnTargetSelected += ChooseTarget;
+        }
         public void Awake()
         {
             if (instance == null)
@@ -20,18 +25,25 @@ namespace card_system.UI
             }
         }
 
-        public void SetUpArrow(Vector3 startPosition)
+        public void SetUpArrow(Vector3 startPosition, SingleCardUI card)
         {
+            currentCard = card;
             arrowView.Show(startPosition);
         }
         public void HideArrow()
         {
             arrowView.Hide();
+            currentCard = null;
         }
-        public Enemy ChooseTarget()
+        public void ChooseTarget(Enemy enemy)
         {
-            //here 
-            return null;
+            arrowView.Hide();
+            if (currentCard)
+            {
+                //activate card here 
+                currentCard.PlayCard(enemy);
+                currentCard = null;
+            }   
         }
     }
 }

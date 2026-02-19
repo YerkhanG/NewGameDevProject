@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using card_system.data;
+using card_system.functionality;
+using model.entity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,6 +17,7 @@ namespace card_system.UI
         [SerializeField]private TextMeshProUGUI description;
         [SerializeField]private TextMeshProUGUI manaCost;
         [SerializeField]private Image image;
+        public List<CardEffect> cardEffects; 
         [SerializeField] private Canvas canvas;
         [SerializeField]private CanvasGroup canvasGroup;
         [SerializeField]private bool manualTargeting;
@@ -31,6 +35,7 @@ namespace card_system.UI
             cardName.text = data.name;
             image.sprite = data.image;
             manualTargeting = data.manualTargeting;
+            cardEffects = data.cardEffects;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -41,7 +46,7 @@ namespace card_system.UI
             if (manualTargeting)
             {
                 canvasGroup.alpha = 0;
-                TargetingController.instance.SetUpArrow(transform.position);
+                TargetingController.instance.SetUpArrow(transform.position,this);
                 
             }   
             else
@@ -68,6 +73,13 @@ namespace card_system.UI
             }
         }
 
+        public void PlayCard(Entity target)
+        {
+            foreach (CardEffect effect in cardEffects)
+            {
+                effect.Execute(target);
+            }
+        }
         private void ReturnCard()
         {
             canvasGroup.alpha = 1f;

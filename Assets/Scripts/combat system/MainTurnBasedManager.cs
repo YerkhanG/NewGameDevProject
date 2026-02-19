@@ -46,9 +46,6 @@ public class MainTurnBasedManager :  MonoBehaviour
     private void PlayerTurn()
     {
         PlayerController.instance.RedrawCards();
-        //now we have to listen to player actions i guess. Each card either will just have a function or perhaps an event.
-        // Attack, ArmorUp, and skill cards are separate events i would guess;
-        //or maybe each action inside a card is a separate fundamental event;
         
     }
 }
