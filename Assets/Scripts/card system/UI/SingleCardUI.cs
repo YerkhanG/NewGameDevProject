@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using card_system.data;
 using card_system.functionality;
+using global_events;
 using model.entity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace card_system.UI
@@ -57,14 +59,34 @@ namespace card_system.UI
                 canvasGroup.blocksRaycasts = false;   
             }
         }
-
+        // here the new targeting will decide to activate card or not 
         public void OnEndDrag(PointerEventData eventData)
         {
-            //for now only manualTargeting returns a target , the other cards just return
             if (manualTargeting)
             {
-                //this here target must be found i guess
-                TargetingController.instance.HideArrow();
+                Vector2 screenMousePos = Mouse.current.position.ReadValue();
+                Vector2 worldMousePos =  Camera.main.ScreenToWorldPoint(screenMousePos);
+                Ray ray =  Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+                RaycastHit2D hit = Physics2D.Raycast(worldMousePos, Vector2.zero);
+                if (hit.collider != null)
+                {
+                    Debug.Log($"HIT 2D: {hit.transform.name}");
+                    Enemy enemyHit = hit.transform.GetComponentInChildren<Enemy>();
+                    if (enemyHit)
+                    {
+                        GlobalEvents.RaiseTargetSelected(enemyHit);
+                        Debug.Log($"Enemy selected: {enemyHit.name}");
+                    }
+                    else
+                    {
+                        Debug.Log("No Proper Target Selected" + hit.transform.name);
+                    }
+                }
+                else
+                {
+                    Debug.Log("No Target Selected");
+                }
+                //For now it returns, later i will destroy the card after its played 
                 ReturnCard();
             }
             else
