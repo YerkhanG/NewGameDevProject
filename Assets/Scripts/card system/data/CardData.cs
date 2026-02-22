@@ -8,12 +8,16 @@ namespace card_system.data
     public class CardData : ScriptableObject
     {
         //these will played in a loop
-        [SerializeField]public List<CardEffect> cardEffects;  
+        [SerializeField]public List<CardEffect> cardEffects;
+        [SerializeField]public TargetType targetType;
         [SerializeField]public string cardName;
         [SerializeField]public string description;
-        [SerializeField]public string manaCost;
+        [SerializeField]public string manaCost = "0";
         [SerializeField]public Sprite image;
-        [SerializeField] public bool manualTargeting;
+    }
 
+    public enum TargetType
+    {
+        ManualTargeting ,RandomEnemy, Self, SelfGear, AllEnemies
     }
 }

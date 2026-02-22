@@ -4,14 +4,19 @@ using UnityEngine;
 
 namespace card_system.UI
 {
-    public class TargetingController : MonoBehaviour
+    public class TargetingManager : MonoBehaviour
     {
-        public static TargetingController instance;
+        public static TargetingManager instance;
         [SerializeField] private ArrowView arrowView;
         public SingleCardUI currentCard;
         void OnEnable()
         {
             GlobalEvents.OnTargetSelected += ChooseTarget;
+        }
+
+        void OnDisable()
+        {
+            GlobalEvents.OnTargetSelected -= ChooseTarget;
         }
         public void Awake()
         {
@@ -24,7 +29,10 @@ namespace card_system.UI
                 Destroy(gameObject);
             }
         }
-
+        //TODO: after i finish the turn system
+        //Non manual targeting shit is here 
+        /*public void */
+        //Manual targeting shinenigans below 
         public void SetUpArrow(Vector3 startPosition, SingleCardUI card)
         {
             currentCard = card;

@@ -28,6 +28,11 @@ namespace combat_system
             GlobalEvents.OnAttackEffectPlayed += AttackTarget;
         }
 
+        private void OnDisable()
+        {
+            GlobalEvents.OnAttackEffectPlayed -= AttackTarget;
+        }
+
         private void AttackTarget(Entity target)
         {
             target.TakeDamage(player.baseDamage);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using card_system.data;
 using card_system.functionality;
+using combat_system;
 using global_events;
 using model.entity;
 using TMPro;
@@ -22,7 +23,7 @@ namespace card_system.UI
         public List<CardEffect> cardEffects; 
         [SerializeField] private Canvas canvas;
         [SerializeField]private CanvasGroup canvasGroup;
-        [SerializeField]private bool manualTargeting;
+        [SerializeField]private TargetType targetType;
         [SerializeField]private RectTransform rectTransform;
         //Original position for snapping back
         private Vector2 originalPosition;
@@ -34,9 +35,11 @@ namespace card_system.UI
         }
         public void Setup(CardData data)
         {
+            Debug.Log("Setup 37: " + data.manaCost);
+            manaCost.text = data.manaCost;
             cardName.text = data.name;
             image.sprite = data.image;
-            manualTargeting = data.manualTargeting;
+            targetType = data.targetType;
             cardEffects = data.cardEffects;
         }
 
@@ -45,10 +48,10 @@ namespace card_system.UI
             originalPosition = rectTransform.position;
             originalParent = transform.parent;
             originalSiblingIndex = transform.GetSiblingIndex();
-            if (manualTargeting)
+            if (targetType.Equals(TargetType.ManualTargeting))
             {
                 canvasGroup.alpha = 0;
-                TargetingController.instance.SetUpArrow(transform.position,this);
+                TargetingManager.instance.SetUpArrow(transform.position,this);
                 
             }   
             else
@@ -62,7 +65,7 @@ namespace card_system.UI
         // here the new targeting will decide to activate card or not 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (manualTargeting)
+            if (targetType.Equals(TargetType.ManualTargeting))
             {
                 Vector2 screenMousePos = Mouse.current.position.ReadValue();
                 Vector2 worldMousePos =  Camera.main.ScreenToWorldPoint(screenMousePos);
@@ -70,6 +73,10 @@ namespace card_system.UI
                 RaycastHit2D hit = Physics2D.Raycast(worldMousePos, Vector2.zero);
                 if (hit.collider != null)
                 {
+                    //TODO: after i finish the turn system
+                    //for now its only about enemies.
+                    //Soon i will need to make a generalaized version for everyone
+                    //(you(heal , buff) or enemies(debuff or deal damage)
                     Debug.Log($"HIT 2D: {hit.transform.name}");
                     Enemy enemyHit = hit.transform.GetComponentInChildren<Enemy>();
                     if (enemyHit)
@@ -79,6 +86,7 @@ namespace card_system.UI
                     }
                     else
                     {
+                        TargetingManager.instance.HideArrow();
                         Debug.Log("No Proper Target Selected" + hit.transform.name);
                     }
                 }
@@ -91,15 +99,27 @@ namespace card_system.UI
             }
             else
             {
+                //TODO: after i finish the turn system
+                //Here i need to either play or not play a non manual targeting card 
+                /*if(TargetingController.instance.)*/
+                //first i need to finish the turn system
                 ReturnCard();
             }
         }
 
         public void PlayCard(Entity target)
         {
-            foreach (CardEffect effect in cardEffects)
+            if (ManaCountManager.instance.TryToSpendMana(int.Parse(manaCost.text)))
             {
-                effect.Execute(target);
+                Debug.Log("Mana Spent: " + manaCost.text);
+                foreach (CardEffect effect in cardEffects)
+                {
+                    effect.Execute(target);
+                }
+            }
+            else
+            {
+                Debug.Log("Mana Spend Failed");
             }
         }
         private void ReturnCard()

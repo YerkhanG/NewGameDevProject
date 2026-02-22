@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using combat_system;
 using model;
 using model.entity;
@@ -5,8 +6,13 @@ using UnityEngine;
 
 public class MainTurnBasedManager :  MonoBehaviour
 {
+    //TODO: finish it. 
+    //1. Mana system , or end turn button , perhaps both 
+    //2. That means on both i need UI regardless
     public static MainTurnBasedManager instance;
     private Entity currentActor;
+    //Needed for enemy generation later
+    public List<Entity> enemies;
     public int turnCounter;
     public void Awake()
     {
