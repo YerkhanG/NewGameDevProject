@@ -8,7 +8,7 @@ namespace card_system.UI
     {
         public static TargetingManager instance;
         [SerializeField] private ArrowView arrowView;
-        public SingleCardUI currentCard;
+        public SingleCardController currentCard;
         void OnEnable()
         {
             GlobalEvents.OnTargetSelected += ChooseTarget;
@@ -33,7 +33,7 @@ namespace card_system.UI
         //Non manual targeting shit is here 
         /*public void */
         //Manual targeting shinenigans below 
-        public void SetUpArrow(Vector3 startPosition, SingleCardUI card)
+        public void SetUpArrow(Vector3 startPosition, SingleCardController card)
         {
             currentCard = card;
             arrowView.Show(startPosition);

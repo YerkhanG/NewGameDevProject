@@ -27,7 +27,8 @@ namespace model.entity
 
         private void Die()
         {
-            Destroy(this.gameObject);
+            Debug.Log("It died");
+            /*Destroy(this.gameObject);*/
         }
 
         public bool IsAlive { get; }

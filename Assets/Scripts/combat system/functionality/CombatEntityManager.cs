@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using model.entity;
 using UnityEngine;
 
 namespace combat_system
@@ -5,6 +7,7 @@ namespace combat_system
     //this is for keeping track of all entities in the scene. At least for now.
     public class CombatEntityManager : MonoBehaviour
     {
+        public List<Entity> enemies = new List<Entity>();
         public static  CombatEntityManager instance;
         public void Awake()
         {
@@ -16,6 +19,11 @@ namespace combat_system
             {
                 Destroy(gameObject);
             }
+        }
+
+        public List<Entity> getAllEnemies()
+        {
+            return enemies;
         }
     }
 }

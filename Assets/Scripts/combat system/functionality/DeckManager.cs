@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace combat_system
 {
+    //TODO: 3# here extend the class so it can get cards from the graveyardpile(name still unsure)
     public class DeckManager : MonoBehaviour
     {
         public static  DeckManager instance;
@@ -32,7 +33,7 @@ namespace combat_system
                 var cardData =  deck[0];
                 deck.RemoveAt(0);
                 var instCard = Instantiate(cardPrefab, handContainer.transform);
-                instCard.GetComponent<SingleCardUI>().Setup(cardData);
+                instCard.GetComponent<SingleCardController>().Setup(cardData);
                 RectTransform cardRect = instCard.GetComponent<RectTransform>();
                 GlobalEvents.RaiseDrawFromDeck(instCard);
             }

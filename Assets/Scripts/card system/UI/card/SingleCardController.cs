@@ -13,17 +13,17 @@ using UnityEngine.UI;
 
 namespace card_system.UI
 {
-    public class SingleCardUI : MonoBehaviour, IBeginDragHandler ,IEndDragHandler, IDragHandler 
+    public class SingleCardController : MonoBehaviour, IBeginDragHandler ,IEndDragHandler, IDragHandler 
     {
         /*[SerializeField]private CardData cardData;*/
         [SerializeField]private TextMeshProUGUI cardName;
         [SerializeField]private TextMeshProUGUI description;
         [SerializeField]private TextMeshProUGUI manaCost;
         [SerializeField]private Image image;
-        public List<CardEffect> cardEffects; 
+        public List<CardEffect> cardEffects;
+        public bool isManual;
         [SerializeField] private Canvas canvas;
         [SerializeField]private CanvasGroup canvasGroup;
-        [SerializeField]private TargetType targetType;
         [SerializeField]private RectTransform rectTransform;
         //Original position for snapping back
         private Vector2 originalPosition;
@@ -39,8 +39,8 @@ namespace card_system.UI
             manaCost.text = data.manaCost;
             cardName.text = data.name;
             image.sprite = data.image;
-            targetType = data.targetType;
             cardEffects = data.cardEffects;
+            isManual = data.RequiresManualTarget;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -48,11 +48,10 @@ namespace card_system.UI
             originalPosition = rectTransform.position;
             originalParent = transform.parent;
             originalSiblingIndex = transform.GetSiblingIndex();
-            if (targetType.Equals(TargetType.ManualTargeting))
+            if (isManual)
             {
                 canvasGroup.alpha = 0;
                 TargetingManager.instance.SetUpArrow(transform.position,this);
-                
             }   
             else
             {
@@ -65,7 +64,7 @@ namespace card_system.UI
         // here the new targeting will decide to activate card or not 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (targetType.Equals(TargetType.ManualTargeting))
+            if (isManual)
             {
                 Vector2 screenMousePos = Mouse.current.position.ReadValue();
                 Vector2 worldMousePos =  Camera.main.ScreenToWorldPoint(screenMousePos);
@@ -107,15 +106,21 @@ namespace card_system.UI
             }
         }
 
-        public void PlayCard(Entity target)
+        public void PlayCard(Entity target = null)
         {
             if (ManaCountManager.instance.TryToSpendMana(int.Parse(manaCost.text)))
             {
-                Debug.Log("Mana Spent: " + manaCost.text);
+                EffectContext context = new EffectContext
+                {
+                    manualTargetEntity = target,
+                    allTargets = CombatEntityManager.instance.getAllEnemies(),
+                    isManual = isManual
+                };
                 foreach (CardEffect effect in cardEffects)
                 {
-                    effect.Execute(target);
+                    effect.Execute(context);
                 }
+                //Destroy(gameObject) - for now no need 
             }
             else
             {
