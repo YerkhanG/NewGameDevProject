@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using combat_system;
+using combat_system.UI;
+using global_events;
 using model;
 using model.entity;
 using UnityEngine;
@@ -10,10 +13,9 @@ public class MainTurnBasedManager :  MonoBehaviour
     //1. Mana system , or end turn button , perhaps both 
     //2. That means on both i need UI regardless
     public static MainTurnBasedManager instance;
-    private Entity currentActor;
-    //Needed for enemy generation later
-    public List<Entity> enemies;
+    public Entity mainCharacter;
     public int turnCounter;
+    private bool isPlayerTurn;
     public void Awake()
     {
         turnCounter = 1;
@@ -26,32 +28,73 @@ public class MainTurnBasedManager :  MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void OnEnable()
+    {
+        GlobalEvents.OnEndTurnButtonPressed += HandleEndTurnButtonPressed;
+    }
+
+    private void HandleEndTurnButtonPressed()
+    {
+        if (isPlayerTurn)
+        {
+            EndPlayerTurn();
+        }
+    }
+
     private void Start()
     {
-        StartGameLoop();
-    }
-    //So the first turn will be the players and then the enemies.
-    private void StartGameLoop()
-    {
-        if (turnCounter % 2 == 1)
-        {
-            PlayerTurn();
-        }
-        else
-        {
-            EnemyTurn();
-        }
-        turnCounter++;
+        StartPlayerTurn();
     }
 
-    private void EnemyTurn()
+    private void StartPlayerTurn()
+    {
+        isPlayerTurn = true;
+        turnCounter++;
+        Debug.Log($"Player Turn {turnCounter}");
+        
+        ManaCountManager.instance.ResetMana();
+        PlayerController.instance.RedrawCards();
+    }
+    private void EndPlayerTurn()
+    {
+        Debug.Log("Player turn ended");
+        isPlayerTurn = false;
+        
+        // Disable player input, hide end turn button
+        PlayerTurnUIManager.instance.UIDeactivate();
+        StartEnemyTurn();
+    }
+
+    private void StartEnemyTurn()
     {
         Debug.Log("Enemy turn");  
+        EndEnemyTurn();
     }
 
-    private void PlayerTurn()
+    private void EndEnemyTurn()
     {
-        PlayerController.instance.RedrawCards();
+        Debug.Log("Enemy turn ended");
+        if (!CheckCombatState())
+        {
+            Debug.Log("Game ended you dead");
+            EndCombat();
+        }
+        PlayerTurnUIManager.instance.UIActivate();
+        StartPlayerTurn();
+    }
+
+    private void EndCombat()
+    {
         
+    }
+
+    private bool CheckCombatState()
+    {
+        if (mainCharacter.IsAlive)
+        {
+            return true;
+        }
+        return false;
     }
 }

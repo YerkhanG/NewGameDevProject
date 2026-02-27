@@ -389,7 +389,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.5
+  m_fontSize: 39.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -590,6 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16be462fe4c4bb78c73c7b50af63630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::combat_system.CombatEntityManager
+  enemies: []
 --- !u!1 &348760741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1709,7 +1710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f82d46b3f54c51b6e71348ea568af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainTurnBasedManager
-  enemies: []
   turnCounter: 0
 --- !u!1 &2084399449
 GameObject:

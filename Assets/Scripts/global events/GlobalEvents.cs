@@ -11,6 +11,7 @@ namespace global_events
         public static event Action<Enemy> OnTargetSelected;
         public static event Action<Enemy> OnTargetValidated;
         public static event Action<int> OnManaChanged;
+        public static event Action OnEndTurnButtonPressed;
         public static void RaiseAttackEffectPlayed(Entity target)
         {
             OnAttackEffectPlayed?.Invoke(target);
@@ -32,6 +33,11 @@ namespace global_events
         public static void RaiseManaChanged(int value)
         {
             OnManaChanged?.Invoke(value);
+        }
+
+        public static void RaiseEndTurnButtonPressed()
+        {
+            OnEndTurnButtonPressed?.Invoke();
         }
     }
 }

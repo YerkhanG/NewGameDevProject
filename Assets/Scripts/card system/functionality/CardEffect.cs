@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace card_system.functionality
 {
-    //TODO : 1# change this to context to account for different types of targeting
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Card Effect Data")]
     public abstract class CardEffect : ScriptableObject
     {
@@ -41,7 +40,6 @@ namespace card_system.functionality
         ManualTargeting ,RandomEnemy, Self, SelfGear, AllEnemies
     }
 
-    //TODO: For now okay 
     public struct EffectContext
     {
         public Entity manualTargetEntity;

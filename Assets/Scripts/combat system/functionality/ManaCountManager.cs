@@ -31,6 +31,10 @@ namespace combat_system
             return true;
         }
 
+        public void ResetMana()
+        {
+            manaCount = maxMana;
+        }
         public int GetManaCount() => manaCount;
 
         private void IncreaseManaCount(int addedManaCount)

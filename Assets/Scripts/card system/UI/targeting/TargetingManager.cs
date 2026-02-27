@@ -28,11 +28,7 @@ namespace card_system.UI
             {
                 Destroy(gameObject);
             }
-        }
-        //TODO: after i finish the turn system
-        //Non manual targeting shit is here 
-        /*public void */
-        //Manual targeting shinenigans below 
+        } 
         public void SetUpArrow(Vector3 startPosition, SingleCardController card)
         {
             currentCard = card;

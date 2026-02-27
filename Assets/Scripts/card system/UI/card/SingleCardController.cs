@@ -93,15 +93,11 @@ namespace card_system.UI
                 {
                     Debug.Log("No Target Selected");
                 }
-                //For now it returns, later i will destroy the card after its played 
                 ReturnCard();
             }
             else
             {
-                //TODO: after i finish the turn system
-                //Here i need to either play or not play a non manual targeting card 
-                /*if(TargetingController.instance.)*/
-                //first i need to finish the turn system
+                PlayCard();
                 ReturnCard();
             }
         }
@@ -110,6 +106,7 @@ namespace card_system.UI
         {
             if (ManaCountManager.instance.TryToSpendMana(int.Parse(manaCost.text)))
             {
+                Debug.Log("Mana spend successful");
                 EffectContext context = new EffectContext
                 {
                     manualTargetEntity = target,

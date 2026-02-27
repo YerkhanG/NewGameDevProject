@@ -28,9 +28,10 @@ namespace model.entity
         private void Die()
         {
             Debug.Log("It died");
+            IsAlive = false;
             /*Destroy(this.gameObject);*/
         }
 
-        public bool IsAlive { get; }
+        public bool IsAlive { get; private set; }
     }
 }
