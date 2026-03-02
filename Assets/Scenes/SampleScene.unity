@@ -389,7 +389,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.35
+  m_fontSize: 38.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -950,6 +950,7 @@ GameObject:
   m_Component:
   - component: {fileID: 760367611}
   - component: {fileID: 760367612}
+  - component: {fileID: 760367613}
   m_Layer: 0
   m_Name: PlayerLogic
   m_TagString: Untagged
@@ -986,6 +987,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::combat_system.PlayerController
   player: {fileID: 0}
   mainCharacter: {fileID: 0}
+--- !u!114 &760367613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760367610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e93afcb80e455fb5dbc881237a9092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::model.entity.Player
+  currentHealth: 0
+  baseDamage: 0
+  armor: 0
+  maxHealth: 0
+  data: {fileID: 11400000, guid: 20712e300727f814abdc758f5b1bcef7, type: 2}
 --- !u!1 &783811944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,6 +1728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f82d46b3f54c51b6e71348ea568af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainTurnBasedManager
+  mainCharacter: {fileID: 760367613}
   turnCounter: 0
 --- !u!1 &2084399449
 GameObject:
@@ -1758,6 +1777,8 @@ MonoBehaviour:
   deck:
   - {fileID: 11400000, guid: 99c40c365babed147a87d3e4639ec871, type: 2}
   - {fileID: 11400000, guid: 2c49b88204ee5da43b83f6160cc35a87, type: 2}
+  - {fileID: 11400000, guid: ce40d3e987a8c59458850ed71b0637d6, type: 2}
+  - {fileID: 11400000, guid: 831794eb1cfd2764cbcd1093c97f15f9, type: 2}
   cardPrefab: {fileID: 8694944001873800256, guid: 309a1a6eac20b19448d225d52573af3e, type: 3}
   handContainer: {fileID: 912659100}
 --- !u!1 &2096641165

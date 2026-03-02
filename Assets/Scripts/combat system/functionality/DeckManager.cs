@@ -25,17 +25,35 @@ namespace combat_system
                 Destroy(gameObject);
             }
         }
+        //after deck is empty reshuffle cards from the graveyard 
+        public void ReshuffleDeck()
+        {
+            List<CardData> shuffledCards = GraveyardPileManager.instance.GetShuffledGraveyardPile();
+            deck = shuffledCards;
+        }
 
+        public void TryToDrawCard()
+        {
+            Draw();
+            Draw();
+        }
         public void Draw()
         {
-            if (deck[0] != null)
+            if (deck.Count == 0)
             {
-                var cardData =  deck[0];
+                ReshuffleDeck();
+            }
+            if (deck.Count > 0)
+            {
+                var cardData = deck[0];
                 deck.RemoveAt(0);
                 var instCard = Instantiate(cardPrefab, handContainer.transform);
                 instCard.GetComponent<SingleCardController>().Setup(cardData);
-                RectTransform cardRect = instCard.GetComponent<RectTransform>();
                 GlobalEvents.RaiseDrawFromDeck(instCard);
+            }
+            else
+            {
+                Debug.LogWarning("Cannot draw - both deck and graveyard are empty!");
             }
         }
     }

@@ -13,9 +13,9 @@ using UnityEngine.UI;
 
 namespace card_system.UI
 {
-    public class SingleCardController : MonoBehaviour, IBeginDragHandler ,IEndDragHandler, IDragHandler 
+    public class SingleCardController : MonoBehaviour, IBeginDragHandler ,IEndDragHandler, IDragHandler
     {
-        /*[SerializeField]private CardData cardData;*/
+        private CardData cardData;
         [SerializeField]private TextMeshProUGUI cardName;
         [SerializeField]private TextMeshProUGUI description;
         [SerializeField]private TextMeshProUGUI manaCost;
@@ -29,6 +29,8 @@ namespace card_system.UI
         private Vector2 originalPosition;
         private Transform originalParent;
         private int originalSiblingIndex;
+        
+        public CardData GetCardData => cardData;
         void Awake()
         {
             canvas = GetComponentInParent<Canvas>();
@@ -36,13 +38,13 @@ namespace card_system.UI
         public void Setup(CardData data)
         {
             Debug.Log("Setup 37: " + data.manaCost);
+            cardData = data;
             manaCost.text = data.manaCost;
             cardName.text = data.name;
             image.sprite = data.image;
             cardEffects = data.cardEffects;
             isManual = data.RequiresManualTarget;
         }
-
         public void OnBeginDrag(PointerEventData eventData)
         {
             originalPosition = rectTransform.position;
