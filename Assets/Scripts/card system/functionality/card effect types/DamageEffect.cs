@@ -9,7 +9,6 @@ namespace card_system.functionality.card_effect_types
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Damage Effect Data")]
     public class DamageEffect : CardEffect
     {
-        // TODO: change this to a percentage of mcs attack
         public float damageAmount;
         public override void Execute( EffectContext context)
         {
@@ -18,8 +17,8 @@ namespace card_system.functionality.card_effect_types
             {
                 if (target != null)
                 {
-                    target.TakeDamage(damageAmount);
-                    Debug.Log($"Dealt {damageAmount} damage to {target.name}");
+                    target.TakeDamage(context.caster.baseDamage);
+                    Debug.Log($"Dealt {context.caster.baseDamage} damage to {target.name}");
                 }
             }
         }

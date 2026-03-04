@@ -12,7 +12,6 @@ namespace combat_system.UI
         public static PlayerTurnUIManager instance;
         [Header("Buttons and Counters")] 
         [SerializeField]private TextMeshProUGUI manaCountUI;
-        //TODO: Need to add some event to end the turn. 
         [SerializeField]private Button endTurnButton;
         [Header("Panel")]
         [SerializeField]private GameObject panel;

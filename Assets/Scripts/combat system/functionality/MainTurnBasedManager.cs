@@ -9,9 +9,6 @@ using UnityEngine;
 
 public class MainTurnBasedManager :  MonoBehaviour
 {
-    //TODO: finish it. 
-    //1. Mana system , or end turn button , perhaps both 
-    //2. That means on both i need UI regardless
     public static MainTurnBasedManager instance;
     public Entity mainCharacter;
     public int turnCounter;

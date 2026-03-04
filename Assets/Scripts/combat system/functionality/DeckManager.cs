@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace combat_system
 {
-    //TODO: 3# here extend the class so it can get cards from the graveyardpile(name still unsure)
     public class DeckManager : MonoBehaviour
     {
         public static  DeckManager instance;
@@ -25,7 +24,6 @@ namespace combat_system
                 Destroy(gameObject);
             }
         }
-        //after deck is empty reshuffle cards from the graveyard 
         public void ReshuffleDeck()
         {
             List<CardData> shuffledCards = GraveyardPileManager.instance.GetShuffledGraveyardPile();

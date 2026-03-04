@@ -111,6 +111,7 @@ namespace card_system.UI
                 Debug.Log("Mana spend successful");
                 EffectContext context = new EffectContext
                 {
+                    caster = (Player)MainTurnBasedManager.instance.mainCharacter,
                     manualTargetEntity = target,
                     allTargets = CombatEntityManager.instance.getAllEnemies(),
                     isManual = isManual
