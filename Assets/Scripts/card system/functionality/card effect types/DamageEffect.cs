@@ -9,7 +9,6 @@ namespace card_system.functionality.card_effect_types
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Damage Effect Data")]
     public class DamageEffect : CardEffect
     {
-        public float damageAmount;
         public override void Execute( EffectContext context)
         {
             List<Entity> targets = ResolveTargets(context, targetType);
@@ -17,8 +16,9 @@ namespace card_system.functionality.card_effect_types
             {
                 if (target != null)
                 {
-                    target.TakeDamage(context.caster.baseDamage);
-                    Debug.Log($"Dealt {context.caster.baseDamage} damage to {target.name}");
+                    int damage = context.caster.GetTotalDamageBonus();
+                    target.TakeDamage(damage);
+                    Debug.Log($"Dealt {damage} damage to {target.name}");
                 }
             }
         }

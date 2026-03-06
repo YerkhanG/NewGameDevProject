@@ -40,7 +40,7 @@ namespace card_system.UI
             Debug.Log("Setup 37: " + data.manaCost);
             cardData = data;
             manaCost.text = data.manaCost;
-            cardName.text = data.name;
+            cardName.text = data.cardName;
             image.sprite = data.image;
             cardEffects = data.cardEffects;
             isManual = data.RequiresManualTarget;
@@ -111,7 +111,7 @@ namespace card_system.UI
                 Debug.Log("Mana spend successful");
                 EffectContext context = new EffectContext
                 {
-                    caster = (Player)MainTurnBasedManager.instance.mainCharacter,
+                    caster = (Player)CombatEntityManager.instance.mainCharacter,
                     manualTargetEntity = target,
                     allTargets = CombatEntityManager.instance.getAllEnemies(),
                     isManual = isManual

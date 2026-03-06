@@ -8,6 +8,7 @@ namespace combat_system
     public class CombatEntityManager : MonoBehaviour
     {
         public List<Entity> enemies = new List<Entity>();
+        public Entity mainCharacter;
         public static  CombatEntityManager instance;
         public void Awake()
         {
@@ -24,6 +25,16 @@ namespace combat_system
         public List<Entity> getAllEnemies()
         {
             return enemies;
+        }
+
+        public void UpdateBuffsAndDebuffsEnemies()
+        {
+            
+        }
+
+        public void UpdateBuffsAndDebuffsMC()
+        {
+            mainCharacter.UpdateBuffs();
         }
     }
 }

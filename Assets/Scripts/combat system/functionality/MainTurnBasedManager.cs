@@ -10,7 +10,6 @@ using UnityEngine;
 public class MainTurnBasedManager :  MonoBehaviour
 {
     public static MainTurnBasedManager instance;
-    public Entity mainCharacter;
     public int turnCounter;
     private bool isPlayerTurn;
     public void Awake()
@@ -59,6 +58,7 @@ public class MainTurnBasedManager :  MonoBehaviour
         isPlayerTurn = false;
         
         // Disable player input, hide end turn button
+        CombatEntityManager.instance.UpdateBuffsAndDebuffsMC();
         PlayerTurnUIManager.instance.UIDeactivate();
         StartEnemyTurn();
     }
@@ -88,7 +88,7 @@ public class MainTurnBasedManager :  MonoBehaviour
 
     private bool CheckCombatState()
     {
-        if (mainCharacter.IsAlive)
+        if (CombatEntityManager.instance.mainCharacter.IsAlive)
         {
             return true;
         }

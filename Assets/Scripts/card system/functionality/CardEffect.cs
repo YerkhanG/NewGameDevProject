@@ -29,6 +29,12 @@ namespace card_system.functionality
                         return new List<Entity>{context.allTargets[randIndex]};
                     }
                     return new List<Entity>();
+                case TargetType.Self:
+                    if (context.caster != null)
+                    {
+                        return new List<Entity>{context.caster};
+                    }
+                    return new List<Entity>();
                 default:
                     Debug.Log("Someting Wong");
                     return new List<Entity>();
