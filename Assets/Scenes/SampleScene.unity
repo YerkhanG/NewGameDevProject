@@ -389,7 +389,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.4
+  m_fontSize: 43.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -591,6 +591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::combat_system.CombatEntityManager
   enemies: []
+  mainCharacter: {fileID: 760367613}
 --- !u!1 &348760741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,6 +1428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::combat_system.GraveyardPileManager
   cardContainer: {fileID: 912659100}
+  graveyardPile: []
 --- !u!1 &1517364685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,7 +1679,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.15
+  m_fontSize: 26.75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1774,7 +1776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f82d46b3f54c51b6e71348ea568af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainTurnBasedManager
-  mainCharacter: {fileID: 760367613}
   turnCounter: 0
 --- !u!1 &2084399449
 GameObject:
@@ -2079,5 +2080,5 @@ SceneRoots:
   - {fileID: 783811945}
   - {fileID: 296333997}
   - {fileID: 1135688876}
-  - {fileID: 348760742}
   - {fileID: 2126200410}
+  - {fileID: 348760742}

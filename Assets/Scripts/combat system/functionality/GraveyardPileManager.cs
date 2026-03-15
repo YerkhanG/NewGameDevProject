@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using card_system.animation;
 using card_system.data;
 using card_system.UI;
 using global_events;
@@ -39,7 +40,9 @@ namespace combat_system
                 {
                     CardData cardData = card.GetCardData;
                     graveyardPile.Add(cardData);
-                    Destroy(card.gameObject);
+                    var animationController = card.GetComponent<CardAnimationController>();
+                    /*card.transform.SetParent(null);*/
+                    animationController.AnimateDiscard(transform.position);
                 }
             }
         }

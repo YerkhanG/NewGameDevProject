@@ -78,7 +78,7 @@ public class MainTurnBasedManager :  MonoBehaviour
             EndCombat();
         }
         PlayerTurnUIManager.instance.UIActivate();
-        StartPlayerTurn();
+        Invoke(nameof(StartPlayerTurn),3);
     }
 
     private void EndCombat()

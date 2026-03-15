@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using card_system.animation;
 using card_system.data;
 using card_system.UI;
 using global_events;
@@ -47,6 +48,8 @@ namespace combat_system
                 deck.RemoveAt(0);
                 var instCard = Instantiate(cardPrefab, handContainer.transform);
                 instCard.GetComponent<SingleCardController>().Setup(cardData);
+                var animationController = instCard.GetComponent<CardAnimationController>();
+                animationController.AnimateDraw(transform.position);
                 GlobalEvents.RaiseDrawFromDeck(instCard);
             }
             else

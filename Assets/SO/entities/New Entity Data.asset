@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: New Entity Data
   m_EditorClassIdentifier: Assembly-CSharp::data.EntityData
   health: 100
-  baseDamage: 100
+  baseDamage: 10
   armor: 2

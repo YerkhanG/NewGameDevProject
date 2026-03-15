@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 8595364496475883708}
   - component: {fileID: 6730428635709707771}
   - component: {fileID: 7834309025180170484}
+  - component: {fileID: 562260844471612633}
   m_Layer: 5
   m_Name: CardPrefab
   m_TagString: Draggable
@@ -408,9 +409,9 @@ MonoBehaviour:
   manaCost: {fileID: 335309018070990490}
   image: {fileID: 6618024368497528827}
   cardEffects: []
+  isManual: 0
   canvas: {fileID: 0}
   canvasGroup: {fileID: 7834309025180170484}
-  targetType: 0
   rectTransform: {fileID: 4912313421249334029}
 --- !u!114 &8595364496475883708
 MonoBehaviour:
@@ -490,3 +491,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &562260844471612633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8694944001873800256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281fec08480d4d9cb26c7e5a211758d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::card_system.animation.CardAnimationController
+  rectTransform: {fileID: 4912313421249334029}
+  canvasGroup: {fileID: 7834309025180170484}
+  drawDuration: 0.6
+  playDuration: 0.5
+  discardDuration: 0.6

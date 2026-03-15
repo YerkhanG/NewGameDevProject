@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using card_system.animation;
 using card_system.data;
 using card_system.functionality;
 using combat_system;
@@ -9,6 +10,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace card_system.UI
@@ -121,6 +123,12 @@ namespace card_system.UI
                     effect.Execute(context);
                 }
                 //Destroy(gameObject) - for now no need 
+                var animationController = GetComponent<CardAnimationController>();
+                Vector3 targetPosition = target == null ? transform.position : target.transform.position;
+                animationController.AnimatePlay(targetPosition, () =>
+                {
+                    
+                });
             }
             else
             {

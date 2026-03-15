@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::card_system.data.CardData
   cardEffects:
   - {fileID: 11400000, guid: 9bafc6fada0314b4095dd0b0642edbe3, type: 2}
-  cardName: Damage Card
+  cardName: Damage Card R
   description: Sometthing to replace
   manaCost: 1
   image: {fileID: 7039122582138040449, guid: 45a31215741cac248bb21d347d4c425e, type: 3}
