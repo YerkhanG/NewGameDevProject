@@ -48,7 +48,6 @@ namespace card_system.animation
                 .SetEase(Ease.InBack)
                 .OnComplete(() => {
                     onComplete?.Invoke();
-                    Destroy(gameObject);
                 });
         }
         public void AnimateDiscard(Vector3 graveyardPosition, System.Action onComplete = null)

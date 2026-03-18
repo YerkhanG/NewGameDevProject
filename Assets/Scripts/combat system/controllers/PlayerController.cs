@@ -23,23 +23,6 @@ namespace combat_system
             }
         }
 
-        private void onEnable()
-        {
-            GlobalEvents.OnAttackEffectPlayed += AttackTarget;
-        }
-
-        private void OnDisable()
-        {
-            GlobalEvents.OnAttackEffectPlayed -= AttackTarget;
-        }
-
-        private void AttackTarget(Entity target)
-        {
-            target.TakeDamage(player.baseDamage);
-        }
-
-        public Entity mainCharacter;
-
         public void RedrawCards()
         {
             Debug.Log("Draw First Card");

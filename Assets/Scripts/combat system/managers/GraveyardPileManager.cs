@@ -27,23 +27,28 @@ namespace combat_system
 
         private void OnEnable()
         {
-            GlobalEvents.OnEndTurnButtonPressed += TakeFromHand;
+            GlobalEvents.OnEndTurnButtonPressed += ShuffleFromHand;
         }
 
         //after the end trun button is pressed , or the endturn is in general proced
-        private void TakeFromHand()
+        private void ShuffleFromHand()
         {
             foreach (Transform child in cardContainer.transform)
             {
                 SingleCardController card = child.gameObject.GetComponent<SingleCardController>();
-                if (card != null)
-                {
-                    CardData cardData = card.GetCardData;
-                    graveyardPile.Add(cardData);
-                    var animationController = card.GetComponent<CardAnimationController>();
-                    /*card.transform.SetParent(null);*/
-                    animationController.AnimateDiscard(transform.position);
-                }
+                TakeFromHand(card);
+            }
+        }
+
+        public void TakeFromHand(SingleCardController card)
+        {
+            if (card != null)
+            {
+                CardData cardData = card.GetCardData;
+                graveyardPile.Add(cardData);
+                var animationController = card.GetComponent<CardAnimationController>();
+                /*card.transform.SetParent(null);*/
+                animationController.AnimateDiscard(transform.position);
             }
         }
 

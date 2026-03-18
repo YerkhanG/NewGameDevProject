@@ -122,12 +122,11 @@ namespace card_system.UI
                 {
                     effect.Execute(context);
                 }
-                //Destroy(gameObject) - for now no need 
                 var animationController = GetComponent<CardAnimationController>();
                 Vector3 targetPosition = target == null ? transform.position : target.transform.position;
                 animationController.AnimatePlay(targetPosition, () =>
                 {
-                    
+                    GraveyardPileManager.instance.TakeFromHand(this);
                 });
             }
             else

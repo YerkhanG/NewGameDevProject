@@ -18,6 +18,7 @@ namespace card_system.functionality.card_effect_types
                 {
                     int damage = context.caster.GetTotalDamageBonus();
                     target.TakeDamage(damage);
+                    GlobalEvents.RaiseAttackEffectPlayed(target);
                     Debug.Log($"Dealt {damage} damage to {target.name}");
                 }
             }
