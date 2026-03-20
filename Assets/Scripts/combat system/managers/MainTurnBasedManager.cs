@@ -45,6 +45,7 @@ public class MainTurnBasedManager :  MonoBehaviour
 
     private void StartPlayerTurn()
     {
+        PlayerTurnUIManager.instance.UIActivate();
         isPlayerTurn = true;
         turnCounter++;
         Debug.Log($"Player Turn {turnCounter}");
@@ -66,6 +67,7 @@ public class MainTurnBasedManager :  MonoBehaviour
     private void StartEnemyTurn()
     {
         Debug.Log("Enemy turn");  
+        EnemyAIManager.instance.AllEnemiesTurn();
         EndEnemyTurn();
     }
 
@@ -77,7 +79,6 @@ public class MainTurnBasedManager :  MonoBehaviour
             Debug.Log("Game ended you dead");
             EndCombat();
         }
-        PlayerTurnUIManager.instance.UIActivate();
         Invoke(nameof(StartPlayerTurn),3);
     }
 

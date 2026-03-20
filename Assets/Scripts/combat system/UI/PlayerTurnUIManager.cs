@@ -51,11 +51,15 @@ namespace combat_system.UI
 
         public void UIDeactivate()
         {
+            Debug.Log("UIDeactivate called - setting panel to false");
             panel.SetActive(false);
         }
 
         public void UIActivate()
         {
+            Debug.Log("UIActivate called - setting panel to true");
+            /*endTurnButton.enabled = true;
+            manaCountUI.enabled = true;*/
             panel.SetActive(true);
         }
         private void ManaChangeUI(int manaCount)

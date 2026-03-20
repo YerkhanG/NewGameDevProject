@@ -34,7 +34,7 @@ namespace model.entity
         {
             Debug.Log("It died");
             IsAlive = false;
-            /*Destroy(this.gameObject);*/
+            Destroy(transform.parent.gameObject);
         }
 
         public bool IsAlive { get; private set; }

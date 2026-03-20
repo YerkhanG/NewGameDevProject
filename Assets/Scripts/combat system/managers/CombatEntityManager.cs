@@ -7,7 +7,7 @@ namespace combat_system
     //this is for keeping track of all entities in the scene. At least for now.
     public class CombatEntityManager : MonoBehaviour
     {
-        public List<Entity> enemies = new List<Entity>();
+        public List<Enemy> enemies = new List<Enemy>();
         public Entity mainCharacter;
         public static  CombatEntityManager instance;
         public void Awake()
@@ -22,7 +22,7 @@ namespace combat_system
             }
         }
 
-        public List<Entity> getAllEnemies()
+        public List<Enemy> getAllEnemies()
         {
             return enemies;
         }

@@ -52,7 +52,7 @@ namespace card_system.functionality
         public Player caster;
         public Entity manualTargetEntity;
         public Entity singleTargetEntity;
-        public List<Entity> allTargets;
+        public List<Enemy> allTargets;
         public bool isManual;
     }
 }
