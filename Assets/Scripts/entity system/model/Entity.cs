@@ -13,7 +13,7 @@ namespace model.entity
         public float armor;
         public float maxHealth;
         public  EntityData data;
-        public List<Buff> activeBuffs = new List<Buff>();
+        public List<StatMods> activeStatMods = new List<StatMods>();
 
         public int TotalDamage => GetTotalDamageBonus();
         private void Awake()
@@ -39,33 +39,33 @@ namespace model.entity
 
         public bool IsAlive { get; private set; }
         
-        public void AddBuff(BuffType type, float amount, int duration)
+        public void AddBuff(StatModType type, float amount, int duration)
         {
-            Buff newBuff = new Buff(type, amount, duration);
-            activeBuffs.Add(newBuff);
+            StatMods newStatMods = new StatMods(type, amount, duration);
+            activeStatMods.Add(newStatMods);
             Debug.Log($"{name} gained {amount} {type} for {duration} turns");
         }
-        
-        public void UpdateBuffs()
+        //TODO: seesm like update sdoesnt work , or it doewsnt work only with the debuffs
+        public void UpdateStatMods()
         {
-            for (int i = activeBuffs.Count - 1; i >= 0; i--)
+            for (int i = activeStatMods.Count - 1; i >= 0; i--)
             {
-                activeBuffs[i].remainingTurns--;
-                if (activeBuffs[i].remainingTurns <= 0)
+                activeStatMods[i].remainingTurns--;
+                if (activeStatMods[i].remainingTurns <= 0)
                 {
-                    Debug.Log($"{name} lost buff: {activeBuffs[i].type}");
-                    activeBuffs.Remove(activeBuffs[i]);
+                    Debug.Log($"{name} lost buff: {activeStatMods[i].type}");
+                    activeStatMods.Remove(activeStatMods[i]);
                 }
             }
         }
         public int GetTotalDamageBonus()
         {
             float total = baseDamage;
-            if (activeBuffs.Count > 0)
+            if (activeStatMods.Count > 0)
             {
-                foreach (var buff in activeBuffs)
+                foreach (var buff in activeStatMods)
                 {
-                    if (buff.type == BuffType.Damage)
+                    if (buff.type == StatModType.Damage)
                         total *= buff.amount;
                 }   
             }

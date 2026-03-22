@@ -2,13 +2,14 @@ using card_system.functionality.card_effect_types;
 
 namespace model.entity_state
 {
-    public class Buff
+    //TODO: Change this to general status effect class 
+    public class StatMods
     {
-        public BuffType type;
+        public StatModType type;
         public float amount;
         public int remainingTurns;
 
-        public Buff(BuffType type, float amount, int remainingTurns)
+        public StatMods(StatModType type, float amount, int remainingTurns)
         {
             this.type = type;
             this.amount = amount;

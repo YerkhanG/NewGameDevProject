@@ -30,6 +30,11 @@ public class MainTurnBasedManager :  MonoBehaviour
         GlobalEvents.OnEndTurnButtonPressed += HandleEndTurnButtonPressed;
     }
 
+    public void OnDisable()
+    {
+        GlobalEvents.OnEndTurnButtonPressed -= HandleEndTurnButtonPressed;
+    }
+
     private void HandleEndTurnButtonPressed()
     {
         if (isPlayerTurn)
@@ -59,7 +64,7 @@ public class MainTurnBasedManager :  MonoBehaviour
         isPlayerTurn = false;
         
         // Disable player input, hide end turn button
-        CombatEntityManager.instance.UpdateBuffsAndDebuffsMC();
+        CombatEntityManager.instance.UpdateBuffsAndDebuffs();
         PlayerTurnUIManager.instance.UIDeactivate();
         StartEnemyTurn();
     }

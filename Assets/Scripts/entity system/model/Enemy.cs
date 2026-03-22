@@ -8,7 +8,8 @@ namespace model.entity
         public void TakeAction()
         {
             Debug.Log("Enemy takes action");
-            CombatEntityManager.instance.mainCharacter.TakeDamage(baseDamage);
+            var damage = GetTotalDamageBonus();
+            CombatEntityManager.instance.mainCharacter.TakeDamage(damage);
         }
     }
 }

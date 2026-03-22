@@ -27,14 +27,13 @@ namespace combat_system
             return enemies;
         }
 
-        public void UpdateBuffsAndDebuffsEnemies()
+        public void UpdateBuffsAndDebuffs()
         {
-            
-        }
-
-        public void UpdateBuffsAndDebuffsMC()
-        {
-            mainCharacter.UpdateBuffs();
+            mainCharacter.UpdateStatMods();
+            foreach(Enemy enemy in enemies)
+            {
+                enemy.UpdateStatMods();
+            }
         }
     }
 }

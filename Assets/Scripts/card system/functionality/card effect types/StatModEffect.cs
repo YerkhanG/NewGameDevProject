@@ -5,9 +5,9 @@ using UnityEngine;
 namespace card_system.functionality.card_effect_types
 {
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Buff Effect Data")]
-    public class BuffEffect : CardEffect
+    public class StatModEffect : CardEffect
     {
-        public BuffType type;
+        public StatModType type;
         public float amount;
         public int duration;
         public override void Execute(EffectContext context)
@@ -20,7 +20,7 @@ namespace card_system.functionality.card_effect_types
         }
     }
 
-    public enum BuffType
+    public enum StatModType
     {
         Health, Damage, armor, 
     }

@@ -76,10 +76,6 @@ namespace card_system.UI
                 RaycastHit2D hit = Physics2D.Raycast(worldMousePos, Vector2.zero);
                 if (hit.collider != null)
                 {
-                    //TODO: after i finish the turn system
-                    //for now its only about enemies.
-                    //Soon i will need to make a generalaized version for everyone
-                    //(you(heal , buff) or enemies(debuff or deal damage)
                     Debug.Log($"HIT 2D: {hit.transform.name}");
                     Enemy enemyHit = hit.transform.GetComponentInChildren<Enemy>();
                     if (enemyHit)
