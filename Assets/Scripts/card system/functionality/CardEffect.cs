@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace card_system.functionality
 {
-    //TODO: Create other 2 types of effects: Buff and debuff , and try to make em work.
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Card Effect Data")]
     public abstract class CardEffect : ScriptableObject
     {

@@ -111,7 +111,7 @@ namespace card_system.UI
                 {
                     caster = (Player)CombatEntityManager.instance.mainCharacter,
                     manualTargetEntity = target,
-                    allTargets = CombatEntityManager.instance.getAllEnemies(),
+                    allTargets = CombatEntityManager.instance.GetAllEnemies(),
                     isManual = isManual
                 };
                 foreach (CardEffect effect in cardEffects)

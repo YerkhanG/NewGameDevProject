@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9c00637608455882e6d443790b5d3d, type: 3}
   m_Name: DebuffDamage
   m_EditorClassIdentifier: Assembly-CSharp::card_system.functionality.card_effect_types.StatModEffect
-  targetType: 0
-  type: 0
-  amount: 0
-  duration: 0
+  targetType: 1
+  type: 1
+  amount: 0.5
+  duration: 2

@@ -18,6 +18,7 @@ namespace model.entity
         public int TotalDamage => GetTotalDamageBonus();
         private void Awake()
         {
+            IsAlive = true;
             maxHealth = data.health;
             currentHealth = maxHealth;
             baseDamage = data.baseDamage;
@@ -30,9 +31,9 @@ namespace model.entity
             if (currentHealth <= 0) Die();
         }
 
-        private void Die()
+        protected virtual void Die()
         {
-            Debug.Log("It died");
+            Debug.Log(name + " died");
             IsAlive = false;
             Destroy(transform.parent.gameObject);
         }
@@ -45,7 +46,6 @@ namespace model.entity
             activeStatMods.Add(newStatMods);
             Debug.Log($"{name} gained {amount} {type} for {duration} turns");
         }
-        //TODO: seesm like update sdoesnt work , or it doewsnt work only with the debuffs
         public void UpdateStatMods()
         {
             for (int i = activeStatMods.Count - 1; i >= 0; i--)
@@ -70,7 +70,7 @@ namespace model.entity
                 }   
             }
             else
-            {
+            { 
                 Debug.Log("No buffs");
             }
             return Mathf.RoundToInt(total);

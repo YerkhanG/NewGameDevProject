@@ -1,4 +1,5 @@
 using System;
+using encounter_system.data;
 using model.entity;
 using UnityEngine;
 
@@ -12,6 +13,12 @@ namespace global_events
         public static event Action<Enemy> OnTargetValidated;
         public static event Action<int> OnManaChanged;
         public static event Action OnEndTurnButtonPressed;
+
+        public static event Action<Encounter.Rarity> OnEncounterPicked;
+        public static event Action<Encounter> OnEncounterRarityPicked;
+        public static event Action<Enemy> OnEnemyDied;
+        public static event Action OnFightWon;
+        
         public static void RaiseAttackEffectPlayed(Entity target)
         {
             OnAttackEffectPlayed?.Invoke(target);
@@ -38,6 +45,26 @@ namespace global_events
         public static void RaiseEndTurnButtonPressed()
         {
             OnEndTurnButtonPressed?.Invoke();
+        }
+
+        public static void RaiseEncounterPicked(Encounter.Rarity rarity)
+        {
+            OnEncounterPicked?.Invoke(rarity);
+        }
+
+        public static void RaiseEncounterRarityPicked(Encounter encounter)
+        {
+            OnEncounterRarityPicked?.Invoke(encounter);
+        }
+
+        public static void RaiseEnemyDied(Enemy enemy)
+        {
+            OnEnemyDied?.Invoke(enemy);
+        }
+
+        public static void RaiseFightWon()
+        {
+            OnFightWon?.Invoke();
         }
     }
 }

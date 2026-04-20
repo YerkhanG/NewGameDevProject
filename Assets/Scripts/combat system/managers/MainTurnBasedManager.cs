@@ -14,7 +14,7 @@ public class MainTurnBasedManager :  MonoBehaviour
     private bool isPlayerTurn;
     public void Awake()
     {
-        turnCounter = 1;
+        turnCounter = 0;
         if (instance == null)
         {
             instance = this;
@@ -79,6 +79,7 @@ public class MainTurnBasedManager :  MonoBehaviour
     private void EndEnemyTurn()
     {
         Debug.Log("Enemy turn ended");
+        Debug.Log("mc STATE CHECKING : " + CheckCombatState());
         if (!CheckCombatState())
         {
             Debug.Log("Game ended you dead");
@@ -89,12 +90,12 @@ public class MainTurnBasedManager :  MonoBehaviour
 
     private void EndCombat()
     {
-        
+        PlayerTurnUIManager.instance.DeathScreen();
     }
 
     private bool CheckCombatState()
     {
-        if (CombatEntityManager.instance.mainCharacter.IsAlive)
+        if (CombatEntityManager.instance.CheckMC())
         {
             return true;
         }

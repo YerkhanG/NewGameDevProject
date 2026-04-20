@@ -2,7 +2,6 @@ using card_system.functionality.card_effect_types;
 
 namespace model.entity_state
 {
-    //TODO: Change this to general status effect class 
     public class StatMods
     {
         public StatModType type;

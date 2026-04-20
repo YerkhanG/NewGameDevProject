@@ -2,6 +2,7 @@ using System;
 using global_events;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace combat_system.UI
@@ -13,13 +14,20 @@ namespace combat_system.UI
         [Header("Buttons and Counters")] 
         [SerializeField]private TextMeshProUGUI manaCountUI;
         [SerializeField]private Button endTurnButton;
+        [SerializeField]private Button deathResetButton;
+        [SerializeField]private Button afterVictoryButton;
         [Header("Panel")]
         [SerializeField]private GameObject panel;
+        [SerializeField]private GameObject deathPanel;
+        [SerializeField]private GameObject victoryPanel;
 
         public void OnEnable()
         {
+            GlobalEvents.OnFightWon += HandleFightWon;
             GlobalEvents.OnManaChanged += ManaChangeUI;
             endTurnButton.onClick.AddListener(EndTurnEventStart);
+            deathResetButton.onClick.AddListener(OnDeathSendToMainLobby);
+            afterVictoryButton.onClick.AddListener(OnVictorySendToTheMap);
         }
 
         private void EndTurnEventStart()
@@ -27,10 +35,23 @@ namespace combat_system.UI
             GlobalEvents.RaiseEndTurnButtonPressed();
         }
 
+        private void OnDeathSendToMainLobby()
+        {
+            SceneManager.LoadScene(1);
+        }
+
+        private void OnVictorySendToTheMap()
+        {
+            SceneManager.LoadScene(2);
+        }
+
         public void OnDisable()
         {
+            GlobalEvents.OnFightWon -= HandleFightWon;
             GlobalEvents.OnManaChanged -= ManaChangeUI;
             endTurnButton.onClick.RemoveListener(EndTurnEventStart);
+            deathResetButton.onClick.RemoveListener(OnDeathSendToMainLobby);
+            afterVictoryButton.onClick.RemoveListener(OnVictorySendToTheMap);
         }
         public void Awake()
         {
@@ -62,9 +83,21 @@ namespace combat_system.UI
             manaCountUI.enabled = true;*/
             panel.SetActive(true);
         }
+
+        public void DeathScreen()
+        {
+            UIDeactivate();
+            deathPanel.SetActive(true);
+        }
         private void ManaChangeUI(int manaCount)
         {
             manaCountUI.text = manaCount.ToString();
+        }
+
+        public void HandleFightWon()
+        {
+            UIDeactivate();
+            victoryPanel.SetActive(true);
         }
     } 
 }

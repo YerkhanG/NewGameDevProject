@@ -15,6 +15,7 @@ MonoBehaviour:
   cardEffects:
   - {fileID: 11400000, guid: 9bafc6fada0314b4095dd0b0642edbe3, type: 2}
   - {fileID: 11400000, guid: ce8ea4fb8a1439f4ab31c7bb6bd6033e, type: 2}
+  - {fileID: 11400000, guid: 30fc4405ad714704a9bc2c21b4005d9c, type: 2}
   cardName: Damage Card M + R
   description: Sometthing to replace
   manaCost: 2
