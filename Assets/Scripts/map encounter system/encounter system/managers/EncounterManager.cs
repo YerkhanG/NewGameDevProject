@@ -25,7 +25,7 @@ namespace encounter_system.managers
             }
         }
 
-        void OnEnable()
+        /*oid OnEnable()
         {
             GlobalEvents.OnEncounterPicked += PickRandomEncounterByRarity;
         }
@@ -33,12 +33,13 @@ namespace encounter_system.managers
         private void OnDisable()
         {
             GlobalEvents.OnEncounterPicked -= PickRandomEncounterByRarity;
-        }
+        }*/
 
-        public void PickRandomEncounterByRarity(Encounter.Rarity rarity)
+        public Encounter PickRandomEncounterByRarity(Encounter.Rarity rarity)
         {
             var pickedEncounters = encounters.Where(encounter => encounter.encounterRarity == rarity).ToList();
-            GlobalEvents.RaiseEncounterRarityPicked(pickedEncounters[Random.Range(0, pickedEncounters.Count)]);
+            /*GlobalEvents.RaiseEncounterRarityPicked(pickedEncounters[Random.Range(0, pickedEncounters.Count)])*/;
+            return  pickedEncounters[Random.Range(0, pickedEncounters.Count)];
         }
         
     }
