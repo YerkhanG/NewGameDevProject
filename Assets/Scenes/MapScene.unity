@@ -421,10 +421,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ef8bf99ad646f097961997156dea47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.map_system.MapView
-  nodePrefab: {fileID: 4007860281622209538, guid: ad6ef21b1303fd94ca5b5eaf4e8b140e, type: 3}
+  nodePrefab: {fileID: 5247132623672953238, guid: b8881a77199a0804ca2b09bde5f1523c, type: 3}
   mapCanvasTransform: {fileID: 486079997}
   nodeViews: []
-  linePrefab: {fileID: 2297874141250272218, guid: 400947401f4247644ba02ebdd21aaf9e, type: 3}
+  linePrefab: {fileID: 3747308109784656564, guid: 02c207d95ee66e643a051f5441e9c25f, type: 3}
+  linePointsCount: 10
+  offsetFromNodes: 0.5
 --- !u!114 &638611876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,10 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.map_system.MapGenerator
   config: {fileID: 11400000, guid: aca10dd83343fba4baa663dd2e52012a, type: 2}
-  layerDistances:
-  - 4
-  - 4
-  - 4
+  layerDistances: []
 --- !u!4 &638611878
 Transform:
   m_ObjectHideFlags: 0

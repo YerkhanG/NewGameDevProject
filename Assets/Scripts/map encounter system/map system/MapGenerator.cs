@@ -120,7 +120,7 @@ namespace map_encounter_system.map_system
                MapLayer layer = config.layers[i];
                List<Node> nodesOnThisLayer =  new List<Node>();
 
-               float offset = layer.nodesApartDistance * config.widthNodeCount-1 / 2f;
+               float offset = layer.nodesApartDistance * (config.widthNodeCount - 1 )/ 2f ;
 
                for (int j = 0; j < config.widthNodeCount; j++)
                {
@@ -135,11 +135,11 @@ namespace map_encounter_system.map_system
                    // 3. Create the Node as a Data Container
                    Node node = new Node(nodeType, encounter, new Vector2(j, i))
                    {
-                       position = new Vector2(-offset + j * layer.nodesApartDistance, GetDistanceToLayer(i))
+                       position = new Vector2(-offset + j * layer.nodesApartDistance,-3 + GetDistanceToLayer(i))
                    };
                     
                    nodesOnThisLayer.Add(node);
-                   Debug.Log(nodesOnThisLayer.Count);
+                   Debug.Log("node position: " + node.position);
                }
                Debug.Log(nodesOnThisLayer.Count);
                Debug.Log(nodes);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using map_encounter_system.map_system.data.node;
 using UnityEngine;
 
@@ -17,6 +18,17 @@ namespace map_encounter_system.map_system.data
             this.bossNodeName = bossNodeName;
             this.nodes = nodes;
             this.path = path;
+        }
+        
+        public float DistanceBetweenFirstAndLastLayers()
+        {
+            /*Node bossNode = GetBossNode();*/
+            Node firstLayerNode = nodes[0].FirstOrDefault(n => n.position.y  == 0);
+
+            if (/*bossNode == null ||*/ firstLayerNode == null)
+                return 0f;
+
+            return/* bossNode.position.y - */firstLayerNode.position.y;
         }
 
     }

@@ -7,10 +7,23 @@ namespace map_encounter_system.map_system.manager
     {
         public MapGenerator mapGenerator;
         public MapView mapView;
-
+        public Map map;
+        public static MapManager instance;
+        
+        public void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
         void Start()
         {
-            Map map =  mapGenerator.GenerateMap();
+            map =  mapGenerator.GenerateMap();
             mapView.ShowMap(map);
         }
     }

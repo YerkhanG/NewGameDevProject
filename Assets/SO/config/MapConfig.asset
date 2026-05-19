@@ -45,4 +45,11 @@ MonoBehaviour:
     randomizeNodes: 0.289
   widthNodeCount: 3
   layerCount: 5
+  numOfPreBossNodes:
+    min: 3
+    max: 3
+  numOfStartingNodes:
+    min: 3
+    max: 3
+  extraPaths: 1
   randomTypes: 000000000100000002000000

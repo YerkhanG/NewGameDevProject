@@ -1,7 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using map_encounter_system.map_system.data;
 using map_encounter_system.map_system.data.node;
+using map_encounter_system.map_system.manager;
 using map_encounter_system.map_system.UI;
+using map_encounter_system.map_system.UI.scrolling;
+using TreeEditor;
 using UnityEditor.Toolbars;
 using UnityEngine;
 
@@ -11,24 +16,30 @@ namespace map_encounter_system.map_system
     {
         public GameObject nodePrefab;
         public Node lastBeatenNode;
-        public Transform mapCanvasTransform;
+        public Transform containerTransform;
         public List<NodeView> nodeViews = new List<NodeView>();
         [SerializeField] private GameObject linePrefab;
         public Map map;
-        
-        
+        private Camera cam;
+        [Tooltip("Offset of the start/end nodes of the map from the edges of the screen")]
+        public float orientationOffset;
         [Range(3, 10)]
         public int linePointsCount = 10;
         [Tooltip("Distance from the node till the line starting point")]
         public float offsetFromNodes = 0.5f;
         
         protected readonly List<LineConnection> lineConnections = new List<LineConnection>();
+        
+        private void Awake()
+        {
+            cam = Camera.main;
+        }
         public void ShowMap(Map map)
         {
             this.map = map;
             CreateNodes(map.nodes);
             DrawLines();
-            /*SetOrientation();*/
+            SetOrientation();
             /*SetAttainableNodes();*/
         }
 
@@ -57,10 +68,24 @@ namespace map_encounter_system.map_system
             }
         }*/
 
-        /*private void SetOrientation()
+        protected void SetOrientation()
         {
-            throw new System.NotImplementedException();
-        }*/
+            ScrollNonUI scrollNonUi = containerTransform.GetComponent<ScrollNonUI>();
+            float span = MapManager.instance.map.DistanceBetweenFirstAndLastLayers();
+            /*NodeView bossNode = nodeViews.FirstOrDefault(node => node.Node.type == TreeEditorHelper.NodeType.Boss);*/
+            Debug.Log("Map span in set orientation: " + span + " camera aspect: " + cam.aspect);
+
+            // setting first parent to be right in front of the camera first:
+            containerTransform.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 0f);
+            float offset = orientationOffset;
+           
+            if (scrollNonUi != null)
+            {
+                scrollNonUi.yConstraints.max = 0;
+                scrollNonUi.yConstraints.min = -(span + 2f * offset);
+            }
+            containerTransform.transform.localPosition += new Vector3(0, offset, 0);
+        }
 
         public void CreateNodes(List<List<Node>> nodes)
         {
@@ -95,7 +120,7 @@ namespace map_encounter_system.map_system
         {
             if (linePrefab == null) return;
 
-            GameObject lineObject = Instantiate(linePrefab, mapCanvasTransform);
+            GameObject lineObject = Instantiate(linePrefab, containerTransform);
             LineRenderer lineRenderer = lineObject.GetComponent<LineRenderer>();
             Vector3 fromPoint = from.transform.position +
                                 (to.transform.position - from.transform.position).normalized * offsetFromNodes;
@@ -119,7 +144,7 @@ namespace map_encounter_system.map_system
         }
         private NodeView CreateMapNode(Node node)
         {
-            GameObject nodeObject = Instantiate(nodePrefab, node.position, Quaternion.identity, mapCanvasTransform);
+            GameObject nodeObject = Instantiate(nodePrefab, node.position ,  Quaternion.identity , containerTransform);
             NodeView nodeView = nodeObject.GetComponent<NodeView>();
             nodeView.Initialize(node);
             return nodeView;
