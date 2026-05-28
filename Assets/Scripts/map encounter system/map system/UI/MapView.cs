@@ -71,20 +71,21 @@ namespace map_encounter_system.map_system
         protected void SetOrientation()
         {
             ScrollNonUI scrollNonUi = containerTransform.GetComponent<ScrollNonUI>();
-            float span = MapManager.instance.map.DistanceBetweenFirstAndLastLayers();
+            float minY = nodeViews.Min(nv => nv.transform.localPosition.y);
+            float maxY = nodeViews.Max(nv => nv.transform.localPosition.y);
+            float span = minY - maxY;
             /*NodeView bossNode = nodeViews.FirstOrDefault(node => node.Node.type == TreeEditorHelper.NodeType.Boss);*/
             Debug.Log("Map span in set orientation: " + span + " camera aspect: " + cam.aspect);
 
-            // setting first parent to be right in front of the camera first:
-            containerTransform.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 0f);
-            float offset = orientationOffset;
+            // Anchor container to camera
+            containerTransform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 0f);
+            containerTransform.localPosition += new Vector3(0, orientationOffset, 0);
            
             if (scrollNonUi != null)
             {
-                scrollNonUi.yConstraints.max = 0;
-                scrollNonUi.yConstraints.min = -(span + 2f * offset);
+                scrollNonUi.yConstraints.max = orientationOffset;
+                scrollNonUi.yConstraints.min = orientationOffset + span;
             }
-            containerTransform.transform.localPosition += new Vector3(0, offset, 0);
         }
 
         public void CreateNodes(List<List<Node>> nodes)
@@ -118,27 +119,24 @@ namespace map_encounter_system.map_system
 
         private void AddLineConnection(NodeView from, NodeView to)
         {
-            if (linePrefab == null) return;
-
             GameObject lineObject = Instantiate(linePrefab, containerTransform);
             LineRenderer lineRenderer = lineObject.GetComponent<LineRenderer>();
+    
+            lineRenderer.useWorldSpace = false;
+            lineObject.transform.localPosition = Vector3.zero; // don't move the line object
+
             Vector3 fromPoint = from.transform.position +
                                 (to.transform.position - from.transform.position).normalized * offsetFromNodes;
-
             Vector3 toPoint = to.transform.position +
                               (from.transform.position - to.transform.position).normalized * offsetFromNodes;
-            lineObject.transform.position = fromPoint;
-            lineRenderer.useWorldSpace = true;
-            
+
             lineRenderer.positionCount = linePointsCount;
             for (int i = 0; i < linePointsCount; i++)
             {
-                Vector3 worldPosition = Vector3.Lerp(fromPoint, toPoint, (float)i / (linePointsCount - 1));
-                lineRenderer.SetPosition(i, worldPosition);
+                Vector3 worldPos = Vector3.Lerp(fromPoint, toPoint, (float)i / (linePointsCount - 1));
+                // convert relative to container, not the line object
+                lineRenderer.SetPosition(i, containerTransform.InverseTransformPoint(worldPos));
             }
-
-            /*DottedLineRenderer dottedLine = lineObject.GetComponent<DottedLineRenderer>();
-            if (dottedLine != null) dottedLine.ScaleMaterial();*/
 
             lineConnections.Add(new LineConnection(null, lineRenderer, from, to));
         }

@@ -586,7 +586,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::combat_system.CombatEntityManager
   enemies:
   - {fileID: 54631464}
+  enemiesTransforms:
+  - {fileID: 1377069617}
+  - {fileID: 364426534}
+  - {fileID: 1645528472}
   mainCharacter: {fileID: 760367613}
+  encounterData: {fileID: 0}
 --- !u!1 &348760741
 GameObject:
   m_ObjectHideFlags: 0

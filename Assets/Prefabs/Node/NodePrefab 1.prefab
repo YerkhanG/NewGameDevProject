@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2142727219092798037}
   - component: {fileID: 6228063852814749108}
   - component: {fileID: 8017265513164883886}
+  - component: {fileID: -5569145242288338031}
   m_Layer: 0
   m_Name: NodePrefab 1
   m_TagString: Untagged
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 3205352925482792396, guid: 37e1e5b0adecd914b838b1aa8937f20b, type: 3}
+  m_Sprite: {fileID: -8922666863456568678, guid: 9a106530e57ea2a4a99e3a219cb40780, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -110,7 +111,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 133
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -123,7 +124,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -131,13 +132,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 15.875, y: 22.125}
+    oldSize: {x: 0.48, y: 0.48}
     newSize: {x: 0.34, y: 0.34}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &8017265513164883886
 MonoBehaviour:
@@ -153,3 +154,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.map_system.UI.NodeView
   nodeIconImage: {fileID: 2142727219092798037}
   nodeButton: {fileID: 0}
+--- !u!50 &-5569145242288338031
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5247132623672953238}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -256,6 +256,50 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &272519320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 272519321}
+  - component: {fileID: 272519322}
+  m_Layer: 0
+  m_Name: MapInputHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &272519321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272519320}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 600991677}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &272519322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272519320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f4b728bc77456f859d1ffc3ccda8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.map_system.UI.MapInputHandler
 --- !u!1 &486079993
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +311,6 @@ GameObject:
   - component: {fileID: 486079997}
   - component: {fileID: 486079996}
   - component: {fileID: 486079995}
-  - component: {fileID: 486079994}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -275,23 +318,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &486079994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 486079993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &486079995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,10 +330,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -388,6 +414,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1367683670}
+  - {fileID: 272519321}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &638611874
@@ -422,9 +449,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.map_system.MapView
   nodePrefab: {fileID: 5247132623672953238, guid: b8881a77199a0804ca2b09bde5f1523c, type: 3}
-  mapCanvasTransform: {fileID: 486079997}
+  lastBeatenNode:
+    type: 0
+    encounterData: {fileID: 0}
+    position: {x: 0, y: 0}
+    connections: []
+    isConnectedTo: 0
+  containerTransform: {fileID: 2105384806}
   nodeViews: []
   linePrefab: {fileID: 3747308109784656564, guid: 02c207d95ee66e643a051f5441e9c25f, type: 3}
+  orientationOffset: 0
   linePointsCount: 10
   offsetFromNodes: 0.5
 --- !u!114 &638611876
@@ -441,6 +475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.map_system.manager.MapManager
   mapGenerator: {fileID: 638611877}
   mapView: {fileID: 638611875}
+  cam: {fileID: 198842374}
 --- !u!114 &638611877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,7 +499,7 @@ Transform:
   m_GameObject: {fileID: 638611874}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.68172, y: -0.04157, z: 0}
+  m_LocalPosition: {x: 0.04, y: -0.04157, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -559,6 +594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1367683670}
   - component: {fileID: 1367683671}
+  - component: {fileID: 1367683672}
   m_Layer: 0
   m_Name: EncounterManager
   m_TagString: Untagged
@@ -597,6 +633,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ed14034bf8fdd5e4082d555cdb2a3932, type: 2}
   - {fileID: 11400000, guid: cfd2cb0793637344c936c251770e3943, type: 2}
   - {fileID: 11400000, guid: 76c8b71ec88af374a853c0cd759d4050, type: 2}
+--- !u!114 &1367683672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367683669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c486c9027b4045c9911efb932ec29655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::encounter_system.managers.EncounterSpawner
 --- !u!1 &1975781549
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +720,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975781549}
   m_CullTransparentMesh: 1
+--- !u!1 &2105384803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2105384806}
+  - component: {fileID: 2105384805}
+  - component: {fileID: 2105384807}
+  m_Layer: 0
+  m_Name: NodeContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2105384805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105384803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a39108da1a4c55935cd9d9b85b83cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.map_system.UI.scrolling.ScrollNonUI
+  tweenBackDuration: 0.3
+  tweenBackEase: 0
+  freezeX: 1
+  xConstraints:
+    min: 0
+    max: 0
+  freezeY: 0
+  yConstraints:
+    min: 0
+    max: 0
+--- !u!4 &2105384806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105384803}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.02, y: 0.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2105384807
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105384803}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 30, y: 30, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -681,3 +805,4 @@ SceneRoots:
   - {fileID: 850712616}
   - {fileID: 638611878}
   - {fileID: 600991677}
+  - {fileID: 2105384806}

@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using encounter_system.data;
+using encounter_system.managers;
 using global_events;
+using map_encounter_system.encounter_system.scene_persistance;
 using model.entity;
 using UnityEngine;
 using UnityEngine.XR;
@@ -11,9 +14,11 @@ namespace combat_system
     public class CombatEntityManager : MonoBehaviour
     {
         public List<Enemy> enemies = new List<Enemy>();
+        public List<Transform> enemiesTransforms = new List<Transform>();
         public Entity mainCharacter;
         public static  CombatEntityManager instance;
-
+        //Maybe unecessary
+        public Encounter encounterData;
         private void OnEnable()
         {
             GlobalEvents.OnEnemyDied += HandleEnemyDied;
@@ -33,7 +38,6 @@ namespace combat_system
                 GlobalEvents.RaiseFightWon();
             }
         }
-
         public void Awake()
         {
             if (instance == null)
@@ -43,6 +47,17 @@ namespace combat_system
             else
             {
                 Destroy(gameObject);
+            }
+        }
+
+        private void Start()
+        {
+            Encounter enc = EncounterData.instance.currentEncounter;
+    
+            for (int i = 0; i < enc.enemies.Count; i++)
+            {
+                Instantiate(enc.enemies[i].gameObject, enemiesTransforms[i]);
+                enemies.Add(enc.enemies[i].GetComponent<Enemy>());
             }
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using encounter_system.data;
 using UnityEditor;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 namespace map_encounter_system.map_system.data.node
 {
+    [System.Serializable]
     public class Node
     {
         public Encounter.Rarity type;

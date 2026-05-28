@@ -12,6 +12,7 @@ namespace encounter_system.data
             Hard,
             Elite
         }
+        //doesnt make sense
         public List<GameObject> enemies;
         public Rarity encounterRarity;
         public Sprite encounterBackground;

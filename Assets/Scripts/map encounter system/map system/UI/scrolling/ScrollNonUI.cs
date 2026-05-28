@@ -27,6 +27,7 @@ namespace map_encounter_system.map_system.UI.scrolling
 
         public void OnMouseDown()
         {
+            Debug.Log("ScrollNonUI OnMouseDown fired!"); // Add this
             pointerDisplacement = -transform.position + MouseInWorldCoords();
             transform.DOKill();
             dragging = true;

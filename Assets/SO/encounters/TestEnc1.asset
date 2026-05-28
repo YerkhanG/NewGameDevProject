@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::encounter_system.data.Encounter
   enemies:
   - {fileID: 7915107058387355220, guid: b6de40e8b4a83974e99fbe6b948eff72, type: 3}
+  - {fileID: 7915107058387355220, guid: b6de40e8b4a83974e99fbe6b948eff72, type: 3}
   encounterRarity: 0
   encounterBackground: {fileID: -1253205422398428222, guid: 8bf222102a29acd41955e39c6e2cc948, type: 3}

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using encounter_system.data;
 using map_encounter_system.map_system.data.node;
 using UnityEngine;
 
@@ -30,6 +31,10 @@ namespace map_encounter_system.map_system.data
 
             return/* bossNode.position.y - */firstLayerNode.position.y;
         }
+        /*public Node GetBossNode()
+        {
+            /*return nodes.FirstOrDefault(n => n.FirstOrDefault(x => x.type == Encounter.Rarity.Elite));#1#
+        }*/
 
     }
 }

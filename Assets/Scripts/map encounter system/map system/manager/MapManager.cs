@@ -9,9 +9,10 @@ namespace map_encounter_system.map_system.manager
         public MapView mapView;
         public Map map;
         public static MapManager instance;
-        
+        public Camera cam;
         public void Awake()
         {
+            cam = Camera.main;
             if (instance == null)
             {
                 instance = this;

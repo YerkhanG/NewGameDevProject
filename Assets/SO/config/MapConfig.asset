@@ -15,8 +15,8 @@ MonoBehaviour:
   layers:
   - nodesApartDistance: 8
     DistanceFromPreviousLayer:
-      min: 3
-      max: 6
+      min: 0
+      max: 0
     defaultNodeType: 0
     randomizeNodes: 0.289
   - nodesApartDistance: 8

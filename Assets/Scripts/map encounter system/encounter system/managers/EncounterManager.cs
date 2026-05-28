@@ -15,6 +15,7 @@ namespace encounter_system.managers
         public static EncounterManager instance;
         public void Awake()
         {
+            /*DontDestroyOnLoad(this);*/
             if (instance == null)
             {
                 instance = this;
@@ -24,21 +25,11 @@ namespace encounter_system.managers
                 Destroy(gameObject);
             }
         }
-
-        /*oid OnEnable()
-        {
-            GlobalEvents.OnEncounterPicked += PickRandomEncounterByRarity;
-        }
-
-        private void OnDisable()
-        {
-            GlobalEvents.OnEncounterPicked -= PickRandomEncounterByRarity;
-        }*/
-
+        
         public Encounter PickRandomEncounterByRarity(Encounter.Rarity rarity)
         {
             var pickedEncounters = encounters.Where(encounter => encounter.encounterRarity == rarity).ToList();
-            /*GlobalEvents.RaiseEncounterRarityPicked(pickedEncounters[Random.Range(0, pickedEncounters.Count)])*/;
+            /*GlobalEvents.RaiseEncounterRarityPicked(pickedEncounters[Random.Range(0, pickedEncounters.Count)]);*/
             return  pickedEncounters[Random.Range(0, pickedEncounters.Count)];
         }
         
