@@ -17,8 +17,6 @@ namespace combat_system
         public List<Transform> enemiesTransforms = new List<Transform>();
         public Entity mainCharacter;
         public static  CombatEntityManager instance;
-        //Maybe unecessary
-        public Encounter encounterData;
         private void OnEnable()
         {
             GlobalEvents.OnEnemyDied += HandleEnemyDied;
@@ -52,12 +50,15 @@ namespace combat_system
 
         private void Start()
         {
+            enemies.Clear(); 
             Encounter enc = EncounterData.instance.currentEncounter;
-    
+            Debug.Log("lets check this bitch out: " + enc.enemies.Count);
             for (int i = 0; i < enc.enemies.Count; i++)
             {
-                Instantiate(enc.enemies[i].gameObject, enemiesTransforms[i]);
-                enemies.Add(enc.enemies[i].GetComponent<Enemy>());
+                Debug.Log("Enemy " + i + ": " + enc.enemies[i]);
+                GameObject instance = Instantiate(enc.enemies[i], enemiesTransforms[i]);
+                Enemy enemy = instance.GetComponentInChildren<Enemy>(); // ← from the clone, not the prefab
+                enemies.Add(enemy);
             }
         }
 
