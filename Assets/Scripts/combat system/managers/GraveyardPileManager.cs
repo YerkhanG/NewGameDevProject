@@ -8,35 +8,61 @@ using UnityEngine;
 
 namespace combat_system
 {
+    //TODO: I would guess i need to rebind the container after scene change(maybe even other references too)
+    // the issue wasnt with the references , it was with the event not unsubbing after the first instance of the fight scene 
     public class GraveyardPileManager : MonoBehaviour
     {
         [SerializeField] GameObject cardContainer;
         public static GraveyardPileManager instance;
         public List<CardData> graveyardPile =new List<CardData>();
+        
         public void Awake()
         {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
+            if (instance != null && instance != this)
             {
                 Destroy(gameObject);
+                return;
             }
+            instance = this;
+            // Do NOT override cardContainer here.
+            if (cardContainer == null)
+                Debug.LogError("CardContainer not assigned in Inspector!");
         }
-
+        
         private void OnEnable()
         {
             GlobalEvents.OnEndTurnButtonPressed += ShuffleFromHand;
+        }
+        private void OnDisable()
+        {
+            GlobalEvents.OnEndTurnButtonPressed -= ShuffleFromHand;
+        }
+        private void OnDestroy()
+        {
+            if (instance == this)
+                instance = null;
         }
 
         //after the end trun button is pressed , or the endturn is in general proced
         private void ShuffleFromHand()
         {
-            foreach (Transform child in cardContainer.transform)
+            if (cardContainer == null)
             {
-                SingleCardController card = child.gameObject.GetComponent<SingleCardController>();
-                TakeFromHand(card);
+                cardContainer = GameObject.FindWithTag("CardContainer");
+                if (cardContainer == null)
+                {
+                    Debug.LogError("Still no card container!");
+                    return;
+                }
+            }
+            
+            if (cardContainer != null)
+            {
+                foreach (Transform child in cardContainer.transform)
+                {
+                    SingleCardController card = child.gameObject.GetComponent<SingleCardController>();
+                    TakeFromHand(card);
+                }   
             }
         }
 
