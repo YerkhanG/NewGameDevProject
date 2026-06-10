@@ -9,7 +9,10 @@ namespace persistence_system.model
     [Serializable]
     public class SaveData
     {
+        //this is  unclockables , I think . Probably a list of all cards and chars currently in posession ,
+        //i can just save all of em here. Some randomized mechanics will probably use all of these in a different manager
         public List<CardData> cards = new List<CardData>();
         public List<CharData> characters = new List<CharData>();
+        public PlayerState playerState;
     }
 }

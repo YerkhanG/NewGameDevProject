@@ -266,7 +266,7 @@ namespace map_encounter_system.map_system
                 if (rightCol < config.widthNodeCount && horizontalDistance <= verticalDistance)
                     candidateCols.Add(rightCol);
 
-                int randomCandidateIndex = Random.Range(0, candidateCols.Count);
+                int randomCandidateIndex = Random.Range(0, candidateCols.Count - 1);
                 int candidateCol = candidateCols[randomCandidateIndex];
                 Vector2Int nextPoint = new Vector2Int(candidateCol, row);
 

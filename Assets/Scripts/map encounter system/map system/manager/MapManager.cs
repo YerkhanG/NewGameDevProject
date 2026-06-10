@@ -1,4 +1,6 @@
 using map_encounter_system.map_system.data;
+using persistence_system.manager;
+using persistence_system.model;
 using UnityEngine;
 
 namespace map_encounter_system.map_system.manager
@@ -17,7 +19,7 @@ namespace map_encounter_system.map_system.manager
             {
                 instance = this;
             }
-            else
+            else 
             {
                 Destroy(gameObject);
             }
@@ -25,6 +27,19 @@ namespace map_encounter_system.map_system.manager
         void Start()
         {
             map =  mapGenerator.GenerateMap();
+            /*MapSaveData mapData = PersistenceManager.instance.LoadSceneData();
+            if (mapData.map != null)
+            {
+                Debug.Log("Loaded SceneData");
+                map =  mapData.map;
+            }
+            else
+            {
+                Debug.Log("Saved SceneData");
+                map =  mapGenerator.GenerateMap();
+                MapSaveData data = new MapSaveData(map);
+                PersistenceManager.instance.SaveSceneData(data);
+            }*/
             mapView.ShowMap(map);
         }
     }
