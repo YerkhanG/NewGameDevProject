@@ -452,7 +452,6 @@ MonoBehaviour:
   nodePrefab: {fileID: 5247132623672953238, guid: b8881a77199a0804ca2b09bde5f1523c, type: 3}
   lastBeatenNode:
     type: 0
-    encounterData: {fileID: 0}
     position: {x: 0, y: 0}
     connections: []
     isConnectedTo: 0
@@ -840,9 +839,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a39108da1a4c55935cd9d9b85b83cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.map_system.UI.scrolling.ScrollNonUI
-  tweenBackDuration: 0.3
-  tweenBackEase: 0
-  freezeX: 1
+  tweenBackDuration: 5
+  tweenBackEase: 7
+  freezeX: 0
   xConstraints:
     min: 0
     max: 0
@@ -884,7 +883,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 30, y: 30, z: 1}
+  m_Size: {x: 100, y: 100, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

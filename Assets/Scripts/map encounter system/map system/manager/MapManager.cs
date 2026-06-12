@@ -26,20 +26,18 @@ namespace map_encounter_system.map_system.manager
         }
         void Start()
         {
-            map =  mapGenerator.GenerateMap();
-            /*MapSaveData mapData = PersistenceManager.instance.LoadSceneData();
-            if (mapData.map != null)
+            Map mapData = PersistenceManager.instance.LoadSceneData();
+            if (mapData != null)
             {
                 Debug.Log("Loaded SceneData");
-                map =  mapData.map;
+                map =  mapData;
             }
             else
             {
                 Debug.Log("Saved SceneData");
                 map =  mapGenerator.GenerateMap();
-                MapSaveData data = new MapSaveData(map);
-                PersistenceManager.instance.SaveSceneData(data);
-            }*/
+                PersistenceManager.instance.SaveSceneData(map);
+            }
             mapView.ShowMap(map);
         }
     }

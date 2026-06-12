@@ -43,13 +43,31 @@ MonoBehaviour:
       max: 6
     defaultNodeType: 0
     randomizeNodes: 0.289
-  widthNodeCount: 3
-  layerCount: 5
+  - nodesApartDistance: 8
+    DistanceFromPreviousLayer:
+      min: 3
+      max: 6
+    defaultNodeType: 0
+    randomizeNodes: 0.289
+  - nodesApartDistance: 8
+    DistanceFromPreviousLayer:
+      min: 3
+      max: 6
+    defaultNodeType: 0
+    randomizeNodes: 0.289
+  - nodesApartDistance: 8
+    DistanceFromPreviousLayer:
+      min: 3
+      max: 6
+    defaultNodeType: 0
+    randomizeNodes: 0.289
+  widthNodeCount: 5
+  layerCount: 8
   numOfPreBossNodes:
-    min: 3
-    max: 3
+    min: 5
+    max: 5
   numOfStartingNodes:
-    min: 3
-    max: 3
+    min: 5
+    max: 5
   extraPaths: 1
   randomTypes: 000000000100000002000000
