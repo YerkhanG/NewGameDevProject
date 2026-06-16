@@ -31,6 +31,15 @@ namespace map_encounter_system.map_system.data
 
             return/* bossNode.position.y - */firstLayerNode.position.y;
         }
+        
+        public Node GetNode(Vector2Int p)
+        {
+            foreach (var row in nodes)
+                foreach (var node in row)
+                    if (node.gridPosition == p) return node;
+                        return null;
+        }
+        
         /*public Node GetBossNode()
         {
             /*return nodes.FirstOrDefault(n => n.FirstOrDefault(x => x.type == Encounter.Rarity.Elite));#1#

@@ -39,6 +39,7 @@ namespace map_encounter_system.map_system.manager
                 PersistenceManager.instance.SaveSceneData(map);
             }
             mapView.ShowMap(map);
+            mapView.UpdateNodeStates(map);
         }
     }
 }

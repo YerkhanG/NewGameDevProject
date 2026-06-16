@@ -9,24 +9,32 @@ namespace map_encounter_system.map_system.data.node
     {
         public Encounter.Rarity type;
         public Vector2 position;
-        public List<Node> connections = new List<Node>();
+        public Vector2Int gridPosition;
+        public List<Vector2Int> connections2 = new();
         public bool isConnectedTo = false;
         public void AddConnection(Node otherNode)
         {
-            if (!connections.Contains(otherNode))
+            if (!connections2.Contains(otherNode.gridPosition))
             {
-                connections.Add(otherNode);
+                connections2.Add(otherNode.gridPosition);
+                otherNode.isConnectedTo = true;
             }
         }
-        public Node(Encounter.Rarity type, Encounter data, Vector2 pos) 
+        public Node(Encounter.Rarity type, Encounter data,  Vector2Int gridPosition) 
         {
             this.type = type;
-            position = pos;
+            this.gridPosition = gridPosition;
+        }
+        public Node(Encounter.Rarity type, Encounter data, Vector2 position, Vector2Int gridPosition) 
+        {
+            this.type = type;
+            this.gridPosition = gridPosition;
+            this.position = position;
         }
 
         public bool HasNoConnections()
         {
-            return connections.Count == 0;
+            return connections2.Count == 0;
         }
 
     }

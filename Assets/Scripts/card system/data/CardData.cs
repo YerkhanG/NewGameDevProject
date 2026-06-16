@@ -8,6 +8,7 @@ namespace card_system.data
     [CreateAssetMenu(fileName = "New Card Data", menuName = "Card/Card Data")]
     public class CardData : ScriptableObject
     {
+        public string id;
         //these will played in a loop
         [SerializeField]public List<CardEffect> cardEffects;
         [SerializeField]public string cardName;

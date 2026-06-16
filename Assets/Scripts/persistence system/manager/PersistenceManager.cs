@@ -70,7 +70,7 @@ namespace persistence_system.manager
             var nodesByIdx = new List<Node>();
             foreach (var nodeDto in dto.allNodes)
             {
-                var node = new Node(nodeDto.type, null, nodeDto.position);
+                var node = new Node(nodeDto.type, null, nodeDto.position ,nodeDto.gridPosition);
                 node.isConnectedTo = nodeDto.isConnectedTo;
                 // connections will be added later
                 nodesByIdx.Add(node);
@@ -120,7 +120,8 @@ namespace persistence_system.manager
                         type = node.type,
                         position = node.position,
                         connectionIndices = new List<int>(),
-                        isConnectedTo = node.isConnectedTo
+                        isConnectedTo = node.isConnectedTo,
+                        gridPosition = node.gridPosition,
                     });
                 }
             }
@@ -132,9 +133,24 @@ namespace persistence_system.manager
                 {
                     int nodeIdx = indexMap[node];
                     var dto = allNodes[nodeIdx];
-                    foreach (var conn in node.connections)
+                    foreach (var gridPos in node.connections2)
                     {
-                        dto.connectionIndices.Add(indexMap[conn]);
+                        Node connectedNode = null;
+                        foreach (var searchRow in map.nodes)
+                        {
+                            foreach (var n in searchRow)
+                            {
+                                if (n.gridPosition == gridPos)
+                                {
+                                    connectedNode = n;
+                                    break;
+                                }
+                            }
+                            if (connectedNode != null) break;
+                        }
+            
+                        if (connectedNode != null)
+                            dto.connectionIndices.Add(indexMap[connectedNode]);
                     }
                 }
             }

@@ -10,23 +10,46 @@ using UnityEngine.UI;
 
 namespace map_encounter_system.map_system.UI
 {
+    public enum NodeStates
+    {
+        Locked , 
+        Visited,
+        Attainable
+    }
     public class NodeView : MonoBehaviour
+    {
+        public SpriteRenderer nodeIconImage; // Assign this in your Inspector
+        public Node Node;
+
+        public void Initialize(Node node)
         {
-            public SpriteRenderer nodeIconImage; // Assign this in your Inspector
-            public Button nodeButton;
-            public Node Node;
-            public void Initialize(Node node)
+            Node = node;
+        }
+
+        public void SetInteractable(bool isClickable)
+        {
+
+            Color c = nodeIconImage.color;
+            c.a = isClickable ? 1f : 0.3f;
+            nodeIconImage.color = c;
+        }
+        
+        public void SetState(NodeStates state)
+        {
+            switch (state)
             {
-                Node = node;
-            }
-            
-            public void SetInteractable(bool isClickable)
-            {
-                nodeButton.interactable = isClickable;
-                
-                Color c =  nodeIconImage.color;
-                c.a = isClickable ? 1f : 0.3f;
-                nodeIconImage.color = c;
+                case NodeStates.Locked:
+                    SetInteractable(false);
+                    break;
+                case NodeStates.Visited:
+                    SetInteractable(false);
+                    // optionally change color/sprite to visited look
+                    break;
+                case NodeStates.Attainable:
+                    SetInteractable(true);
+                    break;
             }
         }
+
+    }
 }

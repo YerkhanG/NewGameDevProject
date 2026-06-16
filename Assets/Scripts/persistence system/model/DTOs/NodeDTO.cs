@@ -12,5 +12,6 @@ namespace persistence_system.model
         public Vector2 position;
         public List<int> connectionIndices;  // indices into the flat node list
         public bool isConnectedTo;
+        public Vector2Int gridPosition;
     }
 }

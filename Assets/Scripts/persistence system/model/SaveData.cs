@@ -11,7 +11,7 @@ namespace persistence_system.model
     {
         //this is  unclockables , I think . Probably a list of all cards and chars currently in posession ,
         //i can just save all of em here. Some randomized mechanics will probably use all of these in a different manager
-        public List<CardData> cards = new List<CardData>();
+        public List<CardDTO> cards = new List<CardDTO>();
         public List<CharData> characters = new List<CharData>();
         public PlayerState playerState;
     }

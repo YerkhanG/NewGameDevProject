@@ -61,7 +61,7 @@ namespace map_encounter_system.map_system
             {
                 foreach (Node node in list.ToList())
                 {
-                    if (node.connections.Count == 0 && node.isConnectedTo == false)
+                    if (node.connections2.Count == 0 && node.isConnectedTo == false)
                     {
                         list.Remove(node);
                     }
@@ -133,7 +133,7 @@ namespace map_encounter_system.map_system
                    Encounter encounter = EncounterManager.instance.PickRandomEncounterByRarity(nodeType);
 
                    // 3. Create the Node as a Data Container
-                   Node node = new Node(nodeType, encounter, new Vector2(j, i))
+                   Node node = new Node(nodeType, encounter, new Vector2Int(j, i))
                    {
                        position = new Vector2(-offset + j * layer.nodesApartDistance,-3 + GetDistanceToLayer(i))
                    };
@@ -202,8 +202,8 @@ namespace map_encounter_system.map_system
                     if (topRight == null || topRight.HasNoConnections()) continue;
 
                     // Debug.Log("Inspecting node for connections: " + node.point);
-                    if (!node.connections.Any(element => element.Equals(topRight))) continue;
-                    if (!right.connections.Any(element => element.Equals(top))) continue;
+                    if (!node.connections2.Any(element => element.Equals(topRight.gridPosition))) continue;
+                    if (!right.connections2.Any(element => element.Equals(top.gridPosition))) continue;
 
                     Debug.Log("Found a cross node: " + node);
 
@@ -218,19 +218,19 @@ namespace map_encounter_system.map_system
                     {
                         // remove both cross connections:
                         // a) 
-                        node.connections.Remove(topRight);
+                        node.connections2.Remove(topRight.gridPosition);
                         // b) 
-                        right.connections.Remove(top);
+                        right.connections2.Remove(top.gridPosition);
                     }
                     else if (rnd < 0.6f)
                     {
                         // a) 
-                        node.connections.Remove(top);
+                        node.connections2.Remove(top.gridPosition);
                     }
                     else
                     {
                         // b) 
-                        right.connections.Remove(topRight);
+                        right.connections2.Remove(topRight.gridPosition);
                     }
                 }
         }

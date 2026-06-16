@@ -42,6 +42,26 @@ namespace map_encounter_system.map_system
             SetOrientation();
             /*SetAttainableNodes();*/
         }
+        
+        public void UpdateNodeStates(Map map)
+        {
+            foreach (NodeView nv in nodeViews)
+            {
+                if (map.path.Contains(nv.Node.gridPosition))
+                    nv.SetState(NodeStates.Visited);
+                else if (IsAttainable(nv.Node, map))
+                    nv.SetState(NodeStates.Attainable);
+                else
+                    nv.SetState(NodeStates.Locked);
+            }
+        }
+        
+        private bool IsAttainable(Node node, Map map)
+        {
+            if (map.path.Count == 0) return node.gridPosition.y == 0;
+            Node current = map.GetNode(map.path[^1]);
+            return current.connections2.Contains(node.gridPosition);
+        }
 
         /*private void SetAttainableNodes()
         {
@@ -104,17 +124,18 @@ namespace map_encounter_system.map_system
         {
             foreach (NodeView nodeView in nodeViews)
             {
-                Debug.Log("connections of a node about to be drawn: " + nodeView.Node.connections.Count);
-                foreach (Node targetNode in  nodeView.Node.connections)
+                Debug.Log("connections of a node about to be drawn: " + nodeView.Node.connections2.Count);
+                foreach (Vector2Int target in  nodeView.Node.connections2)
                 {
-                    AddLineConnection(nodeView, GetNode(targetNode));
+                    Debug.Log($"  -> {target}");
+                    AddLineConnection(nodeView, GetNode(target));
                 }
             }
         }
 
-        private NodeView GetNode(Node targetNode)
+        private NodeView GetNode(Vector2Int pos)
         {
-            return nodeViews.Find(v => v.Node == targetNode);
+            return nodeViews.Find(v => v.Node.gridPosition == pos);
         }
 
         private void AddLineConnection(NodeView from, NodeView to)
