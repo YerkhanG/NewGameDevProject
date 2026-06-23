@@ -2,9 +2,13 @@ using System.Collections.Generic;
 using persistence_system.model;
 using UnityEngine;
 using System.IO;
+using System.Linq;
+using card_system.data;
+using combat_system;
 using map_encounter_system.map_system.data;
 using map_encounter_system.map_system.data.node;
 using Newtonsoft.Json;
+using NUnit.Framework;
 using persistence_system.helpers;
 
 namespace persistence_system.manager
@@ -24,48 +28,75 @@ namespace persistence_system.manager
             }
             DontDestroyOnLoad(gameObject);
         }
-        public void SaveSceneData(Map saveData)
+        
+        public void SaveSceneData(Map map = null, List<CardData> cards = null)
         {
-            //Save map , playterstate
-            var mapToSave = ToDTO(saveData);
+            SaveData existing = LoadRawSaveData() ?? new SaveData();
+
+            if (map != null)
+                existing.map = ToMapDTO(map);
+
+            if (cards != null)
+                existing.cards = ToCardDTO(cards);
+
             var settings = new JsonSerializerSettings();
             settings.Converters.Add(new Vector2Converter());
-            string json =  JsonConvert.SerializeObject(mapToSave, settings);
+            string json = JsonConvert.SerializeObject(existing, settings);
             File.WriteAllText(Application.persistentDataPath + "/sceneSaveData.json", json);
             Debug.Log("Game Saved!");
         }
 
-        public void SaveSessionData()
-        {
-            //unclokced stuff 
-            
-        }
-
-        public void LoadSessionData()
-        {
-            
-        }
-
-        public Map LoadSceneData()
+        private SaveData LoadRawSaveData()
         {
             string path = Application.persistentDataPath + "/sceneSaveData.json";
-            if (File.Exists(path))
-            {
-                string json =  File.ReadAllText(path);
-                MapDTO loadedDto = JsonConvert.DeserializeObject<MapDTO>(json, new Vector2Converter());
-                Debug.Log("checing the loaded stuff : " + loadedDto.allNodes);
-                Map restoredMap = FromDTO(loadedDto);
-                Debug.Log("Game Loaded!");
-                return restoredMap;
-            }
-            else
-            {
-                return null;
-            }
+            if (!File.Exists(path)) return null;
+            string json = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<SaveData>(json, new Vector2Converter());
         }
-        
-        public Map FromDTO(MapDTO dto)
+
+        public LoadedData LoadSceneData()
         {
+            SaveData raw = LoadRawSaveData();
+            if (raw == null) return null;
+
+            return new LoadedData
+            {
+                loadedMap = FromMapDTO(raw.map),
+                loadedCards = FromCardDTO(raw.cards)
+            };
+        }
+
+        public List<CardDTO> ToCardDTO(List<CardData> cardDatas)
+        {
+            List<CardDTO> cards = new List<CardDTO>();
+            foreach (CardData c in cardDatas)
+            {
+                CardDTO cardDTO = new CardDTO()
+                {
+                    id = c.id,
+                    cardName = c.name,
+                };
+                cards.Add(cardDTO);
+            }
+            return cards;
+        }
+        //need card registry for this to function
+        public List<CardData> FromCardDTO(List<CardDTO> cards)
+        {
+            if (cards == null) return new List<CardData>();
+    
+            List<CardData> cardData = new List<CardData>();
+            foreach (CardDTO cardDTO in cards)
+            {
+                CardData card = CardRegistry.instance.GetCard(cardDTO.id);
+                if (card == null) Debug.LogWarning("Card not found for id: " + cardDTO.id);
+                else cardData.Add(card);
+            } 
+            return cardData;
+        }
+        public Map FromMapDTO(MapDTO dto)
+        {
+            if (dto == null) return null;
             // Recreate Node objects from DTOs, but without connections yet
             var nodesByIdx = new List<Node>();
             foreach (var nodeDto in dto.allNodes)
@@ -102,7 +133,7 @@ namespace persistence_system.manager
 
             return new Map(dto.configName, dto.bossNodeName, nodeGrid, dto.path);
         }
-        public MapDTO ToDTO(Map map)
+        public MapDTO ToMapDTO(Map map)
         {
             // Flatten the 2D nodes list and assign an index to each node
             var allNodes = new List<NodeDTO>();

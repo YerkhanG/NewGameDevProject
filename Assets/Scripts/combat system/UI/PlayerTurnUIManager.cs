@@ -1,5 +1,7 @@
 using System;
+using card_system.data;
 using global_events;
+using persistence_system.manager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -96,6 +98,11 @@ namespace combat_system.UI
 
         public void HandleFightWon()
         {
+            /*//also need to take cards from hand 
+            GraveyardPileManager.instance.ShuffleFromHand();*/
+            //take from graveyard
+            DeckManager.instance.ReshuffleDeck();
+            PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck);
             UIDeactivate();
             victoryPanel.SetActive(true);
         }

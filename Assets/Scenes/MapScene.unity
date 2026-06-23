@@ -300,6 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f4b728bc77456f859d1ffc3ccda8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.map_system.UI.MapInputHandler
+  lockAfterSelect: 0
+  enterNodeDelay: 1
 --- !u!1 &486079993
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +418,7 @@ Transform:
   - {fileID: 1367683670}
   - {fileID: 272519321}
   - {fileID: 966504863}
+  - {fileID: 997882030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &638611874
@@ -453,7 +456,8 @@ MonoBehaviour:
   lastBeatenNode:
     type: 0
     position: {x: 0, y: 0}
-    connections: []
+    gridPosition: {x: 0, y: 0}
+    connections2: []
     isConnectedTo: 0
   containerTransform: {fileID: 2105384806}
   nodeViews: []
@@ -629,6 +633,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.encounter_system.scene_persistance.EncounterData
   currentEncounter: {fileID: 0}
+--- !u!1 &997882029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 997882030}
+  - component: {fileID: 997882031}
+  m_Layer: 0
+  m_Name: CardRegistry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &997882030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997882029}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 600991677}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &997882031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997882029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16aa8916717744c2834aeb9aeaea7d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::combat_system.CardRegistry
+  allCards:
+  - {fileID: 11400000, guid: 99c40c365babed147a87d3e4639ec871, type: 2}
+  - {fileID: 11400000, guid: ce40d3e987a8c59458850ed71b0637d6, type: 2}
+  - {fileID: 11400000, guid: 2c49b88204ee5da43b83f6160cc35a87, type: 2}
+  - {fileID: 11400000, guid: 831794eb1cfd2764cbcd1093c97f15f9, type: 2}
 --- !u!1 &1367683669
 GameObject:
   m_ObjectHideFlags: 0

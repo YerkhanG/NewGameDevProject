@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using card_system.data;
 using encounter_system.data;
 using encounter_system.managers;
 using global_events;

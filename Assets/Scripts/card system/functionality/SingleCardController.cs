@@ -106,7 +106,6 @@ namespace card_system.UI
         {
             if (ManaCountManager.instance.TryToSpendMana(int.Parse(manaCost.text)))
             {
-                Debug.Log("Mana spend successful");
                 EffectContext context = new EffectContext
                 {
                     caster = (Player)CombatEntityManager.instance.mainCharacter,
@@ -118,16 +117,16 @@ namespace card_system.UI
                 {
                     effect.Execute(context);
                 }
+
+                // Add to graveyard data immediately, don't wait for animation
+                GraveyardPileManager.instance.graveyardPile.Add(cardData);
+
                 var animationController = GetComponent<CardAnimationController>();
                 Vector3 targetPosition = target == null ? transform.position : target.transform.position;
                 animationController.AnimatePlay(targetPosition, () =>
                 {
-                    GraveyardPileManager.instance.TakeFromHand(this);
+                    Destroy(gameObject); // just destroy, data already saved
                 });
-            }
-            else
-            {
-                Debug.Log("Mana Spend Failed");
             }
         }
         private void ReturnCard()

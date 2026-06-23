@@ -19,6 +19,10 @@ namespace global_events
         public static event Action<Enemy> OnEnemyDied;
         public static event Action OnFightWon;
         
+        public static event Action OnCardRewardPicked;
+        
+        public static void RaiseCardRewardPicked() => OnCardRewardPicked?.Invoke();
+        
         public static void RaiseAttackEffectPlayed(Entity target)
         {
             OnAttackEffectPlayed?.Invoke(target);

@@ -26,11 +26,13 @@ namespace map_encounter_system.map_system.manager
         }
         void Start()
         {
-            Map mapData = PersistenceManager.instance.LoadSceneData();
-            if (mapData != null)
+            //unoptimized bullshit
+            LoadedData loadedData = PersistenceManager.instance.LoadSceneData();
+            /*Map mapData = PersistenceManager.instance.LoadSceneData();*/
+            if (loadedData != null && loadedData.loadedMap != null)
             {
                 Debug.Log("Loaded SceneData");
-                map =  mapData;
+                map = loadedData.loadedMap;
             }
             else
             {

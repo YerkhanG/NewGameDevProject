@@ -15,7 +15,7 @@ namespace encounter_system.managers
         public static EncounterManager instance;
         public void Awake()
         {
-            /*DontDestroyOnLoad(this);*/
+            DontDestroyOnLoad(this);
             if (instance == null)
             {
                 instance = this;

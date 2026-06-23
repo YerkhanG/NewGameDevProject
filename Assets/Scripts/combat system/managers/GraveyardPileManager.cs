@@ -44,7 +44,7 @@ namespace combat_system
         }
 
         //after the end trun button is pressed , or the endturn is in general proced
-        private void ShuffleFromHand()
+        public void ShuffleFromHand()
         {
             if (cardContainer == null)
             {
@@ -70,10 +70,8 @@ namespace combat_system
         {
             if (card != null)
             {
-                CardData cardData = card.GetCardData;
-                graveyardPile.Add(cardData);
+                graveyardPile.Add(card.GetCardData);
                 var animationController = card.GetComponent<CardAnimationController>();
-                /*card.transform.SetParent(null);*/
                 animationController.AnimateDiscard(transform.position);
             }
         }

@@ -4,6 +4,8 @@ using card_system.animation;
 using card_system.data;
 using card_system.UI;
 using global_events;
+using persistence_system.manager;
+using persistence_system.model;
 using UnityEngine;
 
 namespace combat_system
@@ -25,10 +27,23 @@ namespace combat_system
                 Destroy(gameObject);
             }
         }
+
+        public void Start()
+        {
+            
+            //TODO: Check if works 
+            //unoptimized bullshit
+            LoadedData loadedData = PersistenceManager.instance.LoadSceneData();
+            /*Map mapData = PersistenceManager.instance.LoadSceneData();*/
+            if (loadedData != null && loadedData.loadedCards != null && loadedData.loadedCards.Count > 0)
+            {
+                deck = loadedData.loadedCards;
+            }
+        }
         public void ReshuffleDeck()
         {
             List<CardData> shuffledCards = GraveyardPileManager.instance.GetShuffledGraveyardPile();
-            deck = shuffledCards;
+            deck.AddRange(shuffledCards);
         }
 
         public void TryToDrawCard()
@@ -39,9 +54,8 @@ namespace combat_system
         public void Draw()
         {
             if (deck.Count == 0)
-            {
                 ReshuffleDeck();
-            }
+
             if (deck.Count > 0)
             {
                 var cardData = deck[0];

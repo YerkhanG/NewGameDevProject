@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde3c79aa36747ccbd9b723b80cf7a80, type: 3}
   m_Name: Card2 1
   m_EditorClassIdentifier: Assembly-CSharp::card_system.data.CardData
+  id: single_strike
   cardEffects:
   - {fileID: 11400000, guid: 9bafc6fada0314b4095dd0b0642edbe3, type: 2}
   cardName: Damage Card R
