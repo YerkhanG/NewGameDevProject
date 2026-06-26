@@ -30,10 +30,13 @@ namespace combat_system
 
         private void HandleEnemyDied(Enemy enemy)
         {
-            Debug.Log("Checking the enemies");
+            if (!enemies.Contains(enemy))
+                return;
+
             enemies.Remove(enemy);
             if (enemies.Count == 0)
             {
+                MainTurnBasedManager.instance.SetGameOver();
                 GlobalEvents.RaiseFightWon();
             }
         }
@@ -53,10 +56,8 @@ namespace combat_system
         {
             enemies.Clear(); 
             Encounter enc = EncounterData.instance.currentEncounter;
-            Debug.Log("lets check this bitch out: " + enc.enemies.Count);
             for (int i = 0; i < enc.enemies.Count; i++)
             {
-                Debug.Log("Enemy " + i + ": " + enc.enemies[i]);
                 GameObject instance = Instantiate(enc.enemies[i], enemiesTransforms[i]);
                 Enemy enemy = instance.GetComponentInChildren<Enemy>(); // ← from the clone, not the prefab
                 enemies.Add(enemy);

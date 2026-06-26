@@ -152,8 +152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b36807f0b32451f95b69f32f1c4c808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::map_encounter_system.map_system.UI.NodeView
+  normalSprite: {fileID: -8922666863456568678, guid: 9a106530e57ea2a4a99e3a219cb40780, type: 3}
+  hardSprite: {fileID: -8410314800484329486, guid: 1c903640cc209f44c8305cbf1ae511f7, type: 3}
+  eliteSprite: {fileID: 5656688824470608303, guid: 92c9ed25ff04120428653e504e324e70, type: 3}
   nodeIconImage: {fileID: 2142727219092798037}
-  nodeButton: {fileID: 0}
+  Node:
+    type: 0
+    position: {x: 0, y: 0}
+    gridPosition: {x: 0, y: 0}
+    connections2: []
+    isConnectedTo: 0
 --- !u!50 &-5569145242288338031
 Rigidbody2D:
   serializedVersion: 5

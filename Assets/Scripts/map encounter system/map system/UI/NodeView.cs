@@ -18,12 +18,22 @@ namespace map_encounter_system.map_system.UI
     }
     public class NodeView : MonoBehaviour
     {
+        [SerializeField] private Sprite normalSprite;
+        [SerializeField] private Sprite hardSprite;
+        [SerializeField] private Sprite eliteSprite;
         public SpriteRenderer nodeIconImage; // Assign this in your Inspector
         public Node Node;
 
         public void Initialize(Node node)
         {
             Node = node;
+            nodeIconImage.sprite = node.type switch
+            {
+                Encounter.Rarity.Normal => normalSprite,
+                Encounter.Rarity.Hard => hardSprite,
+                Encounter.Rarity.Elite => eliteSprite,
+                _ => normalSprite
+            };
         }
 
         public void SetInteractable(bool isClickable)

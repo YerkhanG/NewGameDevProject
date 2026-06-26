@@ -1,5 +1,6 @@
 using System;
 using card_system.data;
+using card_system.UI;
 using global_events;
 using persistence_system.manager;
 using TMPro;
@@ -22,7 +23,9 @@ namespace combat_system.UI
         [SerializeField]private GameObject panel;
         [SerializeField]private GameObject deathPanel;
         [SerializeField]private GameObject victoryPanel;
-
+        //purely for endfight card consolidation
+        private bool hasConsolidated = false;
+        private int fightWonCallCount = 0; 
         public void OnEnable()
         {
             GlobalEvents.OnFightWon += HandleFightWon;
@@ -98,10 +101,15 @@ namespace combat_system.UI
 
         public void HandleFightWon()
         {
-            /*//also need to take cards from hand 
-            GraveyardPileManager.instance.ShuffleFromHand();*/
-            //take from graveyard
-            DeckManager.instance.ReshuffleDeck();
+            if (hasConsolidated)
+            {
+                Debug.LogWarning("[FightWon] Already consolidated – ignoring duplicate.");
+                return;
+            }
+            hasConsolidated = true;
+            
+            DeckManager.instance.ConsolidateAllCards();
+
             PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck);
             UIDeactivate();
             victoryPanel.SetActive(true);

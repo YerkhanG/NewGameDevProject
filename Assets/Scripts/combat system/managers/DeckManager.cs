@@ -19,33 +19,34 @@ namespace combat_system
         public void Awake()
         {
             if (instance == null)
-            {
                 instance = this;
-            }
             else
-            {
                 Destroy(gameObject);
-            }
-        }
 
-        public void Start()
-        {
-            
-            //TODO: Check if works 
-            //unoptimized bullshit
+            // Load saved deck immediately
             LoadedData loadedData = PersistenceManager.instance.LoadSceneData();
-            /*Map mapData = PersistenceManager.instance.LoadSceneData();*/
             if (loadedData != null && loadedData.loadedCards != null && loadedData.loadedCards.Count > 0)
             {
                 deck = loadedData.loadedCards;
             }
+            else
+            {
+                Debug.LogWarning($"[DeckManager] No saved deck – keeping inspector/empty list. Count: {deck.Count}");
+            }
         }
+        
         public void ReshuffleDeck()
         {
             List<CardData> shuffledCards = GraveyardPileManager.instance.GetShuffledGraveyardPile();
             deck.AddRange(shuffledCards);
         }
-
+        // fight-end: consolidate everything into deck for saving
+        public void ConsolidateAllCards()
+        {
+            GraveyardPileManager.instance.ShuffleFromHand();
+            deck.AddRange(GraveyardPileManager.instance.graveyardPile);
+            GraveyardPileManager.instance.graveyardPile.Clear();
+        }
         public void TryToDrawCard()
         {
             Draw();

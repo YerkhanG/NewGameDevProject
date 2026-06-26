@@ -12,6 +12,14 @@ public class MainTurnBasedManager :  MonoBehaviour
     public static MainTurnBasedManager instance;
     public int turnCounter;
     private bool isPlayerTurn;
+
+    private bool isGameOver = false;
+        
+    public void SetGameOver()
+    {
+        isGameOver = true;
+        CancelInvoke(nameof(StartPlayerTurn));
+    }
     public void Awake()
     {
         turnCounter = 0;
@@ -37,6 +45,7 @@ public class MainTurnBasedManager :  MonoBehaviour
 
     private void HandleEndTurnButtonPressed()
     {
+        if (isGameOver) return;
         if (isPlayerTurn)
         {
             EndPlayerTurn();
@@ -82,14 +91,15 @@ public class MainTurnBasedManager :  MonoBehaviour
         Debug.Log("mc STATE CHECKING : " + CheckCombatState());
         if (!CheckCombatState())
         {
-            Debug.Log("Game ended you dead");
             EndCombat();
+            return; 
         }
         Invoke(nameof(StartPlayerTurn),3);
     }
 
     private void EndCombat()
     {
+        CancelInvoke(nameof(StartPlayerTurn));
         PlayerTurnUIManager.instance.DeathScreen();
     }
 

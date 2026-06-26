@@ -12,7 +12,7 @@ namespace combat_system
     // the issue wasnt with the references , it was with the event not unsubbing after the first instance of the fight scene 
     public class GraveyardPileManager : MonoBehaviour
     {
-        [SerializeField] GameObject cardContainer;
+        [SerializeField] public GameObject cardContainer;
         public static GraveyardPileManager instance;
         public List<CardData> graveyardPile =new List<CardData>();
         
@@ -46,23 +46,14 @@ namespace combat_system
         //after the end trun button is pressed , or the endturn is in general proced
         public void ShuffleFromHand()
         {
-            if (cardContainer == null)
+            foreach (Transform child in cardContainer.transform)
             {
-                cardContainer = GameObject.FindWithTag("CardContainer");
-                if (cardContainer == null)
+                var ctrl = child.GetComponent<SingleCardController>();
+                if (ctrl != null)
                 {
-                    Debug.LogError("Still no card container!");
-                    return;
+                    graveyardPile.Add(ctrl.GetCardData);
+                    Destroy(child.gameObject);
                 }
-            }
-            
-            if (cardContainer != null)
-            {
-                foreach (Transform child in cardContainer.transform)
-                {
-                    SingleCardController card = child.gameObject.GetComponent<SingleCardController>();
-                    TakeFromHand(card);
-                }   
             }
         }
 

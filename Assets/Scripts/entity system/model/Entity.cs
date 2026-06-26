@@ -14,7 +14,7 @@ namespace model.entity
         public float maxHealth;
         public  EntityData data;
         public List<StatMods> activeStatMods = new List<StatMods>();
-
+        protected bool isDead = false;
         public int TotalDamage => GetTotalDamageBonus();
         private void Awake()
         {
@@ -33,6 +33,8 @@ namespace model.entity
 
         protected virtual void Die()
         {
+            if (isDead) return;
+            isDead = true;
             Debug.Log(name + " died");
             IsAlive = false;
             Destroy(transform.parent.gameObject);

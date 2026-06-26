@@ -17,7 +17,7 @@ namespace card_system.UI
 {
     public class SingleCardController : MonoBehaviour, IBeginDragHandler ,IEndDragHandler, IDragHandler
     {
-        private CardData cardData;
+        public CardData cardData;
         [SerializeField]private TextMeshProUGUI cardName;
         [SerializeField]private TextMeshProUGUI description;
         [SerializeField]private TextMeshProUGUI manaCost;
@@ -70,64 +70,66 @@ namespace card_system.UI
         {
             if (isManual)
             {
-                Vector2 screenMousePos = Mouse.current.position.ReadValue();
-                Vector2 worldMousePos =  Camera.main.ScreenToWorldPoint(screenMousePos);
-                Ray ray =  Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+                Vector2 worldMousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 RaycastHit2D hit = Physics2D.Raycast(worldMousePos, Vector2.zero);
                 if (hit.collider != null)
                 {
-                    Debug.Log($"HIT 2D: {hit.transform.name}");
                     Enemy enemyHit = hit.transform.GetComponentInChildren<Enemy>();
                     if (enemyHit)
                     {
                         GlobalEvents.RaiseTargetSelected(enemyHit);
-                        Debug.Log($"Enemy selected: {enemyHit.name}");
-                    }
-                    else
-                    {
                         TargetingManager.instance.HideArrow();
-                        Debug.Log("No Proper Target Selected" + hit.transform.name);
+                        return;   // important: do NOT call ReturnCard here
                     }
                 }
-                else
-                {
-                    Debug.Log("No Target Selected");
-                }
+                TargetingManager.instance.HideArrow();
                 ReturnCard();
             }
             else
             {
-                PlayCard();
-                ReturnCard();
+                bool played = PlayCard();
+                if (!played)
+                {
+                    ReturnCard();
+                }
+                else
+                {
+                    Debug.Log("[Card] PlayCard returned true – card successfully played.");
+                }
             }
         }
 
-        public void PlayCard(Entity target = null)
+        public bool PlayCard(Entity target = null)
         {
-            if (ManaCountManager.instance.TryToSpendMana(int.Parse(manaCost.text)))
+            if (!ManaCountManager.instance.TryToSpendMana(int.Parse(manaCost.text)))
+                return false;
+
+            // 1. Immediately detach from hand and disable interaction
+            transform.SetParent(null);
+            canvasGroup.blocksRaycasts = false;
+
+            // 2. Add data to graveyard ONCE
+            GraveyardPileManager.instance.graveyardPile.Add(cardData);
+            // 3. Execute effects
+            EffectContext context = new EffectContext
             {
-                EffectContext context = new EffectContext
-                {
-                    caster = (Player)CombatEntityManager.instance.mainCharacter,
-                    manualTargetEntity = target,
-                    allTargets = CombatEntityManager.instance.GetAllEnemies(),
-                    isManual = isManual
-                };
-                foreach (CardEffect effect in cardEffects)
-                {
-                    effect.Execute(context);
-                }
+                caster = (Player)CombatEntityManager.instance.mainCharacter,
+                manualTargetEntity = target,
+                allTargets = CombatEntityManager.instance.GetAllEnemies(),
+                isManual = isManual
+            };
+            foreach (CardEffect effect in cardEffects)
+                effect.Execute(context);
 
-                // Add to graveyard data immediately, don't wait for animation
-                GraveyardPileManager.instance.graveyardPile.Add(cardData);
+            // 4. Play animation and destroy the GameObject
+            var anim = GetComponent<CardAnimationController>();
+            Vector3 targetPos = target == null ? transform.position : target.transform.position;
+            anim.AnimatePlay(targetPos, () =>
+            {
+                Destroy(gameObject);
+            });
 
-                var animationController = GetComponent<CardAnimationController>();
-                Vector3 targetPosition = target == null ? transform.position : target.transform.position;
-                animationController.AnimatePlay(targetPosition, () =>
-                {
-                    Destroy(gameObject); // just destroy, data already saved
-                });
-            }
+            return true;
         }
         private void ReturnCard()
         {

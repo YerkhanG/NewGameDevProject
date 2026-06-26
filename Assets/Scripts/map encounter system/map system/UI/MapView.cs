@@ -141,25 +141,25 @@ namespace map_encounter_system.map_system
         private void AddLineConnection(NodeView from, NodeView to)
         {
             GameObject lineObject = Instantiate(linePrefab, containerTransform);
-            LineRenderer lineRenderer = lineObject.GetComponent<LineRenderer>();
-    
-            lineRenderer.useWorldSpace = false;
-            lineObject.transform.localPosition = Vector3.zero; // don't move the line object
+            LineRenderer lr = lineObject.GetComponent<LineRenderer>();
+            lr.useWorldSpace = false;
+            lineObject.transform.localPosition = Vector3.zero;
 
-            Vector3 fromPoint = from.transform.position +
-                                (to.transform.position - from.transform.position).normalized * offsetFromNodes;
-            Vector3 toPoint = to.transform.position +
-                              (from.transform.position - to.transform.position).normalized * offsetFromNodes;
+            Vector3 fromPos = from.transform.position;
+            Vector3 toPos = to.transform.position;
+            Vector3 mid = (fromPos + toPos) / 2 + new Vector3(0, 0.5f, 0); // slight upward bow
 
-            lineRenderer.positionCount = linePointsCount;
-            for (int i = 0; i < linePointsCount; i++)
+            int points = 20;
+            lr.positionCount = points;
+            for (int i = 0; i < points; i++)
             {
-                Vector3 worldPos = Vector3.Lerp(fromPoint, toPoint, (float)i / (linePointsCount - 1));
-                // convert relative to container, not the line object
-                lineRenderer.SetPosition(i, containerTransform.InverseTransformPoint(worldPos));
+                float t = i / (float)(points - 1);
+                // quadratic bezier
+                Vector3 pos = Mathf.Pow(1 - t, 2) * fromPos + 
+                              2 * (1 - t) * t * mid + 
+                              Mathf.Pow(t, 2) * toPos;
+                lr.SetPosition(i, containerTransform.InverseTransformPoint(pos));
             }
-
-            lineConnections.Add(new LineConnection(null, lineRenderer, from, to));
         }
         private NodeView CreateMapNode(Node node)
         {
