@@ -29,7 +29,7 @@ namespace persistence_system.manager
             DontDestroyOnLoad(gameObject);
         }
         
-        public void SaveSceneData(Map map = null, List<CardData> cards = null)
+        public void SaveSceneData(Map map = null, List<CardData> cards = null , PlayerState playerState = null)
         {
             SaveData existing = LoadRawSaveData() ?? new SaveData();
 
@@ -38,6 +38,9 @@ namespace persistence_system.manager
 
             if (cards != null)
                 existing.cards = ToCardDTO(cards);
+            
+            if (playerState != null)
+                existing.playerState = playerState;
 
             var settings = new JsonSerializerSettings();
             settings.Converters.Add(new Vector2Converter());
@@ -62,8 +65,17 @@ namespace persistence_system.manager
             return new LoadedData
             {
                 loadedMap = FromMapDTO(raw.map),
-                loadedCards = FromCardDTO(raw.cards)
+                loadedCards = FromCardDTO(raw.cards),
+                playerState = raw.playerState
             };
+        }
+        
+        public void DeleteSaveData()
+        {
+            string path = Application.persistentDataPath + "/sceneSaveData.json";
+            if (File.Exists(path))
+                File.Delete(path);
+            Debug.Log("Save deleted");
         }
 
         public List<CardDTO> ToCardDTO(List<CardData> cardDatas)

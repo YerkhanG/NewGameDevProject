@@ -8,15 +8,15 @@ namespace model.entity
 {
     public class Entity : MonoBehaviour , IDamageable
     {
-        public float currentHealth;
-        public float baseDamage;
-        public float armor;
-        public float maxHealth;
+        public int currentHealth;
+        public int baseDamage;
+        public int armor;
+        public int maxHealth;
         public  EntityData data;
         public List<StatMods> activeStatMods = new List<StatMods>();
         protected bool isDead = false;
         public int TotalDamage => GetTotalDamageBonus();
-        private void Awake()
+        protected void Awake()
         {
             IsAlive = true;
             maxHealth = data.health;
@@ -25,7 +25,7 @@ namespace model.entity
             armor = data.armor;
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(int damage)
         {
             currentHealth -= damage;
             if (currentHealth <= 0) Die();
@@ -40,9 +40,9 @@ namespace model.entity
             Destroy(transform.parent.gameObject);
         }
 
-        public bool IsAlive { get; private set; }
+        public bool IsAlive { get; protected set; }
         
-        public void AddBuff(StatModType type, float amount, int duration)
+        public void AddBuff(StatModType type, int amount, int duration)
         {
             StatMods newStatMods = new StatMods(type, amount, duration);
             activeStatMods.Add(newStatMods);
@@ -62,7 +62,7 @@ namespace model.entity
         }
         public int GetTotalDamageBonus()
         {
-            float total = baseDamage;
+            int total = baseDamage;
             if (activeStatMods.Count > 0)
             {
                 foreach (var buff in activeStatMods)

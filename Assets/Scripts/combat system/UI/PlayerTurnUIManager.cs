@@ -2,7 +2,9 @@ using System;
 using card_system.data;
 using card_system.UI;
 using global_events;
+using model.entity;
 using persistence_system.manager;
+using persistence_system.model;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -42,7 +44,7 @@ namespace combat_system.UI
 
         private void OnDeathSendToMainLobby()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("MapScene");
         }
 
         private void OnVictorySendToTheMap()
@@ -109,8 +111,16 @@ namespace combat_system.UI
             hasConsolidated = true;
             
             DeckManager.instance.ConsolidateAllCards();
+            
+            Player player = (Player)CombatEntityManager.instance.mainCharacter;
+            PlayerState playerState = new PlayerState
+            {
+                health = player.currentHealth,
+                maxHealth = player.maxHealth,
+                baseDamage = player.baseDamage,
+            };
 
-            PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck);
+            PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck, playerState: playerState);
             UIDeactivate();
             victoryPanel.SetActive(true);
         }

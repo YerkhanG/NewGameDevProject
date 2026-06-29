@@ -8,5 +8,6 @@ namespace persistence_system.model
     {
         public List<CardData> loadedCards;
         public Map loadedMap;
+        public PlayerState playerState;
     }
 }

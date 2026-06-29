@@ -5,6 +5,7 @@ using combat_system.UI;
 using global_events;
 using model;
 using model.entity;
+using persistence_system.manager;
 using UnityEngine;
 
 public class MainTurnBasedManager :  MonoBehaviour
@@ -100,6 +101,7 @@ public class MainTurnBasedManager :  MonoBehaviour
     private void EndCombat()
     {
         CancelInvoke(nameof(StartPlayerTurn));
+        PersistenceManager.instance.DeleteSaveData();
         PlayerTurnUIManager.instance.DeathScreen();
     }
 
