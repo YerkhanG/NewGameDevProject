@@ -20,7 +20,8 @@ namespace global_events
         public static event Action OnFightWon;
         
         public static event Action OnCardRewardPicked;
-        
+        public static event Action<int> OnCurrencyChanged;
+        public static void RaiseCurrencyChanged(int amount) => OnCurrencyChanged?.Invoke(amount);
         public static void RaiseCardRewardPicked() => OnCardRewardPicked?.Invoke();
         
         public static void RaiseAttackEffectPlayed(Entity target)

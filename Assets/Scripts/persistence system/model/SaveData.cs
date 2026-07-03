@@ -5,7 +5,6 @@ using UnityEditor.U2D.Animation;
 
 namespace persistence_system.model
 {
-    //I will have to save the unclocked stuff here , and unload somewhere else
     [Serializable]
     public class SaveData
     {

@@ -46,7 +46,7 @@ namespace combat_system.UI
         {
             SceneManager.LoadScene("MapScene");
         }
-
+        //in theory this button is used after every reward and shebang that could be done after winning , so using it could be good , idk. 
         private void OnVictorySendToTheMap()
         {
             SceneManager.LoadScene(2);

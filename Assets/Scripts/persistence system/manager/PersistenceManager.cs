@@ -219,5 +219,19 @@ namespace persistence_system.manager
                 configName = map.configName
             };
         }
+        //Session stuff like currency , etc.
+        public void SaveSessionData(SessionData data)
+        {
+            string json = JsonConvert.SerializeObject(data);
+            File.WriteAllText(Application.persistentDataPath + "/sessionData.json", json);
+        }
+        public SessionData LoadSessionData()
+        {
+            string path = Application.persistentDataPath + "/sessionData.json";
+            if (!File.Exists(path)) return new SessionData();
+            string json = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<SessionData>(json);
+        }
+
 }
 }
