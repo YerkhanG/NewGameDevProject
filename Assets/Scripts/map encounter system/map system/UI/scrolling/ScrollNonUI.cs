@@ -27,7 +27,9 @@ namespace map_encounter_system.map_system.UI.scrolling
 
         public void OnMouseDown()
         {
-            Debug.Log("ScrollNonUI OnMouseDown fired!"); // Add this
+            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                return;
+        
             pointerDisplacement = -transform.position + MouseInWorldCoords();
             transform.DOKill();
             dragging = true;

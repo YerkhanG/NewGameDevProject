@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using card_system.data;
+using metaprogression_system.managers;
 using NUnit.Framework;
 using persistence_system.model;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace combat_system
 {
@@ -21,6 +24,18 @@ namespace combat_system
             else
             {
                 Destroy(gameObject);
+            }
+        }
+
+        public void Start()
+        {
+            CardData[] all = Resources.LoadAll<CardData>("Cards");
+            Debug.Log(all.Length);
+            foreach (CardData card in all)
+            {
+                Debug.Log($"Card: {card.id} | Unlocked: {SessionManager.instance.IsCardUnlocked(card.id)}");
+                if (SessionManager.instance.IsCardUnlocked(card.id))
+                    allCards.Add(card);
             }
         }
 

@@ -36,15 +36,15 @@ namespace reward_system.managers
             switch (EncounterData.instance.currentEncounter.encounterRarity)
             {
                 case Encounter.Rarity.Normal:
-                    SoulCoinManager.instance.AddSoulCoins(100);
+                    SessionManager.instance.AddCurrency(100);
                     ShowCardReward();
                     break;
                 case Encounter.Rarity.Hard:
-                    SoulCoinManager.instance.AddSoulCoins(200);
+                    SessionManager.instance.AddCurrency(200);
                     ShowCardReward();
                     break;
                 case Encounter.Rarity.Elite:
-                    SoulCoinManager.instance.AddSoulCoins(300);
+                    SessionManager.instance.AddCurrency(300);
                     ShowCardReward();
                     break;
                     

@@ -12,8 +12,8 @@ namespace metaprogression_system.UI
         public TextMeshProUGUI soulCoinText;
         private void Start()
         {
-            Debug.Log("Drawing Count : "+ SoulCoinManager.instance.GetSoulCoinCount().ToString());
-            soulCoinText.text = SoulCoinManager.instance.GetSoulCoinCount().ToString();
+            Debug.Log("Drawing Count : "+ SessionManager.instance.GetCurrency().ToString());
+            soulCoinText.text = SessionManager.instance.GetCurrency().ToString();
         }
         public void OnEnable()
         {

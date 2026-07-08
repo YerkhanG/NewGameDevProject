@@ -3,7 +3,7 @@ using combat_system;
 using global_events;
 using model.entity;
 using UnityEngine;
-
+//TODO: Some bugs when combining both manual and random targeting
 namespace card_system.functionality.card_effect_types
 {
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Damage Effect Data")]

@@ -33,13 +33,17 @@ namespace reward_system.controller
         {
             rewardButton.onClick.RemoveListener(HandleButtonClicked);
         }
-        public void HandleButtonClicked()
+        protected virtual void HandleButtonClicked()
+        {
+            AddCardToDeck();
+            GlobalEvents.RaiseCardRewardPicked();
+        }
+
+        protected void AddCardToDeck()
         {
             CardData cardToAdd = CardRegistry.instance.GetCard(idRefToCard);
             DeckManager.instance.deck.Add(cardToAdd);
-            //TODO: Check if necessary
             PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck);
-            GlobalEvents.RaiseCardRewardPicked();
         }
     }
 }

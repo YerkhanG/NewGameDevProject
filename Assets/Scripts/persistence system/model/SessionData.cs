@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace persistence_system.model
 {
@@ -6,5 +7,6 @@ namespace persistence_system.model
     public class SessionData
     {
         public int currency;
+        public List<string> unlockedCardIds = new();
     }
 }

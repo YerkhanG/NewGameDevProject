@@ -31,6 +31,10 @@ namespace model.entity
             if (currentHealth <= 0) Die();
         }
 
+        public void Heal(int amount)
+        {
+            currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        }
         protected virtual void Die()
         {
             if (isDead) return;
