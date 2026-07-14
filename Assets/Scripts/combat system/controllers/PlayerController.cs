@@ -21,8 +21,13 @@ namespace combat_system
             {
                 Destroy(gameObject);
             }
+            //TODO : Add health bar here? 
         }
 
+        public void Start()
+        {
+            GlobalEvents.RaisePlayerCreated(player);
+        }
         public void RedrawCards()
         {
             Debug.Log("Draw First Card");

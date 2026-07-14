@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using card_system.functionality.card_effect_types;
 using data;
 using model.entity_state;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace model.entity
 {
@@ -10,30 +12,46 @@ namespace model.entity
     {
         public int currentHealth;
         public int baseDamage;
-        public int armor;
+        public int currentShield;
         public int maxHealth;
+        public int maxShield;
+        public int armor;
         public  EntityData data;
         public List<StatMods> activeStatMods = new List<StatMods>();
         protected bool isDead = false;
         public int TotalDamage => GetTotalDamageBonus();
+
+        public UnityEvent<int, int> onHPChanged;   // (current, max)
+        public UnityEvent<int> onShieldChanged;
+        public UnityEvent onDeath;
         protected void Awake()
         {
             IsAlive = true;
             maxHealth = data.health;
             currentHealth = maxHealth;
             baseDamage = data.baseDamage;
+            maxShield = data.shield;
             armor = data.armor;
         }
 
         public void TakeDamage(int damage)
         {
+            if (currentShield > 0)
+            {
+                int blocked = Mathf.Min(currentShield, damage);
+                currentShield -= blocked;
+                damage -= blocked;
+                onShieldChanged.Invoke(currentShield); // shield bar updates
+            }
             currentHealth -= damage;
+            onHPChanged?.Invoke(currentHealth,  maxHealth);
             if (currentHealth <= 0) Die();
         }
 
         public void Heal(int amount)
         {
             currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+            onHPChanged.Invoke(currentHealth, maxHealth);
         }
         protected virtual void Die()
         {
@@ -41,6 +59,7 @@ namespace model.entity
             isDead = true;
             Debug.Log(name + " died");
             IsAlive = false;
+            onDeath.Invoke();
             Destroy(transform.parent.gameObject);
         }
 

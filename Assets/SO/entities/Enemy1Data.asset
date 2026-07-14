@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Enemy1Data
   m_EditorClassIdentifier: Assembly-CSharp::data.EntityData
   health: 25
-  baseDamage: 20
+  baseDamage: 10
+  shield: 0
   armor: 5

@@ -7,6 +7,7 @@ namespace data
     {
         public int health;
         public int baseDamage;
+        public int shield;
         public int armor;
     }
 }

@@ -15,7 +15,7 @@ namespace metaprogression_system.managers
         public GameObject cardItemsPanel;
         public int amountOfItems = 5;
         public Button backToLobbyButton;
-         private CardData[] allCards;
+        private CardData[] allCards;
 
          public void OnEnable()
          {

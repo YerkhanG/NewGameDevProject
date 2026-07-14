@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using encounter_system.data;
 using model.entity;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace global_events
 {
     public static class GlobalEvents
     {
+        public static event Action<Entity> PlayerCreated;
         public static event Action<Entity> OnAttackEffectPlayed;
         public static event Action<object> OnDrawFromDeck;
         public static event Action<Enemy> OnTargetSelected;
@@ -21,6 +23,9 @@ namespace global_events
         
         public static event Action OnCardRewardPicked;
         public static event Action<int> OnCurrencyChanged;
+
+        public static event Action<List<Enemy>> onEncounterSpawned;
+        public static void RaiseOnEncounterSpawned(List<Enemy> list) => onEncounterSpawned(list);
         public static void RaiseCurrencyChanged(int amount) => OnCurrencyChanged?.Invoke(amount);
         public static void RaiseCardRewardPicked() => OnCardRewardPicked?.Invoke();
         
@@ -70,6 +75,11 @@ namespace global_events
         public static void RaiseFightWon()
         {
             OnFightWon?.Invoke();
+        }
+
+        public static void RaisePlayerCreated(Entity player)
+        {
+            PlayerCreated?.Invoke(player);
         }
     }
 }

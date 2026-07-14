@@ -62,6 +62,7 @@ namespace combat_system
                 Enemy enemy = instance.GetComponentInChildren<Enemy>(); // ← from the clone, not the prefab
                 enemies.Add(enemy);
             }
+            GlobalEvents.RaiseOnEncounterSpawned(enemies);
         }
 
         public bool CheckMC()
