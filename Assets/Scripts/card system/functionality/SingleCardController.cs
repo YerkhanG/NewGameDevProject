@@ -119,7 +119,11 @@ namespace card_system.UI
                 isManual = isManual
             };
             foreach (CardEffect effect in cardEffects)
+            {
                 effect.Execute(context);
+                Debug.Log("Effect played " + effect.name);
+            }
+                
 
             // 4. Play animation and destroy the GameObject
             var anim = GetComponent<CardAnimationController>();

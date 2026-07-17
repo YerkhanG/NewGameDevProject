@@ -24,6 +24,9 @@ namespace model.entity
         public UnityEvent<int, int> onHPChanged;   // (current, max)
         public UnityEvent<int> onShieldChanged;
         public UnityEvent onDeath;
+        
+        [SerializeField] private float armorConstant = 50f;   // tune per game balance pass
+        private const float MAX_ARMOR_REDUCTION = 0.8f; 
         protected void Awake()
         {
             IsAlive = true;
@@ -34,24 +37,61 @@ namespace model.entity
             armor = data.armor;
         }
 
+        public int EffectiveArmor
+        {
+            get
+            {
+                int total = armor;
+                foreach (var mod in activeStatMods)
+                {
+                    if (mod.type == StatModType.armor)
+                        total = Mathf.RoundToInt(total + mod.amount);
+                }
+                return Mathf.Max(0, total);
+            }
+        }
+        
+        public float GetDamageReductionPercent()
+        {
+            int arm = EffectiveArmor;
+            float reduction = arm / (arm + armorConstant);
+            return Mathf.Min(reduction, MAX_ARMOR_REDUCTION);
+        }
+        
+        public void ModifyBaseArmor(int amount)
+        {
+            armor = Mathf.Max(0, armor + amount);
+            Debug.Log($"{name} permanently {(amount >= 0 ? "gained" : "lost")} {Mathf.Abs(amount)} armor (now {armor})");
+        }
         public void TakeDamage(int damage)
         {
+            // Armor mitigates first
+            int mitigatedDamage = Mathf.RoundToInt(damage * (1f - GetDamageReductionPercent()));
+
+            // Then shield absorbs what's left
             if (currentShield > 0)
             {
-                int blocked = Mathf.Min(currentShield, damage);
+                int blocked = Mathf.Min(currentShield, mitigatedDamage);
                 currentShield -= blocked;
-                damage -= blocked;
-                onShieldChanged.Invoke(currentShield); // shield bar updates
+                mitigatedDamage -= blocked;
+                onShieldChanged.Invoke(currentShield);
             }
-            currentHealth -= damage;
-            onHPChanged?.Invoke(currentHealth,  maxHealth);
+
+            currentHealth -= mitigatedDamage;
+            onHPChanged?.Invoke(currentHealth, maxHealth);
             if (currentHealth <= 0) Die();
         }
-
+        
         public void Heal(int amount)
         {
             currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
             onHPChanged.Invoke(currentHealth, maxHealth);
+        }
+
+        public void ShieldUp(int amount)
+        {
+            currentShield = Mathf.Clamp(currentShield + amount, 0, maxShield);
+            onShieldChanged.Invoke(currentShield);
         }
         protected virtual void Die()
         {
@@ -65,7 +105,7 @@ namespace model.entity
 
         public bool IsAlive { get; protected set; }
         
-        public void AddBuff(StatModType type, int amount, int duration)
+        public void AddBuff(StatModType type, float amount, int duration)
         {
             StatMods newStatMods = new StatMods(type, amount, duration);
             activeStatMods.Add(newStatMods);
@@ -91,7 +131,7 @@ namespace model.entity
                 foreach (var buff in activeStatMods)
                 {
                     if (buff.type == StatModType.Damage)
-                        total *= buff.amount;
+                        total = Mathf.RoundToInt(total * buff.amount);
                 }   
             }
             else

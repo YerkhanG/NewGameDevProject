@@ -8,7 +8,7 @@ namespace card_system.functionality.card_effect_types
     public class StatModEffect : CardEffect
     {
         public StatModType type;
-        public int amount;
+        public float amount;
         public int duration;
         public override void Execute(EffectContext context)
         {

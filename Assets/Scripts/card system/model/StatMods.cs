@@ -5,10 +5,10 @@ namespace model.entity_state
     public class StatMods
     {
         public StatModType type;
-        public int amount;
+        public float amount;
         public int remainingTurns;
 
-        public StatMods(StatModType type, int amount, int remainingTurns)
+        public StatMods(StatModType type, float amount, int remainingTurns)
         {
             this.type = type;
             this.amount = amount;

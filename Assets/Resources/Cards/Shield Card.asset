@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde3c79aa36747ccbd9b723b80cf7a80, type: 3}
+  m_Name: Shield Card
+  m_EditorClassIdentifier: Assembly-CSharp::card_system.data.CardData
+  id: shield_up
+  cardEffects:
+  - {fileID: 11400000, guid: d818cb10bc092524e80658acda1aed5d, type: 2}
+  cardName: Shield Up
+  description: 
+  manaCost: 0
+  image: {fileID: 7039122582138040449, guid: 45a31215741cac248bb21d347d4c425e, type: 3}

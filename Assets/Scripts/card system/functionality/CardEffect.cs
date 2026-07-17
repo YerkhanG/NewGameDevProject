@@ -10,30 +10,31 @@ namespace card_system.functionality
         public TargetType targetType;
         public abstract void Execute(EffectContext context);
         
-        public List<Entity> ResolveTargets(EffectContext context, TargetType targeting)
+        protected List<Entity> ResolveTargets(EffectContext context, TargetType targeting)
         {
-            if (context.isManual && context.manualTargetEntity != null)
-            {
-                return new List<Entity> {  context.manualTargetEntity };
-            }
-
             switch (targeting)
             {
+                case TargetType.ManualTargeting:
+                    if (context.manualTargetEntity != null)
+                        return new List<Entity> { context.manualTargetEntity };
+                    return new List<Entity>();
+
                 case TargetType.AllEnemies:
                     return new List<Entity>(context.allTargets);
+
                 case TargetType.RandomEnemy:
                     if (context.allTargets.Count > 0)
                     {
                         int randIndex = Random.Range(0, context.allTargets.Count);
-                        return new List<Entity>{context.allTargets[randIndex]};
+                        return new List<Entity> { context.allTargets[randIndex] };
                     }
                     return new List<Entity>();
+
                 case TargetType.Self:
                     if (context.caster != null)
-                    {
-                        return new List<Entity>{context.caster};
-                    }
+                        return new List<Entity> { context.caster };
                     return new List<Entity>();
+
                 default:
                     Debug.Log("Someting Wong");
                     return new List<Entity>();
