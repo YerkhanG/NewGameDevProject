@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using card_system.data;
 using card_system.UI;
 using combat_system;
@@ -58,12 +59,14 @@ namespace reward_system.managers
                 Destroy(child.gameObject);
     
             cardRewardPanel.SetActive(true);
-            for (var i = 0; i < 3; i++)
+            
+            List<CardData> randomCard = CardRegistry.instance.GetRandomCardsNotOwned(3);
+            foreach (CardData cardData in randomCard)
             {
-                CardData randomCard = CardRegistry.instance.GetRandomCardNotOwned();
                 GameObject singleReward = Instantiate(cardRewardPrefab, cardRewardPanel.transform);
-                singleReward.GetComponent<SingleRewardController>().SetUp(randomCard);
+                singleReward.GetComponent<SingleRewardController>().SetUp(cardData);   
             }
+            
         }
 
         private void HandleRewardPicked()

@@ -1,4 +1,5 @@
 using card_system.data;
+using combat_system;
 using metaprogression_system.managers;
 using reward_system.controller;
 using TMPro;
@@ -16,7 +17,7 @@ namespace metaprogression_system.UI
         [SerializeField] private TextMeshProUGUI priceText;
         [SerializeField] private Button buyButton;
         [SerializeField] private int price;
-        private string cardId;
+        private CardData cardData;
 
         public void SetUp(CardData card, int price)
         {
@@ -25,7 +26,7 @@ namespace metaprogression_system.UI
             description.text = card.description;
             priceText.text = price.ToString();
             this.price = price;
-            cardId = card.id;
+            cardData = card;
         }
 
         private void OnEnable() => buyButton.onClick.AddListener(HandleBuyClicked);
@@ -38,9 +39,10 @@ namespace metaprogression_system.UI
                 Debug.Log("Spend Failed");
                 return;
             }
-            SessionManager.instance.UnlockCard(cardId);
+            SessionManager.instance.UnlockCard(cardData.id);
+            CardRegistry.instance.AddCard(cardData);
             Debug.Log("Spend Success");
-            buyButton.interactable = false; // grey out after purchase
+            buyButton.interactable = false;
         }
     }
 }

@@ -1394,6 +1394,7 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+  armorConstant: 50
 --- !u!114 &760367614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3208,10 +3209,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa20da1a9e3549c5856506010f29071c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::combat_system.DeckManager
-  deck:
+  deck: []
+  startingDeckForTesting:
   - {fileID: 11400000, guid: 99c40c365babed147a87d3e4639ec871, type: 2}
-  - {fileID: 11400000, guid: 2c49b88204ee5da43b83f6160cc35a87, type: 2}
   - {fileID: 11400000, guid: ce40d3e987a8c59458850ed71b0637d6, type: 2}
+  - {fileID: 11400000, guid: 831794eb1cfd2764cbcd1093c97f15f9, type: 2}
   - {fileID: 11400000, guid: 831794eb1cfd2764cbcd1093c97f15f9, type: 2}
   cardPrefab: {fileID: 8694944001873800256, guid: 309a1a6eac20b19448d225d52573af3e, type: 3}
   handContainer: {fileID: 912659100}
