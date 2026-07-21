@@ -1,14 +1,19 @@
+using System;
 using System.Collections.Generic;
 using model.entity;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace card_system.functionality
 {
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Card Effect Data")]
     public abstract class CardEffect : ScriptableObject
     {
+        public string id;
         public TargetType targetType;
         public abstract void Execute(EffectContext context);
+        
+        public virtual void ApplyFieldOverride(string fieldName, float value) { }
         
         protected List<Entity> ResolveTargets(EffectContext context, TargetType targeting)
         {

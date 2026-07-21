@@ -13,7 +13,7 @@ namespace combat_system
     public class DeckManager : MonoBehaviour
     {
         public static  DeckManager instance;
-        public List<CardData> deck;
+        public List<CardInstanceRecord> deck;
         [SerializeField] private GameObject cardPrefab;
         [SerializeField] private GameObject handContainer;
         public void Awake()
@@ -37,7 +37,7 @@ namespace combat_system
         
         public void ReshuffleDeck()
         {
-            List<CardData> shuffledCards = GraveyardPileManager.instance.GetShuffledGraveyardPile();
+            List<CardInstanceRecord> shuffledCards = GraveyardPileManager.instance.GetShuffledGraveyardPile();
             deck.AddRange(shuffledCards);
         }
         // fight-end: consolidate everything into deck for saving

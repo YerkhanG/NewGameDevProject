@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1e060de30b4a629f2f6df3ea523d93, type: 3}
   m_Name: Heal v1
   m_EditorClassIdentifier: Assembly-CSharp::card_system.functionality.card_effect_types.HealEffect
+  id: heal_effect1
   targetType: 2
   amountToHeal: 40

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9c00637608455882e6d443790b5d3d, type: 3}
   m_Name: Buff1
   m_EditorClassIdentifier: Assembly-CSharp::card_system.functionality.card_effect_types.BuffEffect
+  id: dng_buff_effect1
   targetType: 2
   type: 1
   amount: 1.5

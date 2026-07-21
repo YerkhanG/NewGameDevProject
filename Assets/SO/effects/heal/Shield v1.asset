@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4cd896fbbff430d847035fd025586e7, type: 3}
   m_Name: Shield v1
   m_EditorClassIdentifier: Assembly-CSharp::card_system.functionality.card_effect_types.ShieldUpEffect
+  id: shield_effect1
   targetType: 2
   amountToShield: 10

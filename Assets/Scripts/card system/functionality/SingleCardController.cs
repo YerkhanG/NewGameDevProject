@@ -6,6 +6,8 @@ using card_system.functionality;
 using combat_system;
 using global_events;
 using model.entity;
+using persistence_system.helpers;
+using persistence_system.model;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,6 +20,8 @@ namespace card_system.UI
     public class SingleCardController : MonoBehaviour, IBeginDragHandler ,IEndDragHandler, IDragHandler
     {
         public CardData cardData;
+        //for new saving
+        public CardInstanceRecord instanceRecord; 
         [SerializeField]private TextMeshProUGUI cardName;
         [SerializeField]private TextMeshProUGUI description;
         [SerializeField]private TextMeshProUGUI manaCost;
@@ -33,18 +37,20 @@ namespace card_system.UI
         private int originalSiblingIndex;
         
         public CardData GetCardData => cardData;
+        public CardInstanceRecord GetCardInstanceRecord => instanceRecord;
         void Awake()
         {
             canvas = GetComponentInParent<Canvas>();
         }
-        public void Setup(CardData data)
+        public void Setup(CardInstanceRecord record)
         {
-            Debug.Log("Setup 37: " + data.manaCost);
+            instanceRecord = record;
+            CardData data = CardRegistry.instance.GetCard(record.templateId);
             cardData = data;
             manaCost.text = data.manaCost;
             cardName.text = data.cardName;
             image.sprite = data.image;
-            cardEffects = data.cardEffects;
+            cardEffects = CardEffectBuilder.BuildRuntimeEffects(record);
             isManual = data.RequiresManualTarget;
         }
         public void OnBeginDrag(PointerEventData eventData)
@@ -109,7 +115,7 @@ namespace card_system.UI
             canvasGroup.blocksRaycasts = false;
 
             // 2. Add data to graveyard ONCE
-            GraveyardPileManager.instance.graveyardPile.Add(cardData);
+            GraveyardPileManager.instance.graveyardPile.Add(instanceRecord);
             // 3. Execute effects
             EffectContext context = new EffectContext
             {

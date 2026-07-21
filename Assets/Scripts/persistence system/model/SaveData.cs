@@ -8,7 +8,7 @@ namespace persistence_system.model
     [Serializable]
     public class SaveData
     {
-        public List<CardDTO> cards;
+        public List<CardInstanceRecord> cards;
         public MapDTO map;
         public PlayerState playerState;
     }

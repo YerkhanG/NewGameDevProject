@@ -340,7 +340,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.75
+  m_fontSize: 27.1
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.1
+  m_fontSize: 27.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -983,6 +983,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::combat_system.CardRegistry
   allCards: []
+  allEffects:
+  - {fileID: 11400000, guid: c72739f4e667a7646940acad4dd6ffda, type: 2}
+  - {fileID: 11400000, guid: 64611a325c4f76f4ea44b0636e192b19, type: 2}
+  - {fileID: 11400000, guid: ce8ea4fb8a1439f4ab31c7bb6bd6033e, type: 2}
+  - {fileID: 11400000, guid: 9bafc6fada0314b4095dd0b0642edbe3, type: 2}
+  - {fileID: 11400000, guid: 30fc4405ad714704a9bc2c21b4005d9c, type: 2}
+  - {fileID: 11400000, guid: 6ff1ca9cbfc8f2d4fbc0fdcfb16558f3, type: 2}
+  - {fileID: 11400000, guid: d818cb10bc092524e80658acda1aed5d, type: 2}
 --- !u!4 &985734582
 Transform:
   m_ObjectHideFlags: 0

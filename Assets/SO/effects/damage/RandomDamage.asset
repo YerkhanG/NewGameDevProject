@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74eb27af7d4047a5b299a91a241e3993, type: 3}
   m_Name: RandomDamage
   m_EditorClassIdentifier: Assembly-CSharp::card_system.functionality.card_effect_types.DamageEffect
+  id: random_dmg_effect
   targetType: 1
-  damageAmount: 10

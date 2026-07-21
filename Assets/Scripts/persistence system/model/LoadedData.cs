@@ -6,7 +6,7 @@ namespace persistence_system.model
 {
     public class LoadedData
     {
-        public List<CardData> loadedCards;
+        public List<CardInstanceRecord> loadedCards;
         public Map loadedMap;
         public PlayerState playerState;
     }

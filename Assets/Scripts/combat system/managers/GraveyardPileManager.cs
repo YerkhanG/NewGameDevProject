@@ -4,6 +4,7 @@ using card_system.animation;
 using card_system.data;
 using card_system.UI;
 using global_events;
+using persistence_system.model;
 using UnityEngine;
 
 namespace combat_system
@@ -14,7 +15,7 @@ namespace combat_system
     {
         [SerializeField] public GameObject cardContainer;
         public static GraveyardPileManager instance;
-        public List<CardData> graveyardPile =new List<CardData>();
+        public List<CardInstanceRecord> graveyardPile =new();
         
         public void Awake()
         {
@@ -51,7 +52,7 @@ namespace combat_system
                 var ctrl = child.GetComponent<SingleCardController>();
                 if (ctrl != null)
                 {
-                    graveyardPile.Add(ctrl.GetCardData);
+                    graveyardPile.Add(ctrl.GetCardInstanceRecord);
                     Destroy(child.gameObject);
                 }
             }
@@ -61,25 +62,25 @@ namespace combat_system
         {
             if (card != null)
             {
-                graveyardPile.Add(card.GetCardData);
+                graveyardPile.Add(card.GetCardInstanceRecord);
                 var animationController = card.GetComponent<CardAnimationController>();
                 animationController.AnimateDiscard(transform.position);
             }
         }
 
-        public List<CardData> GetShuffledGraveyardPile()
+        public List<CardInstanceRecord> GetShuffledGraveyardPile()
         {
             if (graveyardPile.Count == 0)
             {
                 Debug.LogWarning("Graveyard is empty!");
-                return new List<CardData>();
+                return new List<CardInstanceRecord>();
             }
-            List<CardData> shuffledCards = new List<CardData>(graveyardPile);
+            List<CardInstanceRecord> shuffledCards = new List<CardInstanceRecord>(graveyardPile);
     
             // (Fisher-Yates algorithm)
             for (int i = 0; i < shuffledCards.Count; i++)
             {
-                CardData temp = shuffledCards[i];
+                CardInstanceRecord temp = shuffledCards[i];
                 int randomIndex = UnityEngine.Random.Range(i, shuffledCards.Count);
                 shuffledCards[i] = shuffledCards[randomIndex];
                 shuffledCards[randomIndex] = temp;

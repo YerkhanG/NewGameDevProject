@@ -2,13 +2,9 @@ using System.Collections.Generic;
 using persistence_system.model;
 using UnityEngine;
 using System.IO;
-using System.Linq;
-using card_system.data;
-using combat_system;
 using map_encounter_system.map_system.data;
 using map_encounter_system.map_system.data.node;
 using Newtonsoft.Json;
-using NUnit.Framework;
 using persistence_system.helpers;
 
 namespace persistence_system.manager
@@ -29,7 +25,7 @@ namespace persistence_system.manager
             DontDestroyOnLoad(gameObject);
         }
         
-        public void SaveSceneData(Map map = null, List<CardData> cards = null , PlayerState playerState = null)
+        public void SaveSceneData(Map map = null, List<CardInstanceRecord> cards = null, PlayerState playerState = null)
         {
             SaveData existing = LoadRawSaveData() ?? new SaveData();
 
@@ -37,8 +33,8 @@ namespace persistence_system.manager
                 existing.map = ToMapDTO(map);
 
             if (cards != null)
-                existing.cards = ToCardDTO(cards);
-            
+                existing.cards = cards;   // already flat — no conversion needed
+
             if (playerState != null)
                 existing.playerState = playerState;
 
@@ -48,7 +44,6 @@ namespace persistence_system.manager
             File.WriteAllText(Application.persistentDataPath + "/sceneSaveData.json", json);
             Debug.Log("Game Saved!");
         }
-
         private SaveData LoadRawSaveData()
         {
             string path = Application.persistentDataPath + "/sceneSaveData.json";
@@ -65,7 +60,7 @@ namespace persistence_system.manager
             return new LoadedData
             {
                 loadedMap = FromMapDTO(raw.map),
-                loadedCards = FromCardDTO(raw.cards),
+                loadedCards = raw.cards ?? new List<CardInstanceRecord>(),
                 playerState = raw.playerState
             };
         }
@@ -77,35 +72,7 @@ namespace persistence_system.manager
                 File.Delete(path);
             Debug.Log("Save deleted");
         }
-
-        public List<CardDTO> ToCardDTO(List<CardData> cardDatas)
-        {
-            List<CardDTO> cards = new List<CardDTO>();
-            foreach (CardData c in cardDatas)
-            {
-                CardDTO cardDTO = new CardDTO()
-                {
-                    id = c.id,
-                    cardName = c.name,
-                };
-                cards.Add(cardDTO);
-            }
-            return cards;
-        }
-        //need card registry for this to function
-        public List<CardData> FromCardDTO(List<CardDTO> cards)
-        {
-            if (cards == null) return new List<CardData>();
-    
-            List<CardData> cardData = new List<CardData>();
-            foreach (CardDTO cardDTO in cards)
-            {
-                CardData card = CardRegistry.instance.GetCard(cardDTO.id);
-                if (card == null) Debug.LogWarning("Card not found for id: " + cardDTO.id);
-                else cardData.Add(card);
-            } 
-            return cardData;
-        }
+        
         public Map FromMapDTO(MapDTO dto)
         {
             if (dto == null) return null;
