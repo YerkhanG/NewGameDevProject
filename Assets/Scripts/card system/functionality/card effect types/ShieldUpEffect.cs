@@ -11,10 +11,13 @@ namespace card_system.functionality.card_effect_types
         public int amountToShield;
         
         //TODO: in theory should work , should test later
+        
+        public override bool HasField(string fieldName) => fieldName == nameof(amountToShield);
+
         public override void ApplyFieldOverride(string fieldName, float value)
         {
             if (fieldName == nameof(amountToShield))
-                amountToShield = Mathf.RoundToInt(value);
+                amountToShield += Mathf.RoundToInt(value);
         }
         public override void Execute(EffectContext context)
         {

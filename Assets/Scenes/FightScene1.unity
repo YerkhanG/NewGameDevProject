@@ -799,6 +799,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 296333997}
     m_Modifications:
+    - target: {fileID: 1674311415151406084, guid: e1cb318a698f64e47a410d783e4fba46, type: 3}
+      propertyPath: modPool.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1674311415151406084, guid: e1cb318a698f64e47a410d783e4fba46, type: 3}
+      propertyPath: 'modPool.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 41a4fe329f8e03d44bf1028e471153ab, type: 2}
     - target: {fileID: 2483439720724933873, guid: e1cb318a698f64e47a410d783e4fba46, type: 3}
       propertyPath: m_Name
       value: CardModPrefab
@@ -3358,9 +3366,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::combat_system.DeckManager
   deck: []
   startingDeckForTesting:
+  - {fileID: 11400000, guid: 5cc01d458d8caf348bcb6e9b76acf615, type: 2}
   - {fileID: 11400000, guid: 99c40c365babed147a87d3e4639ec871, type: 2}
   - {fileID: 11400000, guid: ce40d3e987a8c59458850ed71b0637d6, type: 2}
-  - {fileID: 11400000, guid: 831794eb1cfd2764cbcd1093c97f15f9, type: 2}
   - {fileID: 11400000, guid: 831794eb1cfd2764cbcd1093c97f15f9, type: 2}
   cardPrefab: {fileID: 8694944001873800256, guid: 309a1a6eac20b19448d225d52573af3e, type: 3}
   handContainer: {fileID: 912659100}

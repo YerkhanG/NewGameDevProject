@@ -90,7 +90,7 @@ namespace model.entity
 
         public void ShieldUp(int amount)
         {
-            currentShield = Mathf.Clamp(currentShield + amount, 0, maxShield);
+            currentShield = Mathf.Clamp(currentShield + amount, 0, maxHealth);
             onShieldChanged.Invoke(currentShield);
         }
         protected virtual void Die()

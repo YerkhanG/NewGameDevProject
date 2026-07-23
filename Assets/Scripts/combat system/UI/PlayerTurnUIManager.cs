@@ -46,12 +46,12 @@ namespace combat_system.UI
 
         private void OnDeathSendToMainLobby()
         {
-            SceneManager.LoadScene("MapScene");
+            SceneManager.LoadScene("MainLobby");
         }
         //in theory this button is used after every reward and shebang that could be done after winning , so using it could be good , idk. 
         private void OnVictorySendToTheMap()
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene("MapScene");
         }
 
         public void OnDisable()
