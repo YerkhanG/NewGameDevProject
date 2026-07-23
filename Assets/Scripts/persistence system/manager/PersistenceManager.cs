@@ -42,7 +42,6 @@ namespace persistence_system.manager
             settings.Converters.Add(new Vector2Converter());
             string json = JsonConvert.SerializeObject(existing, settings);
             File.WriteAllText(Application.persistentDataPath + "/sceneSaveData.json", json);
-            Debug.Log("Game Saved!");
         }
         private SaveData LoadRawSaveData()
         {

@@ -1,4 +1,5 @@
 using System;
+using card_modification_system.controller;
 using card_system.data;
 using card_system.UI;
 using global_events;
@@ -25,6 +26,7 @@ namespace combat_system.UI
         [SerializeField]private GameObject panel;
         [SerializeField]private GameObject deathPanel;
         [SerializeField]private GameObject victoryPanel;
+        [SerializeField] private GameObject cardModPanel;
         //purely for endfight card consolidation
         private bool hasConsolidated = false;
         private int fightWonCallCount = 0; 
@@ -118,8 +120,10 @@ namespace combat_system.UI
                 health = player.currentHealth,
                 maxHealth = player.maxHealth,
                 baseDamage = player.baseDamage,
-            };
-
+            };  
+            cardModPanel.SetActive(true);
+            var card = DeckManager.instance.deck[0];
+            cardModPanel.GetComponent<ModPanelController>().Open(card);
             PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck, playerState: playerState);
             UIDeactivate();
             victoryPanel.SetActive(true);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using card_system.animation;
 using card_system.data;
 using card_system.functionality;
@@ -51,7 +52,7 @@ namespace card_system.UI
             cardName.text = data.cardName;
             image.sprite = data.image;
             cardEffects = CardEffectBuilder.BuildRuntimeEffects(record);
-            isManual = data.RequiresManualTarget;
+            isManual = cardEffects.Any(e => e.targetType == TargetType.ManualTargeting);
         }
         public void OnBeginDrag(PointerEventData eventData)
         {
