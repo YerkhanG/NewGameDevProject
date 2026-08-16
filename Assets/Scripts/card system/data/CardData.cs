@@ -16,8 +16,8 @@ namespace card_system.data
         [SerializeField]public string description;
         [SerializeField]public string manaCost = "0";
         [SerializeField]public Sprite image;
-        //for now nothing is done with this but will be in the future
-        [SerializeField] public int augmentLimit;
+        //upon testng there were some issues with mod adding 
+        [SerializeField] public int maxEffectSlots = 6;
         public bool RequiresManualTarget => cardEffects.Any(e => e.targetType == TargetType.ManualTargeting);
     }
 }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac1c834652884a1fade048af0403e959, type: 3}
-  m_Name: New manual dmg def
+  m_Name: bonusDamage
   m_EditorClassIdentifier: Assembly-CSharp::card_modification_system.data.ModDefinition
-  id: dmg_mod_def
-  descriptionTemplate: Adds a targeted damage effect to a card
-  type: 1
+  id: damage_mod_upgrade
+  descriptionTemplate: Upgrades a damage Effect by 2
+  type: 0
   effectIndex: 0
   fieldName: bonusDamage
-  value: 0
-  effectTemplateIdForAdd: manual_dmg_effect
+  value: 3
+  effectTemplateIdForAdd: 

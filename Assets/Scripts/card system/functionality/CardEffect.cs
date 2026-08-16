@@ -11,6 +11,11 @@ namespace card_system.functionality
     {
         public string id;
         public TargetType targetType;
+
+        public int slotCost;
+        
+        public Category category;
+        public String Description;
         public abstract void Execute(EffectContext context);
         
         
@@ -61,5 +66,10 @@ namespace card_system.functionality
         public Entity singleTargetEntity;
         public List<Enemy> allTargets;
         public bool isManual;
+    }
+
+    public enum Category
+    {
+        Damage, Sustain , Support
     }
 }

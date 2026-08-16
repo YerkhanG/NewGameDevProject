@@ -18,4 +18,5 @@ MonoBehaviour:
   cardName: Simple heal
   description: heals for 40
   manaCost: 1
-  image: {fileID: 7039122582138040449, guid: 45a31215741cac248bb21d347d4c425e, type: 3}
+  image: {fileID: -416943055572944365, guid: 289c9ee800fff8742b82a48af694cf52, type: 3}
+  augmentLimit: 0

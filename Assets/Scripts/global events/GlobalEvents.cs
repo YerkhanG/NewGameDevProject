@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using card_system.functionality;
 using encounter_system.data;
 using model.entity;
+using persistence_system.model;
 using UnityEngine;
 
 namespace global_events
@@ -15,19 +17,33 @@ namespace global_events
         public static event Action<Enemy> OnTargetValidated;
         public static event Action<int> OnManaChanged;
         public static event Action OnEndTurnButtonPressed;
-
-        public static event Action<Encounter.Rarity> OnEncounterPicked;
-        public static event Action<Encounter> OnEncounterRarityPicked;
+        
         public static event Action<Enemy> OnEnemyDied;
         public static event Action OnFightWon;
         
         public static event Action OnCardRewardPicked;
         public static event Action<int> OnCurrencyChanged;
-
+        //Encounter System
+        public static event Action<Encounter.Rarity> OnEncounterPicked;
+        public static event Action<Encounter> OnEncounterRarityPicked;
         public static event Action<List<Enemy>> onEncounterSpawned;
+        
+        //Card Details Events
+        public static event Action<List<CardEffect>> onMouseCardHoverStart;
+        public static event Action<List<CardEffect>> onMouseCardHoverEnd;
         public static void RaiseOnEncounterSpawned(List<Enemy> list) => onEncounterSpawned(list);
         public static void RaiseCurrencyChanged(int amount) => OnCurrencyChanged?.Invoke(amount);
         public static void RaiseCardRewardPicked() => OnCardRewardPicked?.Invoke();
+
+        public static void RaiseMouseCardHoverStart(List<CardEffect> effects)
+        {
+            onMouseCardHoverStart?.Invoke(effects);
+        }
+        
+        public static void RaiseMouseCardHoverEnd(List<CardEffect> effects)
+        {
+            onMouseCardHoverEnd?.Invoke(effects);
+        }
         
         public static void RaiseAttackEffectPlayed(Entity target)
         {

@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::card_system.functionality.card_effect_types.DamageEffect
   id: aoe_dmg_effect
   targetType: 4
+  slotCost: 2
+  category: 0
+  Description: Deals AOE dmg
+  bonusDamage: 0

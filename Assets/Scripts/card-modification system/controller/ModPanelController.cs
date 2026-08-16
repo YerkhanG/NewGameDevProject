@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using card_modification_system.data;
@@ -10,6 +11,7 @@ using persistence_system.helpers;
 using persistence_system.manager;
 using persistence_system.model;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace card_modification_system.controller
 {
@@ -45,8 +47,12 @@ namespace card_modification_system.controller
 
             ModDefinition upgrade = PickCompatibleUpgrade(currentEffects);
             if (upgrade != null) result.Add(upgrade);
+            int maxSlots = CardRegistry.instance.GetCard(targetRecord.templateId).maxEffectSlots;
+            int usedSlots = currentEffects.Sum(e => e.slotCost);
+            int remainingSlots = maxSlots - usedSlots;
 
-            var newEffectPool = modPool.Where(m => m.type == ModificationType.AddEffect).ToList();
+            var newEffectPool = modPool.Where(m => m.type == ModificationType.AddEffect &&
+                                                   CardRegistry.instance.GetCardEffect(m.effectTemplateIdForAdd).slotCost <= remainingSlots).ToList();
             ShuffleUtil.Shuffle(newEffectPool);
             result.AddRange(newEffectPool.Take(totalCount - result.Count));
 

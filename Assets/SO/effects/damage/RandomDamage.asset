@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::card_system.functionality.card_effect_types.DamageEffect
   id: random_dmg_effect
   targetType: 1
+  slotCost: 1
+  category: 0
+  Description: Deals random dmg
+  bonusDamage: 0

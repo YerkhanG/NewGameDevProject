@@ -4,13 +4,11 @@ using UnityEngine;
 
 namespace card_system.functionality.card_effect_types
 {
-    //TODO: needs to be tested
+    //tested , works as intented, still dont know if nameof is the best way of doing this
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Shield Up Effect Data")]
     public class ShieldUpEffect : CardEffect
     {
         public int amountToShield;
-        
-        //TODO: in theory should work , should test later
         
         public override bool HasField(string fieldName) => fieldName == nameof(amountToShield);
 

@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::card_system.functionality.card_effect_types.StatModEffect
   id: debuff_dmg_effect
   targetType: 1
+  slotCost: 2
+  category: 2
+  Description: Debuffs random enemy by ${amount}
   type: 1
   amount: 0.5
   duration: 2

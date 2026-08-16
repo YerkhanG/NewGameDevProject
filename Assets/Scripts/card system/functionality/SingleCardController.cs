@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using card_system.animation;
@@ -13,18 +12,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace card_system.UI
 {
-    public class SingleCardController : MonoBehaviour, IBeginDragHandler ,IEndDragHandler, IDragHandler
+    public class SingleCardController : MonoBehaviour, IBeginDragHandler ,IEndDragHandler, IDragHandler , IPointerEnterHandler, IPointerExitHandler
     {
         public CardData cardData;
         //for new saving
         public CardInstanceRecord instanceRecord; 
         [SerializeField]private TextMeshProUGUI cardName;
-        [SerializeField]private TextMeshProUGUI description;
+        [SerializeField]private GameObject descriptionArea;
+        
         [SerializeField]private TextMeshProUGUI manaCost;
         [SerializeField]private Image image;
         public List<CardEffect> cardEffects;
@@ -36,7 +35,12 @@ namespace card_system.UI
         private Vector2 originalPosition;
         private Transform originalParent;
         private int originalSiblingIndex;
-        
+        //For desc
+        [SerializeField]private GameObject dmgDescPrefab;
+        [SerializeField]private Sprite dmgIcon;
+        [SerializeField]private Sprite suppIcon;
+        [SerializeField]private Sprite sustIcon;
+        [SerializeField]private GameObject detailWindow;
         public CardData GetCardData => cardData;
         public CardInstanceRecord GetCardInstanceRecord => instanceRecord;
         void Awake()
@@ -53,6 +57,29 @@ namespace card_system.UI
             image.sprite = data.image;
             cardEffects = CardEffectBuilder.BuildRuntimeEffects(record);
             isManual = cardEffects.Any(e => e.targetType == TargetType.ManualTargeting);
+            SetUpDescriptionArea();
+        }
+
+        public void SetUpDescriptionArea()
+        {
+            foreach (var group in cardEffects.GroupBy(e => e.category))
+            {
+                Sprite icon = GetIconForCategory(group.Key);
+                Instantiate(dmgDescPrefab, descriptionArea.transform)
+                    .GetComponent<SingleUIEffectController>()
+                    .SetUp(icon, group.Count().ToString());
+            }
+        }
+
+        private Sprite GetIconForCategory(Category category)
+        {
+            switch (category)
+            {
+                case Category.Damage:  return dmgIcon;
+                case Category.Support: return suppIcon;
+                case Category.Sustain: return sustIcon;
+                default: return null;
+            }
         }
         public void OnBeginDrag(PointerEventData eventData)
         {
@@ -163,6 +190,16 @@ namespace card_system.UI
             );
     
             rectTransform.position = canvas.transform.TransformPoint(localPoint);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            GlobalEvents.RaiseMouseCardHoverStart(cardEffects);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            GlobalEvents.RaiseMouseCardHoverEnd(cardEffects);
         }
     }
 }

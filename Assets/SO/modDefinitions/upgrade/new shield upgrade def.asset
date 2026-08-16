@@ -16,6 +16,6 @@ MonoBehaviour:
   descriptionTemplate: Upgrades a shieldUp Effect by 2
   type: 0
   effectIndex: 0
-  fieldName: Shield Upgrade
+  fieldName: amountToShield
   value: 2
   effectTemplateIdForAdd: shield_effect1

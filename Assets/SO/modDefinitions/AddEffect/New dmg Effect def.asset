@@ -16,6 +16,6 @@ MonoBehaviour:
   descriptionTemplate: Adds a random damage effect to a card
   type: 1
   effectIndex: 0
-  fieldName: Damage Effect
+  fieldName: bonusDamage
   value: 0
   effectTemplateIdForAdd: random_dmg_effect
