@@ -4,6 +4,7 @@ using card_system.animation;
 using card_system.data;
 using card_system.functionality;
 using combat_system;
+using DG.Tweening;
 using global_events;
 using model.entity;
 using persistence_system.helpers;
@@ -194,11 +195,13 @@ namespace card_system.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            transform.DOScale(1.2f, 0.1f);
             GlobalEvents.RaiseMouseCardHoverStart(cardEffects);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            transform.DOScale(1f, 0.1f);
             GlobalEvents.RaiseMouseCardHoverEnd(cardEffects);
         }
     }
