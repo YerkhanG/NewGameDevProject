@@ -14,7 +14,6 @@ namespace model.entity
         public int baseDamage;
         public int currentShield;
         public int maxHealth;
-        public int maxShield;
         public int armor;
         public  EntityData data;
         public List<StatMods> activeStatMods = new List<StatMods>();
@@ -33,7 +32,6 @@ namespace model.entity
             maxHealth = data.health;
             currentHealth = maxHealth;
             baseDamage = data.baseDamage;
-            maxShield = data.shield;
             armor = data.armor;
         }
 

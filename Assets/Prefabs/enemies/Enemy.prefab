@@ -137,9 +137,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::model.entity.Enemy
   currentHealth: 0
   baseDamage: 0
-  armor: 0
+  currentShield: 0
   maxHealth: 0
+  armor: 0
   data: {fileID: 11400000, guid: 8dd2cc5d50cc47f48bab035c3c6547b9, type: 2}
+  onHPChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onShieldChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  armorConstant: 50
 --- !u!1 &7915107058387355220
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +161,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2121853679954825098}
   - component: {fileID: 2790651142433357768}
+  - component: {fileID: -8378642296511994355}
+  - component: {fileID: 59369999647034299}
+  - component: {fileID: 5383649418991196825}
+  - component: {fileID: -1833884056657051909}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -220,3 +235,64 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-8378642296511994355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7915107058387355220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8213a0f7b2b943dfb42f4a423998d210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::enemyAI_system.functionality.EnemyAi
+  enemyEntity: {fileID: 0}
+  modVar: 2
+--- !u!114 &59369999647034299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7915107058387355220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58c43d9a1df4cc9acd3e9147770131e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::enemyAI_system.abilities.DefaultAttack
+  baseWeight: 5
+  cooldown: 1
+  currentCooldown: 0
+--- !u!114 &5383649418991196825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7915107058387355220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac49024e50640b8a7aa9e4e9874ab6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::enemyAI_system.abilities.DefaultHeal
+  baseWeight: 5
+  cooldown: 1
+  currentCooldown: 0
+  amountOfHealing: 10
+--- !u!114 &-1833884056657051909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7915107058387355220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdab050b5c2340fb860f7136517ee5cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::enemyAI_system.abilities.DefaultShield
+  baseWeight: 5
+  cooldown: 1
+  currentCooldown: 0
+  amountToShield: 10
