@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using card_system.functionality.card_effect_types;
 using data;
+using global_events;
 using model.entity_state;
 using UnityEngine;
 using UnityEngine.Events;
@@ -74,7 +75,7 @@ namespace model.entity
                 mitigatedDamage -= blocked;
                 onShieldChanged.Invoke(currentShield);
             }
-
+            GlobalEvents.RaiseEntityDamageTaken(this, damage);
             currentHealth -= mitigatedDamage;
             onHPChanged?.Invoke(currentHealth, maxHealth);
             if (currentHealth <= 0) Die();
@@ -82,12 +83,14 @@ namespace model.entity
         
         public void Heal(int amount)
         {
+            GlobalEvents.RaiseEntityHealTaken(this , amount);
             currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
             onHPChanged.Invoke(currentHealth, maxHealth);
         }
 
         public void ShieldUp(int amount)
         {
+            GlobalEvents.RaiseEntityShieldTaken(this ,amount);
             currentShield = Mathf.Clamp(currentShield + amount, 0, maxHealth);
             onShieldChanged.Invoke(currentShield);
         }

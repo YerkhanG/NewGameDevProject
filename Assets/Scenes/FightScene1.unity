@@ -270,8 +270,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Mana Count
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5f1bac52611edbe4f82c975bae5ea98e, type: 2}
+  m_sharedMaterial: {fileID: -634521183838722556, guid: 5f1bac52611edbe4f82c975bae5ea98e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.5
+  m_fontSize: 35.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -668,6 +668,7 @@ Transform:
   - {fileID: 1322196198}
   - {fileID: 727582604}
   - {fileID: 135683526}
+  - {fileID: 489984977}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &357966770
@@ -1023,6 +1024,55 @@ Transform:
   - {fileID: 1024584369}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &489984976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 489984977}
+  - component: {fileID: 489984978}
+  m_Layer: 0
+  m_Name: UINumberManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &489984977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489984976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 348760742}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &489984978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489984976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1812f8dd53de46ed9e3d4ef03b01a3b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::combat_system.UI.damage_numbers.UINumberManager
+  prefab: {fileID: 5599482164450238986, guid: 19d9fc19d71c47d45bcbc2512cfd4133, type: 3}
+  damageIcon: {fileID: 2336647380724439105, guid: 728131180648651448a3df12c65d6069, type: 3}
+  healIcon: {fileID: -8922666863456568678, guid: 9a106530e57ea2a4a99e3a219cb40780, type: 3}
+  shieldIcon: {fileID: -6289993299506914772, guid: 0125022a07aef334db7d16bfa0cf369e, type: 3}
+  Canvas: {fileID: 296333996}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,7 +1633,6 @@ MonoBehaviour:
   baseDamage: 0
   currentShield: 0
   maxHealth: 0
-  maxShield: 0
   armor: 0
   data: {fileID: 11400000, guid: 20712e300727f814abdc758f5b1bcef7, type: 2}
   onHPChanged:
@@ -3454,8 +3503,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: End turn
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5f1bac52611edbe4f82c975bae5ea98e, type: 2}
+  m_sharedMaterial: {fileID: -634521183838722556, guid: 5f1bac52611edbe4f82c975bae5ea98e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

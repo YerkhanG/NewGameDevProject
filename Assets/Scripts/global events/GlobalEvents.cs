@@ -17,24 +17,35 @@ namespace global_events
         public static event Action<Enemy> OnTargetValidated;
         public static event Action<int> OnManaChanged;
         public static event Action OnEndTurnButtonPressed;
-        
         public static event Action<Enemy> OnEnemyDied;
         public static event Action OnFightWon;
-        
         public static event Action OnCardRewardPicked;
         public static event Action<int> OnCurrencyChanged;
         //Encounter System
         public static event Action<Encounter.Rarity> OnEncounterPicked;
         public static event Action<Encounter> OnEncounterRarityPicked;
         public static event Action<List<Enemy>> onEncounterSpawned;
+        //---------
         
         //Card Details Events
         public static event Action<List<CardEffect>> onMouseCardHoverStart;
         public static event Action<List<CardEffect>> onMouseCardHoverEnd;
+        //--------------
+        
         public static void RaiseOnEncounterSpawned(List<Enemy> list) => onEncounterSpawned(list);
         public static void RaiseCurrencyChanged(int amount) => OnCurrencyChanged?.Invoke(amount);
         public static void RaiseCardRewardPicked() => OnCardRewardPicked?.Invoke();
-
+        
+        
+        //UI numbers Events
+        public static Action<Entity, int> OnEntityDamageTaken;
+        public static Action<Entity, int> OnEntityHealTaken;
+        public static Action<Entity, int> OnEntityShieldTaken;
+        //----------
+        
+        public static void RaiseEntityDamageTaken(Entity entity, int amount) => OnEntityDamageTaken?.Invoke(entity, amount);
+        public static void RaiseEntityHealTaken(Entity entity, int amount) => OnEntityHealTaken?.Invoke(entity, amount);
+        public static void RaiseEntityShieldTaken(Entity entity, int amount) => OnEntityShieldTaken?.Invoke(entity, amount);
         public static void RaiseMouseCardHoverStart(List<CardEffect> effects)
         {
             onMouseCardHoverStart?.Invoke(effects);
