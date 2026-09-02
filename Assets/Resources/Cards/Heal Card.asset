@@ -16,7 +16,7 @@ MonoBehaviour:
   cardEffects:
   - {fileID: 11400000, guid: 6ff1ca9cbfc8f2d4fbc0fdcfb16558f3, type: 2}
   cardName: Simple heal
-  description: heals for 40
+  description: 
   manaCost: 1
   image: {fileID: -416943055572944365, guid: 289c9ee800fff8742b82a48af694cf52, type: 3}
-  augmentLimit: 0
+  maxEffectSlots: 6

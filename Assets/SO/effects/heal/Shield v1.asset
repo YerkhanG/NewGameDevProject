@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::card_system.functionality.card_effect_types.ShieldUpEffect
   id: shield_effect1
   targetType: 2
-  slotCost: 2
+  slotCost: 1
   category: 1
   Description: Shield for {amountToSheild}
-  amountToShield: 30
+  amountToShield: 10

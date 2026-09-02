@@ -3857,6 +3857,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 99c40c365babed147a87d3e4639ec871, type: 2}
   - {fileID: 11400000, guid: ce40d3e987a8c59458850ed71b0637d6, type: 2}
   - {fileID: 11400000, guid: 831794eb1cfd2764cbcd1093c97f15f9, type: 2}
+  - {fileID: 11400000, guid: ba3fbd8e0c0a5c34a979feda66269edd, type: 2}
   cardPrefab: {fileID: 8694944001873800256, guid: 309a1a6eac20b19448d225d52573af3e, type: 3}
   handContainer: {fileID: 912659100}
 --- !u!1 &2126200407

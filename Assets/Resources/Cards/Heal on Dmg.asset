@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cde3c79aa36747ccbd9b723b80cf7a80, type: 3}
-  m_Name: DoubleStrike
+  m_Name: Heal on Dmg
   m_EditorClassIdentifier: Assembly-CSharp::card_system.data.CardData
-  id: double_damage
+  id: heal_on_dmg
   cardEffects:
-  - {fileID: 11400000, guid: 9bafc6fada0314b4095dd0b0642edbe3, type: 2}
-  - {fileID: 11400000, guid: ce8ea4fb8a1439f4ab31c7bb6bd6033e, type: 2}
-  - {fileID: 11400000, guid: 30fc4405ad714704a9bc2c21b4005d9c, type: 2}
-  cardName: Damage Card M + R
+  - {fileID: 11400000, guid: 4397154528043bb4e838e0d11df3a59b, type: 2}
+  cardName: Holy cashback
   description: 
-  manaCost: 2
+  manaCost: 3
   image: {fileID: -416943055572944365, guid: 289c9ee800fff8742b82a48af694cf52, type: 3}
   maxEffectSlots: 6
