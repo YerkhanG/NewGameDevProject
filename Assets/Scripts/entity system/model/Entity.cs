@@ -35,7 +35,6 @@ namespace model.entity
             baseDamage = data.baseDamage;
             armor = data.armor;
         }
-
         public int EffectiveArmor
         {
             get
@@ -93,6 +92,12 @@ namespace model.entity
             GlobalEvents.RaiseEntityShieldTaken(this ,amount);
             currentShield = Mathf.Clamp(currentShield + amount, 0, maxHealth);
             onShieldChanged.Invoke(currentShield);
+        }
+
+        public void ResetShield()
+        {
+            if(currentShield <=0)return;
+            currentShield =0;
         }
         protected virtual void Die()
         {

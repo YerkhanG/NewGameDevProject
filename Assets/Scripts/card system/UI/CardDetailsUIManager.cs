@@ -7,7 +7,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
-
+//TODO: Need to fix the shit with lagging window
+//issues with lagging window , specifically with the window coveing the card ,
+// triggering the hover end of the card , and then after siapperaing triggering the hovering again creating a cycle
 namespace card_system.UI
 {
     public class CardDetailsUIManager : MonoBehaviour
@@ -16,7 +18,18 @@ namespace card_system.UI
         [SerializeField]private GameObject detailedEffectPrefab;
         private List<GameObject> activeEffects = new();
         private Queue<GameObject> pool = new();
+        
+        private int usedSlots;
 
+        public TextMeshProUGUI usedSlotsUI;
+
+        private void Awake()
+        {
+            var cg = detailsWindow.GetComponent<CanvasGroup>();
+            if (cg == null) cg = detailsWindow.AddComponent<CanvasGroup>();
+            cg.blocksRaycasts = false;
+            cg.interactable = false;
+        }
         private void ReturnAllToPool()
         {
             foreach (var effect in activeEffects)
@@ -65,16 +78,18 @@ namespace card_system.UI
 
         private void HandleMouseHover(List<CardEffect> cardEffects)
         {
+            usedSlots = 0;
             ReturnAllToPool();
             detailsWindow.SetActive(true);
             //Need to List them off with maybe the prefab already created(would need to resize that motherfucker)
             foreach (var effect in cardEffects)
             {
                 GameObject detailedEffect = GetFromPool();
+                usedSlots += effect.slotCost;
                 var description = detailedEffect.GetComponentInChildren<TextMeshProUGUI>();
                 if (description != null)
                 {
-                    description.SetText(effect.Description);
+                    description.SetText(effect.BuildDescription());
                     description.color = Color.white;
                     //resize for the window 
                     LayoutElement  layoutElement = detailedEffect.GetComponent<LayoutElement>();
@@ -92,6 +107,11 @@ namespace card_system.UI
                     Debug.Log(description);
                 }
             }
+            ShowUsedSlots();
+        }
+        public void ShowUsedSlots()
+        {
+            usedSlotsUI.text = usedSlots.ToString() + "/6";
         }
     }
 }

@@ -11,6 +11,7 @@ namespace card_system.functionality.card_effect_types
         public float amount;
         public int duration;
         
+        public override string BuildDescription() => $"Changes properties of enemies or allies(testing) {amount} for {duration}";
         
         //TODO: I need to make this a bit more flexible for two fields 
         /*public override bool HasField(string fieldName) => fieldName == nameof(duration);

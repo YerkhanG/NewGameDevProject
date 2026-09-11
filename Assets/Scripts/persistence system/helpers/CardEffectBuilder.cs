@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using card_system.data;
 using card_system.functionality;
 using combat_system;
@@ -22,8 +23,14 @@ namespace persistence_system.helpers
                 switch (mod.type)
                 {
                     case ModificationType.FieldOverride:
-                        effects[mod.effectIndex].ApplyFieldOverride(mod.fieldName, mod.value);
+                    {
+                        CardEffect target = effects.FirstOrDefault(e => e.HasField(mod.fieldName));
+                        if (target != null)
+                            target.ApplyFieldOverride(mod.fieldName, mod.value);
+                        else
+                            Debug.LogWarning($"No effect with field '{mod.fieldName}' found on card {record.templateId} — override skipped.");
                         break;
+                    }
                     case ModificationType.AddEffect:
                         effects.Add(Object.Instantiate(CardRegistry.instance.GetCardEffect(mod.effectTemplateId)));
                         break;

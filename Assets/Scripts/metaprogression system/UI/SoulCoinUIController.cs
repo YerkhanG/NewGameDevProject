@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace metaprogression_system.UI
 {
-    //TODO: Will have to consider issues with different scenes and etc. May be better to just use a controller
     public class SoulCoinUIController : MonoBehaviour
     {
         

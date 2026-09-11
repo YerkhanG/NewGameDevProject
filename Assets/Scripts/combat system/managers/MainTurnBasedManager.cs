@@ -64,7 +64,7 @@ public class MainTurnBasedManager :  MonoBehaviour
         isPlayerTurn = true;
         turnCounter++;
         Debug.Log($"Player Turn {turnCounter}");
-        
+        GlobalEvents.RaisePlayerTurnStarted();
         ManaCountManager.instance.ResetMana();
         PlayerController.instance.RedrawCards();
     }
@@ -76,6 +76,7 @@ public class MainTurnBasedManager :  MonoBehaviour
         // Disable player input, hide end turn button
         CombatEntityManager.instance.UpdateBuffsAndDebuffs();
         PlayerTurnUIManager.instance.UIDeactivate();
+        GlobalEvents.RaisePlayerTurnEnded();
         StartEnemyTurn();
     }
 

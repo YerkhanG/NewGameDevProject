@@ -44,6 +44,8 @@ namespace card_system.UI
         [SerializeField]private GameObject detailWindow;
         public CardData GetCardData => cardData;
         public CardInstanceRecord GetCardInstanceRecord => instanceRecord;
+
+        private bool draggingCard; 
         void Awake()
         {
             canvas = GetComponentInParent<Canvas>();
@@ -84,6 +86,7 @@ namespace card_system.UI
         }
         public void OnBeginDrag(PointerEventData eventData)
         {
+            draggingCard = true;
             originalPosition = rectTransform.position;
             originalParent = transform.parent;
             originalSiblingIndex = transform.GetSiblingIndex();
@@ -103,6 +106,7 @@ namespace card_system.UI
         // here the new targeting will decide to activate card or not 
         public void OnEndDrag(PointerEventData eventData)
         {
+            draggingCard = false;
             if (isManual)
             {
                 Vector2 worldMousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -195,6 +199,7 @@ namespace card_system.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if(draggingCard) return;
             transform.DOScale(1.2f, 0.1f);
             GlobalEvents.RaiseMouseCardHoverStart(cardEffects);
         }

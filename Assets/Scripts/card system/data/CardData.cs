@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace card_system.data
 {
-    //TODO: Need to implement augmenting cards with the limit
+    //Limits tested , need to skip modifying cards with no possible slots
     [CreateAssetMenu(fileName = "New Card Data", menuName = "Card/Card Data")]
     public class CardData : ScriptableObject
     {

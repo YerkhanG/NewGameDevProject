@@ -24,11 +24,16 @@ namespace reward_system.managers
         public GameObject cardRewardPanel;
         
         private bool rewardShown = false;
-        public void OnEnable()
-        {
-            GlobalEvents.OnFightWon += HandleFightWon;
-            GlobalEvents.OnCardRewardPicked += HandleRewardPicked;
-        }
+        // public void OnEnable()
+        // {
+        //     GlobalEvents.OnFightWon += HandleFightWon;
+        //     GlobalEvents.OnCardRewardPicked += HandleRewardPicked;
+        // }
+        // public void OnDisable()
+        // {
+        //     GlobalEvents.OnFightWon -= HandleFightWon;
+        //     GlobalEvents.OnCardRewardPicked -= HandleRewardPicked;
+        // }
 
         private void HandleFightWon()
         {
@@ -73,11 +78,6 @@ namespace reward_system.managers
         {
             rewardShown = false;
             cardRewardPanel.SetActive(false);
-        }
-        public void OnDisable()
-        {
-            GlobalEvents.OnFightWon -= HandleFightWon;
-            GlobalEvents.OnCardRewardPicked -= HandleRewardPicked;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace card_system.functionality.card_effect_types
     {
         public int amountToShield;
         
+        public override string BuildDescription() => $"Puts up a shield that blocks {amountToShield} damage";
         public override bool HasField(string fieldName) => fieldName == nameof(amountToShield);
 
         public override void ApplyFieldOverride(string fieldName, float value)

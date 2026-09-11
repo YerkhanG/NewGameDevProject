@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using card_modification_system.controller;
 using card_system.data;
 using card_system.UI;
@@ -122,11 +123,28 @@ namespace combat_system.UI
                 baseDamage = player.baseDamage,
             };  
             cardModPanel.SetActive(true);
-            var card = DeckManager.instance.deck[0];
-            cardModPanel.GetComponent<ModPanelController>().Open(card);
+            var card = PickCardsWithLimit();
+            if (card != null)
+            {
+                cardModPanel.SetActive(true);
+                cardModPanel.GetComponent<ModPanelController>().Open(card);
+            }
             PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck, playerState: playerState);
             UIDeactivate();
             victoryPanel.SetActive(true);
+        }
+
+        public CardInstanceRecord PickCardsWithLimit()
+        {
+            var modPanelController = cardModPanel.GetComponent<ModPanelController>();
+
+            var eligible = DeckManager.instance.deck
+                .Where(c => modPanelController.HasAvailableChoices(c))
+                .ToList();
+
+            if (eligible.Count == 0) return null;
+
+            return eligible[UnityEngine.Random.Range(0, eligible.Count)];
         }
     } 
 }

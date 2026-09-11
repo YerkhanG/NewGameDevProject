@@ -9,7 +9,6 @@ namespace card_modification_system.data
         public string id;
         [TextArea] public string descriptionTemplate;   // e.g. "+{0} Shield"
         public ModificationType type;
-        public int effectIndex;
         public string fieldName;
         public float value;
         public string effectTemplateIdForAdd;            // only used for AddEffect

@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemyAI_system.abilities.DefaultHeal
   baseWeight: 5
-  cooldown: 1
+  cooldown: 3
   currentCooldown: 0
   amountOfHealing: 10
 --- !u!114 &-1833884056657051909
@@ -293,6 +293,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemyAI_system.abilities.DefaultShield
   baseWeight: 5
-  cooldown: 1
+  cooldown: 3
   currentCooldown: 0
   amountToShield: 10

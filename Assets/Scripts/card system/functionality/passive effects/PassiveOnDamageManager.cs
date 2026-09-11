@@ -5,22 +5,25 @@ using UnityEngine;
 
 namespace card_system.functionality.passive_effects
 {
-    public class PassiveOnDamageController : MonoBehaviour
+    public class PassiveOnDamageController : PassiveEffectBase
     {
-        public Entity owner;
-        [SerializeField] private float perc = 0.1f;
+        public float perc = 0.1f;
 
-        public void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            duration = 1;
             owner = GetComponentInChildren<Entity>();
         }
-        public void OnEnable()
+        protected  override void OnEnable()
         {
+            base.OnEnable();
             GlobalEvents.OnEntityDamageTaken += HandleEntityDamageTaken;
         }
 
-        public void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             GlobalEvents.OnEntityDamageTaken -= HandleEntityDamageTaken;
         }
         private void HandleEntityDamageTaken(Entity ent, int amount)

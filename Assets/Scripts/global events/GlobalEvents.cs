@@ -10,6 +10,8 @@ namespace global_events
 {
     public static class GlobalEvents
     {
+        public static event Action OnPlayerTurnEnded;
+        public static event Action OnPlayerTurnStarted;
         public static event Action<Entity> PlayerCreated;
         public static event Action<Entity> OnAttackEffectPlayed;
         public static event Action<object> OnDrawFromDeck;
@@ -50,7 +52,14 @@ namespace global_events
         {
             onMouseCardHoverStart?.Invoke(effects);
         }
-        
+        public static void RaisePlayerTurnEnded()
+        {
+            OnPlayerTurnEnded?.Invoke();
+        }
+        public static void RaisePlayerTurnStarted()
+        {
+            OnPlayerTurnStarted?.Invoke();
+        }
         public static void RaiseMouseCardHoverEnd(List<CardEffect> effects)
         {
             onMouseCardHoverEnd?.Invoke(effects);

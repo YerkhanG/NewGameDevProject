@@ -12,7 +12,7 @@ using persistence_system.manager;
 using persistence_system.model;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
+//TODO: i picked card with a full mod limit is still picked but with an empty panel. Need to only pick cards with an approproate limit
 namespace card_modification_system.controller
 {
     public class ModPanelController : MonoBehaviour
@@ -34,20 +34,27 @@ namespace card_modification_system.controller
             Instantiate(cardPrefab, cardPlace).GetComponent<SingleCardController>().Setup(record);
 
             List<CardEffect> currentEffects = CardEffectBuilder.BuildRuntimeEffects(record);
-            List<ModDefinition> choices = BuildChoices(currentEffects, totalCount: 3);
+            List<ModDefinition> choices = BuildChoices(record,currentEffects, totalCount: 3);
 
             foreach (var mod in choices)
                 Instantiate(modChoicePrefab, modPanel.transform)
                     .GetComponent<SingleModController>().SetUp(mod, HandleModPicked);
         }
 
-        private List<ModDefinition> BuildChoices(List<CardEffect> currentEffects, int totalCount)
+        public bool HasAvailableChoices(CardInstanceRecord record)
+        {
+            List<CardEffect> currentEffects = CardEffectBuilder.BuildRuntimeEffects(record);
+            return BuildChoices(record, currentEffects, totalCount: 3).Count > 0;
+        }
+
+        private List<ModDefinition> BuildChoices(CardInstanceRecord record,List<CardEffect> currentEffects, int totalCount)
         {
             List<ModDefinition> result = new List<ModDefinition>();
 
             ModDefinition upgrade = PickCompatibleUpgrade(currentEffects);
             if (upgrade != null) result.Add(upgrade);
-            int maxSlots = CardRegistry.instance.GetCard(targetRecord.templateId).maxEffectSlots;
+
+            int maxSlots = CardRegistry.instance.GetCard(record.templateId).maxEffectSlots;
             int usedSlots = currentEffects.Sum(e => e.slotCost);
             int remainingSlots = maxSlots - usedSlots;
 
@@ -80,7 +87,6 @@ namespace card_modification_system.controller
             targetRecord.modifications.Add(new CardModification
             {
                 type = chosen.type,
-                effectIndex = chosen.effectIndex,
                 fieldName = chosen.fieldName,
                 value = chosen.value,
                 effectTemplateId = chosen.effectTemplateIdForAdd

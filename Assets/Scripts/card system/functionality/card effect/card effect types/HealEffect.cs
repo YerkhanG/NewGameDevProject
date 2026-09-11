@@ -3,13 +3,14 @@ using global_events;
 using model.entity;
 using UnityEngine;
 //TODO: need to add a level up and add effect
+//TODO: Added , needs to be tested
 namespace card_system.functionality.card_effect_types
 {
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Heal Effect Data")]
     public class HealEffect : CardEffect
     {
         public int amountToHeal;
-        
+        public override string BuildDescription() => $"Heals for {amountToHeal}";
         public override bool HasField(string fieldName) => fieldName == nameof(amountToHeal);
 
         public override void ApplyFieldOverride(string fieldName, float value)

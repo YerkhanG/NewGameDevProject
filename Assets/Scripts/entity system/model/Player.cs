@@ -1,4 +1,5 @@
 using System;
+using global_events;
 using persistence_system.manager;
 using persistence_system.model;
 using UnityEditor;
@@ -23,6 +24,19 @@ namespace model.entity
             {
                 base.Awake(); // fall back to EntityData defaults
             }
+        }
+        public void Onable()
+        {
+            GlobalEvents.OnPlayerTurnStarted += HandlePlayerTurnStarted;
+        }
+        public void OnDisable()
+        {
+            GlobalEvents.OnPlayerTurnStarted -= HandlePlayerTurnStarted;
+        }
+
+        public void HandlePlayerTurnStarted()
+        {
+            ResetShield();
         }
     }
 }

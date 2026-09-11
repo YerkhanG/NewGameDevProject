@@ -21,7 +21,7 @@ namespace card_system.functionality
         
         public virtual bool HasField(string fieldName) => false;
         public virtual void ApplyFieldOverride(string fieldName, float value) { }
-        
+        public virtual string BuildDescription() => Description;
         protected List<Entity> ResolveTargets(EffectContext context, TargetType targeting)
         {
             switch (targeting)

@@ -9,7 +9,6 @@ using UnityEngine;
 
 namespace combat_system
 {
-    //TODO: I would guess i need to rebind the container after scene change(maybe even other references too)
     // the issue wasnt with the references , it was with the event not unsubbing after the first instance of the fight scene 
     public class GraveyardPileManager : MonoBehaviour
     {

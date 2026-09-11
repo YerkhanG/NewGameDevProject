@@ -9,6 +9,7 @@ namespace card_system.functionality.card_effect_types
     public class DamageEffect : CardEffect
     {
         public int bonusDamage;
+        public override string BuildDescription() => $"Deals base + {bonusDamage} damage";
         public override bool HasField(string fieldName) => fieldName == nameof(bonusDamage);
 
         public override void ApplyFieldOverride(string fieldName, float value)
