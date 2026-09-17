@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using card_system.data;
-using map_encounter_system.map_system.data;
+using map_encounter_system.map_system;
 
 namespace persistence_system.model
 {

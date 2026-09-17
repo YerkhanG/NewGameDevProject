@@ -64,10 +64,10 @@ MonoBehaviour:
   widthNodeCount: 5
   layerCount: 8
   numOfPreBossNodes:
-    min: 5
-    max: 5
+    min: 3
+    max: 3
   numOfStartingNodes:
     min: 5
     max: 5
-  extraPaths: 1
+  extraPaths: 2
   randomTypes: 000000000100000002000000

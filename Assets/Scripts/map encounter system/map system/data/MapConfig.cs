@@ -4,7 +4,7 @@ using map_encounter_system.map_system.data.node;
 using math_structs;
 using UnityEngine;
 
-namespace map_encounter_system.map_system.data
+namespace map_encounter_system.map_system
 {
     [CreateAssetMenu(fileName = "NewConfig", menuName = "Map/Config")]
     public class MapConfig : ScriptableObject
@@ -12,7 +12,6 @@ namespace map_encounter_system.map_system.data
         public List<MapLayer> layers;
         public int widthNodeCount;
         public int layerCount;
-        
 
         public IntMinMax numOfPreBossNodes;
         public IntMinMax numOfStartingNodes;

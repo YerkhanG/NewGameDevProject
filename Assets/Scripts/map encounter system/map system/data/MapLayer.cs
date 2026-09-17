@@ -2,7 +2,7 @@ using encounter_system.data;
 using math_structs;
 using UnityEngine;
 
-namespace map_encounter_system.map_system.data
+namespace map_encounter_system.map_system
 {
     [System.Serializable]
     public class MapLayer

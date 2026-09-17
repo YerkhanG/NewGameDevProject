@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using persistence_system.model;
 using UnityEngine;
 using System.IO;
-using map_encounter_system.map_system.data;
+using map_encounter_system.map_system;
 using map_encounter_system.map_system.data.node;
 using Newtonsoft.Json;
 using persistence_system.helpers;

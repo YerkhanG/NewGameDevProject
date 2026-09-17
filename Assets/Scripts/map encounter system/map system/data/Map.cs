@@ -4,7 +4,7 @@ using encounter_system.data;
 using map_encounter_system.map_system.data.node;
 using UnityEngine;
 
-namespace map_encounter_system.map_system.data
+namespace map_encounter_system.map_system
 {
     public class Map
     {
