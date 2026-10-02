@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using card_system.functionality;
 using encounter_system.data;
+using map_encounter_system.level_system;
 using model.entity;
 using persistence_system.model;
 using UnityEngine;
@@ -44,7 +45,15 @@ namespace global_events
         public static Action<Entity, int> OnEntityHealTaken;
         public static Action<Entity, int> OnEntityShieldTaken;
         //----------
-        
+        //Worlds Selection Events
+        public static  Action<LevelConfig> OnWorldSelected;
+        public static Action onLevelCleared;
+        //-------
+        public static Action OnContinueRunClicked;
+        public static void RaiseContinueButtonClicked() => OnContinueRunClicked?.Invoke();
+
+        public static void RaiseWorldSelectionStarted(LevelConfig levelConfig) => OnWorldSelected?.Invoke(levelConfig);
+        public static void RaiseLevelCleared() => onLevelCleared?.Invoke(); 
         public static void RaiseEntityDamageTaken(Entity entity, int amount) => OnEntityDamageTaken?.Invoke(entity, amount);
         public static void RaiseEntityHealTaken(Entity entity, int amount) => OnEntityHealTaken?.Invoke(entity, amount);
         public static void RaiseEntityShieldTaken(Entity entity, int amount) => OnEntityShieldTaken?.Invoke(entity, amount);

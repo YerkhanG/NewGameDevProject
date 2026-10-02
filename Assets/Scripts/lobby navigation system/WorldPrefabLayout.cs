@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using global_events;
+using map_encounter_system.level_system;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,11 +16,23 @@ namespace navigation_system
         public TextMeshProUGUI level;
 
         public Button selectButton;
-        public void SetUp(Sprite image ,int level)
+        public LevelConfig levelConfig;
+        public void SetUp(Sprite image ,int level, LevelConfig levelConfig)
         {
             icon.sprite = image;
             this.level.text = level.ToString();
+            this.levelConfig = levelConfig;
         }
-        
+        public void Awake()
+        {
+            selectButton.onClick.AddListener(HandleSelectButtonClick);
+        }
+        public void HandleSelectButtonClick()
+        {
+            Debug.Log("Checking Button working");
+            Debug.Log("Level id: " + levelConfig.Id);
+            //Need to consume this somewhere , where the map scene starts 
+            GlobalEvents.RaiseWorldSelectionStarted(levelConfig);
+        }
     }
 }

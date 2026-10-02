@@ -12,6 +12,7 @@ namespace map_encounter_system.map_system.data.node
         public Vector2Int gridPosition;
         public List<Vector2Int> connections2 = new();
         public bool isConnectedTo = false;
+        public bool IsFinalNode = false;
         public void AddConnection(Node otherNode)
         {
             if (!connections2.Contains(otherNode.gridPosition))

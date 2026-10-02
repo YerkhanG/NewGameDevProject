@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
+using global_events;
 using map_encounter_system.level_system;
+using persistence_system.manager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,16 +10,18 @@ namespace navigation_system
 {
     public class LobbyNavigationManager : MonoBehaviour
     {
-
+        //TODO: Need a continu button if the player quits . In that continue button i need to load the data of the level
         [Header("Panels")]
         [SerializeField] private CanvasGroup mainPanel;
         // [SerializeField] private CanvasGroup shopPanel;
         [SerializeField] private CanvasGroup levelSelectPanel;
         private MenuState menuState;
         [Header("shop button")]
-        public Button shopButton;
+        [SerializeField] private Button shopButton;
+        [Header("Continue run")]
+        [SerializeField] private Button continueButton;
         [Header("Level Selection")]
-        public Button runButton;
+        [SerializeField] private Button runButton;
         [Header("Level Select Buttons")]
         [SerializeField] private Button levelSelectBackButton;
         [SerializeField] private Button[] levelButtons; 
@@ -24,21 +30,22 @@ namespace navigation_system
         [Header("Worlds Container")]
         [SerializeField] private GameObject worldsContainer;
         [Header("Level Configs")]
-        [SerializeField] private LevelConfig[] levels;
+        [SerializeField] private List<LevelConfig> levels;
         public void Awake()
         {
             foreach(var l in levels)
             {
                 var worldCreated = Instantiate(worldPrefab, worldsContainer.transform);
                 var layout = worldCreated.GetComponent<WorldPrefabLayout>();
-                layout.SetUp(l.icon,l.level);
+                layout.SetUp(l.icon,l.level,l);
             }
         }
-        public void OnEnable()
+        public void OnEnable() 
         {
             runButton.onClick.AddListener(()=> SetState(MenuState.LevelSelect));
             shopButton.onClick.AddListener(OnShopButtonClicked);
             levelSelectBackButton.onClick.AddListener(() => SetState(MenuState.Main));
+            continueButton.onClick.AddListener(OnContinueButtonClicked);
         }
 
         private void SetState(MenuState next)
@@ -58,6 +65,7 @@ namespace navigation_system
         public void OnDisable()
         {
             shopButton.onClick.RemoveListener(OnShopButtonClicked);
+            continueButton.onClick.RemoveListener(OnContinueButtonClicked);
         }
 
         public void OnShopButtonClicked()
@@ -70,6 +78,17 @@ namespace navigation_system
             catch (System.Exception e)
             {
                 Debug.LogError("Exception in OnShopButtonClicked: " + e);
+            }
+        }
+
+        public void OnContinueButtonClicked()
+        {
+            var data = PersistenceManager.instance.LoadSceneData();
+            if(data.loadedCurrentFloor != null && data.loadedWorldLevelId != null)
+            {
+                WorldCreationManager.Instance.SetCurrentFloor(Int32.Parse(data.loadedCurrentFloor));
+                WorldCreationManager.Instance.SetCurrentLevel(levels.Find(c=> c.Id == data.loadedWorldLevelId));
+                
             }
         }
     }

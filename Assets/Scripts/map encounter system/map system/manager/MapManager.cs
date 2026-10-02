@@ -1,4 +1,5 @@
 using map_encounter_system.map_system.data;
+using navigation_system;
 using persistence_system.manager;
 using persistence_system.model;
 using UnityEngine;
@@ -37,8 +38,12 @@ namespace map_encounter_system.map_system.manager
             else
             {
                 Debug.Log("Saved SceneData");
+                if(WorldCreationManager.Instance == null) Debug.Log("bullshit with instance");
+                if(WorldCreationManager.Instance.CurrentLevel == null) Debug.Log("problem with config");
+                mapGenerator.config = WorldCreationManager.Instance.CurrentLevel.mapConfig;
                 map =  mapGenerator.GenerateMap();
-                PersistenceManager.instance.SaveSceneData(map);
+                
+                PersistenceManager.instance.SaveSceneData( map : map, levelConfigId : WorldCreationManager.Instance.CurrentLevel.Id, currentFloor : WorldCreationManager.Instance.CurrentFloor.ToString());
             }
             mapView.ShowMap(map);
             mapView.UpdateNodeStates(map);

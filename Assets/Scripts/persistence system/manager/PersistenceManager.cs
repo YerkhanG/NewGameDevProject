@@ -6,6 +6,7 @@ using map_encounter_system.map_system;
 using map_encounter_system.map_system.data.node;
 using Newtonsoft.Json;
 using persistence_system.helpers;
+using map_encounter_system.level_system;
 
 namespace persistence_system.manager
 {
@@ -25,18 +26,20 @@ namespace persistence_system.manager
             DontDestroyOnLoad(gameObject);
         }
         
-        public void SaveSceneData(Map map = null, List<CardInstanceRecord> cards = null, PlayerState playerState = null)
+        public void SaveSceneData(Map map = null, List<CardInstanceRecord> cards = null, PlayerState playerState = null, string levelConfigId = null, string currentFloor = null)
         {
             SaveData existing = LoadRawSaveData() ?? new SaveData();
 
             if (map != null)
                 existing.map = ToMapDTO(map);
-
             if (cards != null)
                 existing.cards = cards;   // already flat — no conversion needed
-
             if (playerState != null)
                 existing.playerState = playerState;
+            if(levelConfigId != null)
+                existing.WorldLevelId = levelConfigId;
+            if(currentFloor != null)
+                existing.CurrentFloor = currentFloor;
 
             var settings = new JsonSerializerSettings();
             settings.Converters.Add(new Vector2Converter());
@@ -60,7 +63,9 @@ namespace persistence_system.manager
             {
                 loadedMap = FromMapDTO(raw.map),
                 loadedCards = raw.cards ?? new List<CardInstanceRecord>(),
-                playerState = raw.playerState
+                playerState = raw.playerState,
+                loadedCurrentFloor = raw.CurrentFloor,
+                loadedWorldLevelId = raw.WorldLevelId
             };
         }
         

@@ -8,21 +8,29 @@ using map_encounter_system.map_system.data;
 using map_encounter_system.map_system.data.node;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using navigation_system;
 
 namespace map_encounter_system.map_system
 {
     public class MapGenerator : MonoBehaviour
     {
-        //here everything has to e constructed in mapConfig. Be it the layers , number of nodes etc. 
+        //here everything has to be constructed in mapConfig. Be it the layers , number of nodes etc. 
         public MapConfig config;
         public List<float> layerDistances;
         //List for all layers with nodes 
         public List<List<Node>> nodes = new List<List<Node>>();
-        
-        
-        public MapGenerator(MapConfig config)
+        public static MapGenerator instance;
+        public void Awake()
         {
-            this.config = config;
+            // config = WorldCreationManager.Instance.CurrentLevel.mapConfig;
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else 
+            {
+                Destroy(gameObject);
+            }
         }
 
         public Map GenerateMap()
@@ -37,24 +45,26 @@ namespace map_encounter_system.map_system
                 return null;
             }
 
-            GenerateLayerDistances();
-            //Place layers first
+             GenerateLayerDistances();
             for (int i = 0; i < config.layerCount; i++)
-            {
                 PlaceLayer(i);
-            }
-            
-            List<List<Vector2Int>> paths = GeneratePaths();
-            Debug.Log("paths: " + paths.Count);
+
+            Vector2Int finalPos = GetFinalNode();          // compute once
+            List<List<Vector2Int>> paths = GeneratePaths(finalPos); // reuse it
             RandomizeNodePositions();
             SetUpConnections(paths);
+            TagFinalNode(finalPos);                        // tag while indices are still valid
             RemoveCrossConnections();
-            RemoveNotUsedNodes();
-            //Then i have to path em 
-            //Return Map
-            return new Map(config.name,"Some random shit", nodes, new List<Vector2Int>());
+            RemoveNotUsedNodes();                           // safe to mutate lists now — tagging's already done
+
+            return new Map(config.name, "Some random shit", nodes, new List<Vector2Int>());
         }
 
+        private void TagFinalNode(Vector2Int finalPos)
+        {
+            var node = GetNode(finalPos);
+            node.IsFinalNode = true;
+        }
         private void RemoveNotUsedNodes()
         {
             foreach (List<Node> list in nodes)
@@ -156,9 +166,8 @@ namespace map_encounter_system.map_system
                 ? new Vector2Int(config.widthNodeCount / 2, y)
                 : new Vector2Int(config.widthNodeCount / 2 - 1, y);
         }
-        private List<List<Vector2Int>> GeneratePaths()
+        private List<List<Vector2Int>> GeneratePaths(Vector2Int finalNode)
         {
-            Vector2Int finalNode = GetFinalNode();
             var paths = new List<List<Vector2Int>>();
             int numOfStartingNodes = config.numOfStartingNodes.GetValue();
             int numOfPreBossNodes = config.numOfPreBossNodes.GetValue();

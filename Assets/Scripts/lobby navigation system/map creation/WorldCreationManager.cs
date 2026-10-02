@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using global_events;
+using map_encounter_system.level_system;
+using map_encounter_system.map_system;
+using persistence_system.manager;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+namespace navigation_system
+{
+    public class WorldCreationManager : MonoBehaviour
+    {
+        //this manager just stores the level which after going into map scene is used by the map generation
+        public LevelConfig CurrentLevel  => currentLevel;
+        private LevelConfig currentLevel;
+        private int currentFloor;
+        public int CurrentFloor => currentFloor;
+        public static WorldCreationManager Instance { get; private set; }
+        public void OnEnable()
+        {
+            GlobalEvents.OnWorldSelected += HandleWorldSelected;
+        }
+
+        public void OnDisable()
+        {
+            GlobalEvents.OnWorldSelected -= HandleWorldSelected;
+        }
+        public void Awake()
+        {
+            if (Instance != null) { Destroy(gameObject); return; }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        private void HandleWorldSelected(LevelConfig config)
+        {
+            currentLevel = config;
+            SceneManager.LoadScene("MapScene");
+        }
+        public void SetCurrentFloor(int currentFloor)
+        {
+            this.currentFloor = currentFloor;
+        }
+        public void SetCurrentLevel(LevelConfig currentLevel)
+        {
+            this.currentLevel = currentLevel;
+        }
+    }
+}

@@ -9,5 +9,7 @@ namespace persistence_system.model
         public List<CardInstanceRecord> loadedCards;
         public Map loadedMap;
         public PlayerState playerState;
+        public string loadedCurrentFloor;
+        public string loadedWorldLevelId;
     }
 }

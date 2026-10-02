@@ -5,6 +5,7 @@ namespace map_encounter_system.level_system
     [CreateAssetMenu(fileName = "NewConfig", menuName = "Map/LevelConfig")]
     public class LevelConfig : ScriptableObject
     {
+        public string Id;
         public MapConfig mapConfig;
         public int floors;
         public int level;
