@@ -4,6 +4,7 @@ using global_events;
 using map_encounter_system.map_system.data;
 using map_encounter_system.map_system.data.node;
 using map_encounter_system.map_system.manager;
+using navigation_system;
 using persistence_system.manager;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -73,6 +74,7 @@ namespace map_encounter_system.map_system.UI
             }
 
             map.path.Add(nodeView.Node.gridPosition);
+            WorldCreationManager.Instance.EnteredFinalNode = nodeView.Node.IsFinalNode;
             PersistenceManager.instance.SaveSceneData(map);
             MapManager.instance.mapView.UpdateNodeStates(map);
             GlobalEvents.RaiseEncounterPicked(nodeView.Node.type);

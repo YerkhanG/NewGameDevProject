@@ -71,6 +71,7 @@ namespace map_encounter_system.map_system
             {
                 foreach (Node node in list.ToList())
                 {
+                    if (node.IsFinalNode) continue;
                     if (node.connections2.Count == 0 && node.isConnectedTo == false)
                     {
                         list.Remove(node);
@@ -275,7 +276,7 @@ namespace map_encounter_system.map_system
                 if (rightCol < config.widthNodeCount && horizontalDistance <= verticalDistance)
                     candidateCols.Add(rightCol);
 
-                int randomCandidateIndex = Random.Range(0, candidateCols.Count - 1);
+                int randomCandidateIndex = Random.Range(0, candidateCols.Count);
                 int candidateCol = candidateCols[randomCandidateIndex];
                 Vector2Int nextPoint = new Vector2Int(candidateCol, row);
 

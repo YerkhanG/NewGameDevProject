@@ -21,16 +21,17 @@ namespace map_encounter_system.map_system.data.node
                 otherNode.isConnectedTo = true;
             }
         }
-        public Node(Encounter.Rarity type, Encounter data,  Vector2Int gridPosition) 
+        public Node(Encounter.Rarity type,Encounter data,  Vector2Int gridPosition) 
         {
             this.type = type;
             this.gridPosition = gridPosition;
         }
-        public Node(Encounter.Rarity type, Encounter data, Vector2 position, Vector2Int gridPosition) 
+        public Node(Encounter.Rarity type, Vector2 position, Vector2Int gridPosition , bool IsFinalNode) 
         {
             this.type = type;
             this.gridPosition = gridPosition;
             this.position = position;
+            this.IsFinalNode = IsFinalNode;
         }
 
         public bool HasNoConnections()

@@ -19,6 +19,8 @@ namespace navigation_system
         private int currentFloor;
         public int CurrentFloor => currentFloor;
         public static WorldCreationManager Instance { get; private set; }
+
+        public bool EnteredFinalNode = false;
         public void OnEnable()
         {
             GlobalEvents.OnWorldSelected += HandleWorldSelected;
@@ -46,6 +48,29 @@ namespace navigation_system
         public void SetCurrentLevel(LevelConfig currentLevel)
         {
             this.currentLevel = currentLevel;
+        }
+
+        public void HandleWinningFloor()
+        {
+            Debug.Log("Won the floor");
+            PersistenceManager.instance.ClearMapData();
+            if (CheckForLevelWin())
+            {
+                //here i win completely so i should technically just fire the event? the event would be taken by the main ui manager and then after some dev time maybe i will add a reward for each unique "world"
+                GlobalEvents.RaiseLevelCleared();
+            }
+            else
+            {
+                currentFloor++;
+            }
+        }
+        public bool CheckForLevelWin()
+        {
+            if(currentFloor != currentLevel.floors)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

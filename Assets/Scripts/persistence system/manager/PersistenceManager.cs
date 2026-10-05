@@ -76,7 +76,17 @@ namespace persistence_system.manager
                 File.Delete(path);
             Debug.Log("Save deleted");
         }
-        
+        public void ClearMapData()
+        {
+            SaveData existing = LoadRawSaveData();
+            if (existing == null) return;
+            existing.map = null;
+
+            var settings = new JsonSerializerSettings();
+            settings.Converters.Add(new Vector2Converter());
+            string json = JsonConvert.SerializeObject(existing, settings);
+            File.WriteAllText(Application.persistentDataPath + "/sceneSaveData.json", json);
+        }
         public Map FromMapDTO(MapDTO dto)
         {
             if (dto == null) return null;
@@ -84,7 +94,7 @@ namespace persistence_system.manager
             var nodesByIdx = new List<Node>();
             foreach (var nodeDto in dto.allNodes)
             {
-                var node = new Node(nodeDto.type, null, nodeDto.position ,nodeDto.gridPosition);
+                var node = new Node(nodeDto.type, nodeDto.position ,nodeDto.gridPosition, nodeDto.IsFinalNode);
                 node.isConnectedTo = nodeDto.isConnectedTo;
                 // connections will be added later
                 nodesByIdx.Add(node);
@@ -136,6 +146,7 @@ namespace persistence_system.manager
                         connectionIndices = new List<int>(),
                         isConnectedTo = node.isConnectedTo,
                         gridPosition = node.gridPosition,
+                        IsFinalNode = node.IsFinalNode
                     });
                 }
             }

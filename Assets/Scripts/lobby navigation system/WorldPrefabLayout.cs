@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using global_events;
 using map_encounter_system.level_system;
+using persistence_system.manager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,6 +33,7 @@ namespace navigation_system
             Debug.Log("Checking Button working");
             Debug.Log("Level id: " + levelConfig.Id);
             //Need to consume this somewhere , where the map scene starts 
+            PersistenceManager.instance.DeleteSaveData();
             GlobalEvents.RaiseWorldSelectionStarted(levelConfig);
         }
     }

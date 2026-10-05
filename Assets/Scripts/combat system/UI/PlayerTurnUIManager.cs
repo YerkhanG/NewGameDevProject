@@ -5,6 +5,7 @@ using card_system.data;
 using card_system.UI;
 using global_events;
 using model.entity;
+using navigation_system;
 using persistence_system.manager;
 using persistence_system.model;
 using TMPro;
@@ -23,21 +24,31 @@ namespace combat_system.UI
         [SerializeField]private Button endTurnButton;
         [SerializeField]private Button deathResetButton;
         [SerializeField]private Button afterVictoryButton;
+        [SerializeField]private Button NextFloorButton; 
+        [SerializeField]private Button FinishFloorButton;
         [Header("Panel")]
         [SerializeField]private GameObject panel;
         [SerializeField]private GameObject deathPanel;
         [SerializeField]private GameObject victoryPanel;
-        [SerializeField] private GameObject cardModPanel;
+        [SerializeField]private GameObject nextFloorPanel;
+        //TODO: Maybe the panel will be replaced once i change the level done event chain
+        [SerializeField]private GameObject levelFinishedPanel;
+
+        //--------------------
+        [SerializeField]private GameObject cardModPanel;
+
+
         //purely for endfight card consolidation
         private bool hasConsolidated = false;
-        private int fightWonCallCount = 0; 
         public void OnEnable()
         {
             GlobalEvents.OnFightWon += HandleFightWon;
             GlobalEvents.OnManaChanged += ManaChangeUI;
+            GlobalEvents.OnLevelCleared += HandleLevelWon;
             endTurnButton.onClick.AddListener(EndTurnEventStart);
             deathResetButton.onClick.AddListener(OnDeathSendToMainLobby);
             afterVictoryButton.onClick.AddListener(OnVictorySendToTheMap);
+            NextFloorButton.onClick.AddListener(OnFloorWonSendToTheNextMap);
         }
 
         private void EndTurnEventStart()
@@ -54,14 +65,19 @@ namespace combat_system.UI
         {
             SceneManager.LoadScene("MapScene");
         }
-
+        private void OnFloorWonSendToTheNextMap()
+        {
+            SceneManager.LoadScene("MapScene");
+        }
         public void OnDisable()
         {
             GlobalEvents.OnFightWon -= HandleFightWon;
             GlobalEvents.OnManaChanged -= ManaChangeUI;
+            GlobalEvents.OnLevelCleared -= HandleLevelWon;
             endTurnButton.onClick.RemoveListener(EndTurnEventStart);
             deathResetButton.onClick.RemoveListener(OnDeathSendToMainLobby);
             afterVictoryButton.onClick.RemoveListener(OnVictorySendToTheMap);
+            NextFloorButton.onClick.RemoveListener(OnFloorWonSendToTheNextMap);
         }
         public void Awake()
         {
@@ -103,7 +119,11 @@ namespace combat_system.UI
         {
             manaCountUI.text = manaCount.ToString();
         }
-
+        public void HandleLevelWon()
+        {
+            UIDeactivate();
+            levelFinishedPanel.SetActive(true);
+        }
         public void HandleFightWon()
         {
             if (hasConsolidated)
@@ -131,7 +151,15 @@ namespace combat_system.UI
             }
             PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck, playerState: playerState);
             UIDeactivate();
-            victoryPanel.SetActive(true);
+            if (WorldCreationManager.Instance.EnteredFinalNode)
+            {   
+                WorldCreationManager.Instance.HandleWinningFloor();
+                nextFloorPanel.SetActive(true);
+            }
+            else
+            {
+                victoryPanel.SetActive(true);
+            }
         }
 
         public CardInstanceRecord PickCardsWithLimit()
