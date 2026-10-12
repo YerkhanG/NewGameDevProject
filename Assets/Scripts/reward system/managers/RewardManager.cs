@@ -24,16 +24,16 @@ namespace reward_system.managers
         public GameObject cardRewardPanel;
         
         private bool rewardShown = false;
-        // public void OnEnable()
-        // {
-        //     GlobalEvents.OnFightWon += HandleFightWon;
-        //     GlobalEvents.OnCardRewardPicked += HandleRewardPicked;
-        // }
-        // public void OnDisable()
-        // {
-        //     GlobalEvents.OnFightWon -= HandleFightWon;
-        //     GlobalEvents.OnCardRewardPicked -= HandleRewardPicked;
-        // }
+        public void OnEnable()
+        {
+            GlobalEvents.OnFightWon += HandleFightWon;
+            GlobalEvents.OnCardRewardPicked += HandleRewardPicked;
+        }
+        public void OnDisable()
+        {
+            GlobalEvents.OnFightWon -= HandleFightWon;
+            GlobalEvents.OnCardRewardPicked -= HandleRewardPicked;
+        }
 
         private void HandleFightWon()
         {
@@ -43,11 +43,11 @@ namespace reward_system.managers
             {
                 case Encounter.Rarity.Normal:
                     SessionManager.instance.AddCurrency(100);
-                    ShowCardReward();
+                    // ShowCardReward();
                     break;
                 case Encounter.Rarity.Hard:
                     SessionManager.instance.AddCurrency(200);
-                    ShowCardReward();
+                    // ShowCardReward();
                     break;
                 case Encounter.Rarity.Elite:
                     SessionManager.instance.AddCurrency(300);

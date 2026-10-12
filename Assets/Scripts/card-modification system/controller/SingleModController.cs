@@ -11,6 +11,7 @@ namespace card_modification_system.controller
     public class SingleModController : MonoBehaviour, IPointerClickHandler , IPointerExitHandler,  IPointerEnterHandler
     {
         [SerializeField] private TextMeshProUGUI modDescription;
+        [SerializeField] private TextMeshProUGUI modManaCostDelta;
         /*[SerializeField] private TextMeshProUGUI modName;*/
         [SerializeField] private Image background;
 
@@ -27,6 +28,7 @@ namespace card_modification_system.controller
         {
             modData = data;
             modDescription.text = data.GetDescription();
+            modManaCostDelta.text = "+ " + data.manaCostDelta.ToString();
             onSelected = OnSelectedCallBack;
         }
         

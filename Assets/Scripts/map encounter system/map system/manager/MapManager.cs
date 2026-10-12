@@ -38,12 +38,12 @@ namespace map_encounter_system.map_system.manager
             else
             {
                 Debug.Log("Saved SceneData");
-                if(WorldCreationManager.Instance == null) Debug.Log("bullshit with instance");
-                if(WorldCreationManager.Instance.CurrentLevel == null) Debug.Log("problem with config");
-                mapGenerator.config = WorldCreationManager.Instance.CurrentLevel.mapConfig;
+                if(LevelCreationManager.Instance == null) Debug.Log("bullshit with instance");
+                if(LevelCreationManager.Instance.CurrentLevel == null) Debug.Log("problem with config");
+                mapGenerator.config = LevelCreationManager.Instance.CurrentLevel.mapConfig;
                 map =  mapGenerator.GenerateMap();
                 
-                PersistenceManager.instance.SaveSceneData( map : map, levelConfigId : WorldCreationManager.Instance.CurrentLevel.Id, currentFloor : WorldCreationManager.Instance.CurrentFloor.ToString());
+                PersistenceManager.instance.SaveSceneData( map : map, levelConfigId : LevelCreationManager.Instance.CurrentLevel.Id, currentFloor : LevelCreationManager.Instance.CurrentFloor.ToString());
             }
             mapView.ShowMap(map);
             mapView.UpdateNodeStates(map);

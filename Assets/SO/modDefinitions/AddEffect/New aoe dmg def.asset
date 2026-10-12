@@ -15,7 +15,7 @@ MonoBehaviour:
   id: aoe_dmg_mod_def
   descriptionTemplate: Adds a AOE damage effect to a card
   type: 1
-  effectIndex: 0
   fieldName: bonusDamage
   value: 0
   effectTemplateIdForAdd: aoe_dmg_effect
+  manaCostDelta: 1

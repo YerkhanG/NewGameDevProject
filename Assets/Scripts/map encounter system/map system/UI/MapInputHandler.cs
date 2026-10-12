@@ -74,7 +74,7 @@ namespace map_encounter_system.map_system.UI
             }
 
             map.path.Add(nodeView.Node.gridPosition);
-            WorldCreationManager.Instance.EnteredFinalNode = nodeView.Node.IsFinalNode;
+            LevelCreationManager.Instance.EnteredFinalNode = nodeView.Node.IsFinalNode;
             PersistenceManager.instance.SaveSceneData(map);
             MapManager.instance.mapView.UpdateNodeStates(map);
             GlobalEvents.RaiseEncounterPicked(nodeView.Node.type);

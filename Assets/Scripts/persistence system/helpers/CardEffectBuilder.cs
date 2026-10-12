@@ -41,5 +41,16 @@ namespace persistence_system.helpers
             }
             return effects;
         }
+
+        public static int BuildManaCost(CardInstanceRecord record)
+        {
+            CardData template = CardRegistry.instance.GetCard(record.templateId);
+            int cost = int.Parse(template.manaCost);   // use whatever your base cost field is called
+
+            foreach (var mod in record.modifications)
+                cost += mod.manaCostDelta;
+
+            return Mathf.Max(0, cost);
+        }
     }
 }

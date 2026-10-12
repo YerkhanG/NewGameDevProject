@@ -15,7 +15,7 @@ MonoBehaviour:
   id: rand_dmg_mod_def
   descriptionTemplate: Adds a random damage effect to a card
   type: 1
-  effectIndex: 0
   fieldName: bonusDamage
   value: 0
   effectTemplateIdForAdd: random_dmg_effect
+  manaCostDelta: 1

@@ -27,6 +27,7 @@ namespace card_modification_system.controller
         private CardInstanceRecord targetRecord;
         //IDK IF IT SHOULD BE HERE 
         [SerializeField] private List<ModDefinition> modPool;
+        [SerializeField] private int ChoiceCount = 3;
         
         public void Open(CardInstanceRecord record)
         {
@@ -34,7 +35,7 @@ namespace card_modification_system.controller
             Instantiate(cardPrefab, cardPlace).GetComponent<SingleCardController>().Setup(record);
 
             List<CardEffect> currentEffects = CardEffectBuilder.BuildRuntimeEffects(record);
-            List<ModDefinition> choices = BuildChoices(record,currentEffects, totalCount: 3);
+            List<ModDefinition> choices = BuildChoices(record,currentEffects, totalCount: ChoiceCount);
 
             foreach (var mod in choices)
                 Instantiate(modChoicePrefab, modPanel.transform)
@@ -44,7 +45,7 @@ namespace card_modification_system.controller
         public bool HasAvailableChoices(CardInstanceRecord record)
         {
             List<CardEffect> currentEffects = CardEffectBuilder.BuildRuntimeEffects(record);
-            return BuildChoices(record, currentEffects, totalCount: 3).Count > 0;
+            return BuildChoices(record, currentEffects, totalCount: ChoiceCount).Count > 0;
         }
 
         private List<ModDefinition> BuildChoices(CardInstanceRecord record,List<CardEffect> currentEffects, int totalCount)
@@ -89,7 +90,8 @@ namespace card_modification_system.controller
                 type = chosen.type,
                 fieldName = chosen.fieldName,
                 value = chosen.value,
-                effectTemplateId = chosen.effectTemplateIdForAdd
+                effectTemplateId = chosen.effectTemplateIdForAdd,
+                manaCostDelta = chosen.manaCostDelta
             });
 
             PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck);

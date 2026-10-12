@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using global_events;
 using map_encounter_system.level_system;
 using persistence_system.manager;
+using persistence_system.model;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -31,6 +32,7 @@ namespace navigation_system
         [SerializeField] private GameObject worldsContainer;
         [Header("Level Configs")]
         [SerializeField] private List<LevelConfig> levels;
+        private LoadedData loadedData;
         public void Awake()
         {
             foreach(var l in levels)
@@ -39,6 +41,11 @@ namespace navigation_system
                 var layout = worldCreated.GetComponent<WorldPrefabLayout>();
                 layout.SetUp(l.icon,l.level,l);
             }
+        }
+        public void Start()
+        {
+            loadedData = PersistenceManager.instance.LoadSceneData();
+            continueButton.interactable = !(loadedData == null);
         }
         public void OnEnable() 
         {
@@ -70,15 +77,8 @@ namespace navigation_system
 
         public void OnShopButtonClicked()
         {
-            try
-            {
-                Debug.Log("Shop button clicked");
-                SceneManager.LoadScene("ShopScene");
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError("Exception in OnShopButtonClicked: " + e);
-            }
+            Debug.Log("Shop button clicked");
+            SceneManager.LoadScene("ShopScene");
         }
 
         public void OnContinueButtonClicked()
@@ -86,10 +86,10 @@ namespace navigation_system
             var data = PersistenceManager.instance.LoadSceneData();
             if(data.loadedCurrentFloor != null && data.loadedWorldLevelId != null)
             {
-                WorldCreationManager.Instance.SetCurrentFloor(Int32.Parse(data.loadedCurrentFloor));
-                WorldCreationManager.Instance.SetCurrentLevel(levels.Find(c=> c.Id == data.loadedWorldLevelId));
-                
+                LevelCreationManager.Instance.SetCurrentFloor(Int32.Parse(data.loadedCurrentFloor));
+                LevelCreationManager.Instance.SetCurrentLevel(levels.Find(c=> c.Id == data.loadedWorldLevelId));
             }
+            SceneManager.LoadScene("MapScene");
         }
     }
 }

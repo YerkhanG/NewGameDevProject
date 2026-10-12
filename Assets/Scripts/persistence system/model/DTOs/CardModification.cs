@@ -10,6 +10,7 @@ namespace persistence_system.model
         public string fieldName;         // e.g. "amountToShield" (FieldOverride)
         public float value;              // new value (FieldOverride)
         public string effectTemplateId;  // CardEffect asset ID to clone in (AddEffect)
+        public int manaCostDelta;
     }
     
     

@@ -55,7 +55,7 @@ namespace card_system.UI
             instanceRecord = record;
             CardData data = CardRegistry.instance.GetCard(record.templateId);
             cardData = data;
-            manaCost.text = data.manaCost;
+            manaCost.text = CardEffectBuilder.BuildManaCost(record).ToString();
             cardName.text = data.cardName;
             image.sprite = data.image;
             cardEffects = CardEffectBuilder.BuildRuntimeEffects(record);

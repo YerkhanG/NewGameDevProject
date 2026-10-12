@@ -12,7 +12,7 @@ namespace card_modification_system.data
         public string fieldName;
         public float value;
         public string effectTemplateIdForAdd;            // only used for AddEffect
-
+        public int manaCostDelta;
         public string GetDescription() => string.Format(descriptionTemplate, value);
     }
 }

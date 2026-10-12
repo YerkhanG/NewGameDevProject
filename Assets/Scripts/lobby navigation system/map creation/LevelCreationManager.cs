@@ -1,24 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using global_events;
 using map_encounter_system.level_system;
-using map_encounter_system.map_system;
 using persistence_system.manager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace navigation_system
 {
-    public class WorldCreationManager : MonoBehaviour
+    public class LevelCreationManager : MonoBehaviour
     {
         //this manager just stores the level which after going into map scene is used by the map generation
         public LevelConfig CurrentLevel  => currentLevel;
         private LevelConfig currentLevel;
         private int currentFloor;
         public int CurrentFloor => currentFloor;
-        public static WorldCreationManager Instance { get; private set; }
+        public static LevelCreationManager Instance { get; private set; }
 
         public bool EnteredFinalNode = false;
         public void OnEnable()

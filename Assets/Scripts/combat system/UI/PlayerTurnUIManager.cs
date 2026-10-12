@@ -151,9 +151,9 @@ namespace combat_system.UI
             }
             PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck, playerState: playerState);
             UIDeactivate();
-            if (WorldCreationManager.Instance.EnteredFinalNode)
+            if (LevelCreationManager.Instance.EnteredFinalNode)
             {   
-                WorldCreationManager.Instance.HandleWinningFloor();
+                LevelCreationManager.Instance.HandleWinningFloor();
                 nextFloorPanel.SetActive(true);
             }
             else
