@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using model.entity;
 using UnityEngine;
 
-namespace card_system.functionality.card_effect_types
+namespace card_effect_types
 {
     //tested , works as intented, still dont know if nameof is the best way of doing this
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Shield Up Effect Data")]

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using card_effect_types;
 using card_modification_system.data;
-using card_system.animation;
-using card_system.functionality;
 using card_system.UI;
 using combat_system;
 using math_structs;

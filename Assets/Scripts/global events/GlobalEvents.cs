@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using card_system.functionality;
+using card_effect_types;
 using encounter_system.data;
 using map_encounter_system.level_system;
 using model.entity;
@@ -30,7 +30,11 @@ namespace global_events
         public static event Action OnFightWon;
         public static event Action OnCardRewardPicked;
         public static event Action<int> OnCurrencyChanged;
-
+        public static event Action OnDebuffApplied;
+        public static void RaiseDebuffApplied()
+        {
+            OnDebuffApplied?.Invoke();
+        }
         public static void RaisePlayerTurnEnded()
         {
             OnPlayerTurnEnded?.Invoke();

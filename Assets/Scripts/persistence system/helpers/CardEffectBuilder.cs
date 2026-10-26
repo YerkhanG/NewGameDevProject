@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using card_effect_types;
 using card_system.data;
-using card_system.functionality;
 using combat_system;
 using persistence_system.model;
 using UnityEngine;

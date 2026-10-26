@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using card_system.functionality;
+using card_effect_types;
 using UnityEngine;
 
 namespace card_system.data

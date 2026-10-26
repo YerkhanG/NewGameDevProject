@@ -1,4 +1,4 @@
-using card_system.functionality.card_effect_types;
+using card_effect_types;
 
 namespace model.entity_state
 {

@@ -22,7 +22,7 @@ namespace metaprogression_system.managers
             sessionData = PersistenceManager.instance.LoadSessionData() ?? new SessionData();
             //TODO: Need to change this to a more professional way of doing this , adding this word by word is strange
             if (sessionData.unlockedCardIds.Count == 0)
-                sessionData.unlockedCardIds = new List<string> { "aoe_strike" , "buff2" , "buff" , "double_damage" , "single_strike", "shield_up", "heal_on_dmg" };
+                sessionData.unlockedCardIds = new List<string> { "aoe_strike" , "buff2" , "buff" , "double_damage" , "single_strike", "shield_up", "heal_on_dmg","buff_on_debuff" };
         }
         // Currency
         public int GetCurrency() => sessionData.currency;

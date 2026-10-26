@@ -3,7 +3,7 @@ using combat_system;
 using global_events;
 using model.entity;
 using UnityEngine;
-namespace card_system.functionality.card_effect_types
+namespace card_effect_types
 {
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Damage Effect Data")]
     public class DamageEffect : CardEffect

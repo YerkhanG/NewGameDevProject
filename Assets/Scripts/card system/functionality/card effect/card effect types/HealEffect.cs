@@ -4,7 +4,7 @@ using model.entity;
 using UnityEngine;
 //TODO: need to add a level up and add effect
 //TODO: Added , needs to be tested
-namespace card_system.functionality.card_effect_types
+namespace card_effect_types
 {
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Heal Effect Data")]
     public class HealEffect : CardEffect

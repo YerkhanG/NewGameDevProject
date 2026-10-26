@@ -1,11 +1,9 @@
-using System;
+
 using System.Collections.Generic;
-using card_system.functionality;
+using card_effect_types;
 using global_events;
-using persistence_system.model;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 //TODO: Need to fix the shit with lagging window
 //issues with lagging window , specifically with the window coveing the card ,

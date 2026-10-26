@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using card_system.functionality.card_effect_types;
+using card_effect_types;
 using data;
 using global_events;
 using model.entity_state;
@@ -129,6 +129,8 @@ namespace model.entity
                 }
             }
         }
+        //Damage is multiplicative
+        //need to think about enlarging the numbers so that you feel the damage getting bigger
         public int GetTotalDamageBonus()
         {
             int total = baseDamage;
@@ -137,7 +139,7 @@ namespace model.entity
                 foreach (var buff in activeStatMods)
                 {
                     if (buff.type == StatModType.Damage)
-                        total = Mathf.RoundToInt(total * buff.amount);
+                        total += Mathf.RoundToInt(total * buff.amount);
                 }   
             }
             else

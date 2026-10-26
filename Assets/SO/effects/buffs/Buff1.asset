@@ -18,5 +18,5 @@ MonoBehaviour:
   category: 2
   Description: Buffs your dmg by ${amount} for 2 turns
   type: 1
-  amount: 1.5
+  amount: 0.5
   duration: 1

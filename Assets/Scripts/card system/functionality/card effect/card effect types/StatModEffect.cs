@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using global_events;
 using model.entity;
 using UnityEngine;
 //TODO: need to add a level up and add effect???(idk)
-namespace card_system.functionality.card_effect_types
+namespace card_effect_types
 {
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Buff Effect Data")]
     public class StatModEffect : CardEffect
@@ -26,6 +27,10 @@ namespace card_system.functionality.card_effect_types
             List<Entity> targets = ResolveTargets(context, targetType);
             foreach(Entity target in targets )
             {
+                if(amount < 0)
+                {
+                    GlobalEvents.RaiseDebuffApplied();
+                }
                 target.AddBuff(type, amount, duration);
             }
         }

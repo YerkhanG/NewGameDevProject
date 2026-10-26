@@ -4,7 +4,7 @@ using model.entity;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace card_system.functionality
+namespace card_effect_types
 {
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Card Effect Data")]
     public abstract class CardEffect : ScriptableObject
