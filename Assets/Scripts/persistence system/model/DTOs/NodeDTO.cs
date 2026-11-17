@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using encounter_system.data;
+using map_encounter_system.map_system.data.node;
 using UnityEngine;
 
 namespace persistence_system.model
@@ -14,5 +15,9 @@ namespace persistence_system.model
         public bool isConnectedTo;
         public Vector2Int gridPosition;
         public bool IsFinalNode;
+        public string encounterId;
+        public NodeCategory nodeCategory;
+        public NodeEventType nodeEventType;
+
     }
 }

@@ -6,6 +6,7 @@ using card_system.data;
 using card_system.functionality;
 using combat_system;
 using DG.Tweening;
+using enemyAI_system.functionality;
 using global_events;
 using model.entity;
 using persistence_system.helpers;
@@ -114,12 +115,20 @@ namespace card_system.UI
                 RaycastHit2D hit = Physics2D.Raycast(worldMousePos, Vector2.zero);
                 if (hit.collider != null)
                 {
-                    Enemy enemyHit = hit.transform.GetComponentInChildren<Enemy>();
+                    Enemy enemyHit = hit.collider.GetComponentInParent<Enemy>();
+                    if (enemyHit == null)
+                    {
+                        var ai = hit.collider.GetComponentInParent<EnemyAi>();   // он у тебя на родителе
+                        if (ai != null) enemyHit = ai.GetComponentInChildren<Enemy>();
+                    }
+
+                    Debug.Log($"Release hit={hit.collider.name}, enemy={(enemyHit ? enemyHit.name : "null")}");
+
                     if (enemyHit)
                     {
                         GlobalEvents.RaiseTargetSelected(enemyHit);
                         TargetingManager.instance.HideArrow();
-                        return;   // important: do NOT call ReturnCard here
+                        return;
                     }
                 }
                 TargetingManager.instance.HideArrow();

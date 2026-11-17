@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using global_events;
 using model.entity;
 using UnityEngine;
-//TODO: need to add a level up and add effect
-//TODO: Added , needs to be tested
+//TODO: tested
 namespace card_effect_types
 {
     [CreateAssetMenu(fileName = "New Card Effect Data", menuName = "Card Effect/Heal Effect Data")]

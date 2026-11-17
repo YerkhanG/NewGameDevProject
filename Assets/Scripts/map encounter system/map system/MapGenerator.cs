@@ -55,14 +55,17 @@ namespace map_encounter_system.map_system
             SetUpConnections(paths);
             TagFinalNode(finalPos);                        // tag while indices are still valid
             RemoveCrossConnections();
+            //TODO: Bullshit,need something to replace this , need event stuff on each lane at least and then some. 
+            AssignNodeCategories();
             RemoveNotUsedNodes();                           // safe to mutate lists now — tagging's already done
-
+            AssignEncounters();
             return new Map(config.name, "Some random shit", nodes, new List<Vector2Int>());
         }
 
         private void TagFinalNode(Vector2Int finalPos)
         {
             var node = GetNode(finalPos);
+            node.type = Encounter.Rarity.Boss;
             node.IsFinalNode = true;
         }
         private void RemoveNotUsedNodes()
@@ -79,7 +82,39 @@ namespace map_encounter_system.map_system
                 }
             }
         }
+        private void AssignNodeCategories()
+        {
+            int eventTypeCount = Enum.GetValues(typeof(NodeEventType)).Length;
 
+            // слой 0 (старт) и последний слой (босс) всегда боевые
+            for (int y = 1; y < nodes.Count - 1; y++)
+            {
+                foreach (Node node in nodes[y])
+                {
+                    if (node.IsFinalNode) continue;
+                    if (node.connections2.Count == 0 && !node.isConnectedTo) continue; // неиспользуемый узел
+
+                    if (Random.value >= config.eventChance) continue;
+                    if (HasEventPredecessor(node)) continue;                           // два ивента подряд не ставим
+
+                    node.nodeCategory = NodeCategory.Event;
+                    node.eventType = (NodeEventType)Random.Range(0, eventTypeCount);
+                }
+            }
+        }
+
+        private bool HasEventPredecessor(Node node)
+        {
+            if (node.gridPosition.y == 0) return false;
+
+            foreach (Node prev in nodes[node.gridPosition.y - 1])
+            {
+                if (prev.nodeCategory == NodeCategory.Event &&
+                    prev.connections2.Contains(node.gridPosition))
+                    return true;
+            }
+            return false;
+        }
         private void RandomizeNodePositions()
         {
             for (int index = 0; index < nodes.Count; index++)
@@ -139,12 +174,9 @@ namespace map_encounter_system.map_system
                    Encounter.Rarity nodeType = (Random.value < layer.randomizeNodes)
                        ? GetRandomType()
                        :layer.defaultNodeType;
-                       
-                   
-                   Encounter encounter = EncounterManager.instance.PickRandomEncounterByRarity(nodeType);
 
                    // 3. Create the Node as a Data Container
-                   Node node = new Node(nodeType, encounter, new Vector2Int(j, i))
+                   Node node = new Node(nodeType, null, new Vector2Int(j, i))
                    {
                        position = new Vector2(-offset + j * layer.nodesApartDistance,-3 + GetDistanceToLayer(i))
                    };
@@ -166,6 +198,16 @@ namespace map_encounter_system.map_system
             return Random.Range(0, 2) == 0
                 ? new Vector2Int(config.widthNodeCount / 2, y)
                 : new Vector2Int(config.widthNodeCount / 2 - 1, y);
+        }
+        private void AssignEncounters()
+        {
+            foreach (var layer in nodes)
+                foreach (var node in layer)
+                {
+                    node.encounter = node.nodeCategory == NodeCategory.Battle
+                        ? EncounterManager.instance.PickRandomBattleEncounterByRarity(node.type)
+                        : null;   // у ивентов боевого энкаунтера нет
+                }
         }
         private List<List<Vector2Int>> GeneratePaths(Vector2Int finalNode)
         {

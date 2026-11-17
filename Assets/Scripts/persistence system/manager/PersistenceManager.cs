@@ -7,6 +7,8 @@ using map_encounter_system.map_system.data.node;
 using Newtonsoft.Json;
 using persistence_system.helpers;
 using map_encounter_system.level_system;
+using encounter_system.managers;
+using encounter_system.data;
 
 namespace persistence_system.manager
 {
@@ -94,9 +96,16 @@ namespace persistence_system.manager
             var nodesByIdx = new List<Node>();
             foreach (var nodeDto in dto.allNodes)
             {
-                var node = new Node(nodeDto.type, nodeDto.position ,nodeDto.gridPosition, nodeDto.IsFinalNode);
-                node.isConnectedTo = nodeDto.isConnectedTo;
-                // connections will be added later
+                Encounter encounter = nodeDto.nodeCategory == NodeCategory.Battle
+                ? EncounterManager.instance.FindById(nodeDto.encounterId)
+                : null;
+                var node = new Node(
+                    nodeDto.type, nodeDto.position, nodeDto.gridPosition, 
+                    nodeDto.IsFinalNode, encounter, nodeDto.nodeCategory,nodeDto.nodeEventType
+                    )
+                {
+                    isConnectedTo = nodeDto.isConnectedTo
+                };
                 nodesByIdx.Add(node);
             }
 
@@ -146,7 +155,10 @@ namespace persistence_system.manager
                         connectionIndices = new List<int>(),
                         isConnectedTo = node.isConnectedTo,
                         gridPosition = node.gridPosition,
-                        IsFinalNode = node.IsFinalNode
+                        IsFinalNode = node.IsFinalNode,
+                        encounterId = node.encounter != null ? node.encounter.encounterId : null,
+                        nodeCategory = node.nodeCategory,
+                        nodeEventType = node.eventType
                     });
                 }
             }

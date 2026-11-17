@@ -27,7 +27,7 @@ namespace model.entity
         
         [SerializeField] private float armorConstant = 50f;   // tune per game balance pass
         private const float MAX_ARMOR_REDUCTION = 0.8f; 
-        protected void Awake()
+        protected virtual void Awake()
         {
             IsAlive = true;
             maxHealth = data.health;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Draggable
   - CardContainer
+  - PopUpCanvas
   layers:
   - Default
   - TransparentFX

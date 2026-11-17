@@ -18,7 +18,7 @@ namespace reward_system.managers
     {
         Normal , Hard , Elite
     }
-    public class RewardManager : MonoBehaviour
+    public class CombatRewardManager : MonoBehaviour
     {
         public GameObject cardRewardPrefab;
         public GameObject cardRewardPanel;
@@ -43,11 +43,9 @@ namespace reward_system.managers
             {
                 case Encounter.Rarity.Normal:
                     SessionManager.instance.AddCurrency(100);
-                    // ShowCardReward();
                     break;
                 case Encounter.Rarity.Hard:
                     SessionManager.instance.AddCurrency(200);
-                    // ShowCardReward();
                     break;
                 case Encounter.Rarity.Elite:
                     SessionManager.instance.AddCurrency(300);

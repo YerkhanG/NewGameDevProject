@@ -77,7 +77,7 @@ namespace map_encounter_system.map_system.UI
             LevelCreationManager.Instance.EnteredFinalNode = nodeView.Node.IsFinalNode;
             PersistenceManager.instance.SaveSceneData(map);
             MapManager.instance.mapView.UpdateNodeStates(map);
-            GlobalEvents.RaiseEncounterPicked(nodeView.Node.type);
+            GlobalEvents.RaiseEncounterPicked(nodeView.Node);
         }
         private void OnDestroy() => actions?.Dispose();
     }

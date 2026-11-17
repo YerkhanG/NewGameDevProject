@@ -11,7 +11,6 @@ using persistence_system.manager;
 using persistence_system.model;
 using UnityEngine;
 using Random = UnityEngine.Random;
-//TODO: i picked card with a full mod limit is still picked but with an empty panel. Need to only pick cards with an approproate limit
 namespace card_modification_system.controller
 {
     public class ModPanelController : MonoBehaviour
@@ -30,6 +29,8 @@ namespace card_modification_system.controller
         
         public void Open(CardInstanceRecord record)
         {
+            foreach (Transform c in cardPlace) Destroy(c.gameObject);
+            foreach (Transform c in modPanel.transform) Destroy(c.gameObject);
             targetRecord = record;
             Instantiate(cardPrefab, cardPlace).GetComponent<SingleCardController>().Setup(record);
 
@@ -96,6 +97,19 @@ namespace card_modification_system.controller
             PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck);
 
             gameObject.SetActive(false);
+        }
+        // in ModPanelController
+        public bool TryOpenRandom()
+        {
+            var eligible = DeckManager.instance.deck
+                .Where(c => HasAvailableChoices(c))
+                .ToList();
+
+            if (eligible.Count == 0) return false;
+
+            gameObject.SetActive(true);
+            Open(eligible[Random.Range(0, eligible.Count)]);
+            return true;
         }
     }
 }

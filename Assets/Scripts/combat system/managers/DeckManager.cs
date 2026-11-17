@@ -19,6 +19,7 @@ namespace combat_system
         [SerializeField] private GameObject handContainer;
         public void Awake()
         {
+            DontDestroyOnLoad(gameObject);
             if (instance == null)
                 instance = this;
             else
@@ -72,6 +73,9 @@ namespace combat_system
         }
         public void Draw()
         {
+            if(handContainer == null){
+                handContainer = GameObject.FindWithTag("CardContainer");
+            }
             if (deck.Count == 0)
                 ReshuffleDeck();
 

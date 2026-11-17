@@ -21,17 +21,31 @@ namespace map_encounter_system.map_system.UI
         [SerializeField] private Sprite normalSprite;
         [SerializeField] private Sprite hardSprite;
         [SerializeField] private Sprite eliteSprite;
+        [SerializeField] private Sprite bossSprite;
+        [SerializeField] private Sprite upgradeSprite;
+        [SerializeField] private Sprite cardPickSprite;
         public SpriteRenderer nodeIconImage; // Assign this in your Inspector
         public Node Node;
 
         public void Initialize(Node node)
         {
             Node = node;
+            if (node.nodeCategory == NodeCategory.Event)
+            {
+                nodeIconImage.sprite = node.eventType switch
+                {
+                    NodeEventType.Upgrade  => upgradeSprite,
+                    NodeEventType.CardPick => cardPickSprite,
+                    _ => normalSprite
+                };
+                return;
+            }
             nodeIconImage.sprite = node.type switch
             {
                 Encounter.Rarity.Normal => normalSprite,
                 Encounter.Rarity.Hard => hardSprite,
                 Encounter.Rarity.Elite => eliteSprite,
+                Encounter.Rarity.Boss => bossSprite,
                 _ => normalSprite
             };
         }

@@ -12,7 +12,7 @@ namespace map_encounter_system.map_system
         public List<MapLayer> layers;
         public int widthNodeCount;
         public int layerCount;
-
+        public float eventChance;
         public IntMinMax numOfPreBossNodes;
         public IntMinMax numOfStartingNodes;
         [Tooltip("Increase this number to generate more paths")]

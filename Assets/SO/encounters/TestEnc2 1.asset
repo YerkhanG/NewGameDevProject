@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0cef110b4e46de992d3f9e0bffaf5f, type: 3}
   m_Name: TestEnc2 1
   m_EditorClassIdentifier: Assembly-CSharp::encounter_system.data.Encounter
+  encounterId: 4
   enemies:
   - {fileID: 7915107058387355220, guid: b6de40e8b4a83974e99fbe6b948eff72, type: 3}
   - {fileID: 7915107058387355220, guid: b6de40e8b4a83974e99fbe6b948eff72, type: 3}

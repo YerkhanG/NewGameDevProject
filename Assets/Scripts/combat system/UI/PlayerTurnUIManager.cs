@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using card_modification_system;
 using card_modification_system.controller;
 using card_system.data;
 using card_system.UI;
@@ -35,7 +36,8 @@ namespace combat_system.UI
         [SerializeField]private GameObject levelFinishedPanel;
 
         //--------------------
-        [SerializeField]private GameObject cardModPanel;
+        [SerializeField]private ModPanelController cardModPanel;
+        [SerializeField]private Transform canvasTransform;
 
 
         //purely for endfight card consolidation
@@ -141,14 +143,9 @@ namespace combat_system.UI
                 health = player.currentHealth,
                 maxHealth = player.maxHealth,
                 baseDamage = player.baseDamage,
-            };  
-            cardModPanel.SetActive(true);
-            var card = PickCardsWithLimit();
-            if (card != null)
-            {
-                cardModPanel.SetActive(true);
-                cardModPanel.GetComponent<ModPanelController>().Open(card);
-            }
+            }; 
+            var panel = Instantiate(cardModPanel, canvasTransform);
+            panel.TryOpenRandom();
             PersistenceManager.instance.SaveSceneData(cards: DeckManager.instance.deck, playerState: playerState);
             UIDeactivate();
             if (LevelCreationManager.Instance.EnteredFinalNode)
@@ -162,17 +159,17 @@ namespace combat_system.UI
             }
         }
 
-        public CardInstanceRecord PickCardsWithLimit()
-        {
-            var modPanelController = cardModPanel.GetComponent<ModPanelController>();
+        // public CardInstanceRecord PickCardsWithLimit()
+        // {
+        //     var modPanelController = cardModPanel.GetComponent<ModPanelController>();
 
-            var eligible = DeckManager.instance.deck
-                .Where(c => modPanelController.HasAvailableChoices(c))
-                .ToList();
+        //     var eligible = DeckManager.instance.deck
+        //         .Where(c => modPanelController.HasAvailableChoices(c))
+        //         .ToList();
 
-            if (eligible.Count == 0) return null;
+        //     if (eligible.Count == 0) return null;
 
-            return eligible[UnityEngine.Random.Range(0, eligible.Count)];
-        }
+        //     return eligible[UnityEngine.Random.Range(0, eligible.Count)];
+        // }
     } 
 }

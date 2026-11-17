@@ -45,6 +45,8 @@ namespace persistence_system.helpers
         public static int BuildManaCost(CardInstanceRecord record)
         {
             CardData template = CardRegistry.instance.GetCard(record.templateId);
+            // Debug.Log("Heal testing" + template);
+            // Debug.Log("Heal testing" + template.manaCost);
             int cost = int.Parse(template.manaCost);   // use whatever your base cost field is called
 
             foreach (var mod in record.modifications)

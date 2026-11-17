@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using card_effect_types;
 using encounter_system.data;
 using map_encounter_system.level_system;
+using map_encounter_system.map_system.data.node;
 using model.entity;
 
 namespace global_events
@@ -31,6 +32,11 @@ namespace global_events
         public static event Action OnCardRewardPicked;
         public static event Action<int> OnCurrencyChanged;
         public static event Action OnDebuffApplied;
+        public static event Action<EnemyBoss> OnEnemyBossDied;
+        public static void RaiseEnemyBossDied(EnemyBoss enemyBoss)
+        {
+            OnEnemyBossDied?.Invoke(enemyBoss);
+        }
         public static void RaiseDebuffApplied()
         {
             OnDebuffApplied?.Invoke();
@@ -97,14 +103,14 @@ namespace global_events
         #endregion
 
         #region Encounter System Events
-
-        public static event Action<Encounter.Rarity> OnEncounterPicked;
+        public static event Action OnBossEncounterPicked;
+        public static event Action<Node> OnEncounterPicked;
         public static event Action<Encounter> OnEncounterRarityPicked;
         public static event Action<List<Enemy>> onEncounterSpawned;
 
-        public static void RaiseEncounterPicked(Encounter.Rarity rarity)
+        public static void RaiseEncounterPicked(Node node)
         {
-            OnEncounterPicked?.Invoke(rarity);
+            OnEncounterPicked?.Invoke(node);
         }
 
         public static void RaiseEncounterRarityPicked(Encounter encounter)

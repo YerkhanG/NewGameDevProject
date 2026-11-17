@@ -11,7 +11,6 @@ namespace navigation_system
 {
     public class LobbyNavigationManager : MonoBehaviour
     {
-        //TODO: Need a continu button if the player quits . In that continue button i need to load the data of the level
         [Header("Panels")]
         [SerializeField] private CanvasGroup mainPanel;
         // [SerializeField] private CanvasGroup shopPanel;

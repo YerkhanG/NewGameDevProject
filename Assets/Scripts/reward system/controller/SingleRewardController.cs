@@ -18,6 +18,7 @@ namespace reward_system.controller
         [SerializeField] private TextMeshProUGUI description;
         [SerializeField] private String idRefToCard;
         [SerializeField] private Button rewardButton;
+        private bool picked;
         public void SetUp(CardData card)
         {
             image.sprite = card.image;
@@ -37,8 +38,12 @@ namespace reward_system.controller
         }
         protected virtual void HandleButtonClicked()
         {
+            if (picked) return;
+            picked = true;
+
             AddCardToDeck();
             GlobalEvents.RaiseCardRewardPicked();
+            Destroy(transform.parent.gameObject); // the instantiated panel
         }
 
         protected void AddCardToDeck()

@@ -9,7 +9,6 @@ namespace card_effect_types
     public class ShieldUpEffect : CardEffect
     {
         public int amountToShield;
-        
         public override string BuildDescription() => $"Puts up a shield that blocks {amountToShield} damage";
         public override bool HasField(string fieldName) => fieldName == nameof(amountToShield);
 

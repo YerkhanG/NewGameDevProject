@@ -155,6 +155,9 @@ MonoBehaviour:
   normalSprite: {fileID: -8922666863456568678, guid: 9a106530e57ea2a4a99e3a219cb40780, type: 3}
   hardSprite: {fileID: -8410314800484329486, guid: 1c903640cc209f44c8305cbf1ae511f7, type: 3}
   eliteSprite: {fileID: 5656688824470608303, guid: 92c9ed25ff04120428653e504e324e70, type: 3}
+  bossSprite: {fileID: -1587047664546648722, guid: fa798b67cee75ad40a171a06f9f90f37, type: 3}
+  upgradeSprite: {fileID: -8345555773836617593, guid: d47560b462b6a8f429843e96fc923a45, type: 3}
+  cardPickSprite: {fileID: -8413703143900833196, guid: 96816aff271de4548b62ef74b0f23f34, type: 3}
   nodeIconImage: {fileID: 2142727219092798037}
   Node:
     type: 0
@@ -162,6 +165,10 @@ MonoBehaviour:
     gridPosition: {x: 0, y: 0}
     connections2: []
     isConnectedTo: 0
+    IsFinalNode: 0
+    nodeCategory: 0
+    eventType: 0
+    encounter: {fileID: 0}
 --- !u!50 &-5569145242288338031
 Rigidbody2D:
   serializedVersion: 5

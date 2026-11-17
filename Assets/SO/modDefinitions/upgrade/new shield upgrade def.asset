@@ -15,7 +15,7 @@ MonoBehaviour:
   id: shield_upgrade_mod_def
   descriptionTemplate: Upgrades a shieldUp Effect by 2
   type: 0
-  effectIndex: 0
   fieldName: amountToShield
   value: 2
-  effectTemplateIdForAdd: shield_effect1
+  effectTemplateIdForAdd: 
+  manaCostDelta: 0

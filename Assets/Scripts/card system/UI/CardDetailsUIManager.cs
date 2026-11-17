@@ -5,9 +5,6 @@ using global_events;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-//TODO: Need to fix the shit with lagging window
-//issues with lagging window , specifically with the window coveing the card ,
-// triggering the hover end of the card , and then after siapperaing triggering the hovering again creating a cycle
 namespace card_system.UI
 {
     public class CardDetailsUIManager : MonoBehaviour

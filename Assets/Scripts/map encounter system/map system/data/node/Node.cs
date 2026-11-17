@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace map_encounter_system.map_system.data.node
 {
+    public enum NodeCategory{ Battle , Event}
+    public enum NodeEventType {Upgrade, CardPick}
     [System.Serializable]
     public class Node
     {
@@ -13,6 +15,9 @@ namespace map_encounter_system.map_system.data.node
         public List<Vector2Int> connections2 = new();
         public bool isConnectedTo = false;
         public bool IsFinalNode = false;
+        public NodeCategory nodeCategory;
+        public NodeEventType eventType;
+        public Encounter encounter;
         public void AddConnection(Node otherNode)
         {
             if (!connections2.Contains(otherNode.gridPosition))
@@ -21,17 +26,23 @@ namespace map_encounter_system.map_system.data.node
                 otherNode.isConnectedTo = true;
             }
         }
-        public Node(Encounter.Rarity type,Encounter data,  Vector2Int gridPosition) 
+        public Node(Encounter.Rarity type,Encounter encounter,  Vector2Int gridPosition) 
         {
             this.type = type;
             this.gridPosition = gridPosition;
+            this.encounter = encounter;
         }
-        public Node(Encounter.Rarity type, Vector2 position, Vector2Int gridPosition , bool IsFinalNode) 
+        public Node(
+            Encounter.Rarity type, Vector2 position, Vector2Int gridPosition ,
+            bool IsFinalNode, Encounter encounter, NodeCategory nodeCategory, NodeEventType nodeEventType) 
         {
             this.type = type;
             this.gridPosition = gridPosition;
             this.position = position;
             this.IsFinalNode = IsFinalNode;
+            this.encounter = encounter;
+            this.nodeCategory = nodeCategory;
+            eventType = nodeEventType;
         }
 
         public bool HasNoConnections()

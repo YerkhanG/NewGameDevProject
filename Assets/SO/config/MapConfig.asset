@@ -63,6 +63,7 @@ MonoBehaviour:
     randomizeNodes: 0.289
   widthNodeCount: 5
   layerCount: 8
+  eventChance: 0.5
   numOfPreBossNodes:
     min: 3
     max: 3
